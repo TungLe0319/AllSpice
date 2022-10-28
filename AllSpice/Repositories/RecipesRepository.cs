@@ -27,8 +27,8 @@ public class RecipesRepository : BaseRepository
             a.*
             FROM recipes rec
             JOIN accounts a ON a.id = rec.creatorId
-            LEFT JOIN favorites fav ON fav.recipeId = fav.id
-            GROUP BY fav.id
+            LEFT JOIN favorites fav ON fav.recipeId = rec.id
+            GROUP BY rec.id
             ;";
     return _db.Query<Recipe, Profile, Recipe>(sql, (recipe, profile) =>
     {
@@ -83,7 +83,12 @@ public class RecipesRepository : BaseRepository
 
 
                    ;";
-                   _db.Execute(sql,recipeData);
+                  int recipeRow = _db.Execute(sql,recipeData);
+                  if( recipeRow == 0)
+                  {
+                  throw new Exception("Unable to update this recipe");
+                  }
+                  
                    return recipeData;
   }
 }

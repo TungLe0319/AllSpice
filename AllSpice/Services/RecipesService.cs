@@ -37,7 +37,7 @@ public class RecipesService
     {
       throw new Exception("Recipe is already archived");
     }
-    if (foundRecipe.creatorId != accountId)
+    if (foundRecipe.CreatorId != accountId)
     {
       throw new Exception("Unauthorized to archive recipe");
     }
@@ -48,7 +48,7 @@ public class RecipesService
 
   internal Recipe EditRecipe(Recipe recipeData, string accountId)
   {
-    if (recipeData.creatorId != accountId)
+    if (recipeData.CreatorId != accountId)
     {
       throw new Exception("Unauthorized to edit this recipe");
     }
