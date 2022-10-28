@@ -43,5 +43,10 @@ public class AccountsRepository
     _db.Execute(sql, update);
     return update;
   }
+
+  internal List<Favorite> GetFavoritesByAccountId(string accountId)
+  {
+    throw new NotImplementedException();
+  }
 }
 
