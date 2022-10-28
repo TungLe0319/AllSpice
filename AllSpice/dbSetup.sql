@@ -24,11 +24,9 @@ CREATE TABLE
         FOREIGN KEY(creatorId) REFERENCES accounts(id) ON DELETE CASCADE
     ) default charset utf8 COMMENT '';
 
-DELETE FROM recipes
-WHERE id = 23;
+DELETE FROM recipes WHERE id = 23;
 
 SELECT * FROM recipes WHERE id = 23;
-
 
 CREATE TABLE
     IF NOT EXISTS ingredients(
@@ -44,17 +42,13 @@ CREATE TABLE
     ) default charset utf8 COMMENT '';
 
 SELECT ing.*, a.*
-FROM
-    ingredients ing
+FROM ingredients ing
     JOIN accounts a ON a.id = ing.creatorId
 WHERE ing.id = 4;
 
-
-
-
 CREATE TABLE
     IF NOT EXISTS favorites(
-        id INT NOT NULL PRIMARY KEY AUTO_INCREMENT ,
+        id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
         createdAt DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'Time Created',
         updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Last Update',
         accountId VARCHAR(255) NOT NULL,
@@ -62,3 +56,8 @@ CREATE TABLE
         FOREIGN KEY (accountId) REFERENCES accounts(id) ON DELETE CASCADE,
         FOREIGN KEY (recipeId) REFERENCES recipes (id) ON DELETE CASCADE
     ) default charset utf8 COMMENT '';
+
+SELECT fav.*, a.*
+FROM favorites fav
+    JOIN accounts a ON a.id = fav.accountId
+WHERE fav.accountId = a.id;

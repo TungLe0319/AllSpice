@@ -13,29 +13,36 @@ public class FavoritesService
     return _favoritesRepo.CreateFavorite(newFavorite);
   }
 
-  internal Favorite GetByAccountId(string accountId)
-  {
-    Favorite foundFavorite = _favoritesRepo.GetByAccountId(accountId);
-    if (foundFavorite == null)
-    {
-      throw new Exception("Favorite not found");
-    }
-    return foundFavorite;
-  }
+
 
   internal void RemoveFavorite(int favoriteId, string accountId)
   {
-    Favorite foundFavorite = _favoritesRepo.GetByAccountId(accountId);
-    if (foundFavorite == null)
+    Favorite foundFavorite = GetFavoriteById(favoriteId);
+    if( foundFavorite == null)
     {
-      throw new Exception("Favorite not found");
+    throw new Exception("Invalid Id");
     }
-
-    if (foundFavorite.AccountId != accountId)
+    if( foundFavorite.AccountId != accountId)
     {
-      throw new Exception("Unauthorized");
+    throw new Exception("Unauthorized");
     }
-
+    
     _favoritesRepo.RemoveFavorite(foundFavorite);
+    
+  }
+
+  private Favorite GetFavoriteById(int favoriteId)
+  {
+  Favorite foundFavorite = _favoritesRepo.GetFavoriteById(favoriteId);
+  if( foundFavorite == null)
+  {
+  throw new Exception("Invalid Id");
+  }
+  if( foundFavorite.Id == 0)
+  {
+  throw new Exception("Invalid Id ");
+  }
+  
+  return foundFavorite;
   }
 }

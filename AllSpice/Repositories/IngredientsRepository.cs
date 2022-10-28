@@ -24,10 +24,10 @@ public class IngredientsRepository : BaseRepository
     string sql = @"
           SELECT 
           ing.*,
-          rec.*,
+    
           a.*
           FROM ingredients ing
-          JOIN recipes rec ON rec.id = ing.recipeId
+       
           JOIN accounts a ON a.id = ing.creatorId
           WHERE ing.recipeId = @recipeId
                ;";

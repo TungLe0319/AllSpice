@@ -18,21 +18,42 @@ public class FavoritesRepository : BaseRepository
     return newFavorite;
   }
 
-  internal Favorite GetByAccountId(string accountId)
+  internal List<FavRecipe> GetByAccountId(string accountId)
   {
     string sql = @"
-           SELECT 
-           fav.*,
-           a.*
-           FROM favorites fav
-           JOIN accounts a ON a.id = fav.accountId
-           WHERE fav.accountId = @favoriteId
+          SELECT
+          rec.*,
+          COUNT(fav.id) AS FavoriteCount,
+          fav.id AS FavoriteId,
+          a.*
+          FROM favorites fav
+          JOIN recipes rec ON rec.id = fav.recipeId
+          JOIN accounts a ON a.id = rec.creatorId
+          WHERE fav.accountId = @accountId
+          GROUP BY fav.id
                 ;";
-    return _db.QueryFirstOrDefault<Favorite>(sql, new { accountId });
+
+    return _db.Query<FavRecipe, Profile, FavRecipe>(sql, (recipe, profile) =>
+    {
+      recipe.Creator = profile;
+      recipe.AccountId = profile.Id;
+      return recipe;
+    }, new { accountId }).ToList();
+  }
+
+  internal Favorite GetFavoriteById(int favoriteId)
+  {
+    string sql = @"
+            SELECT * 
+            FROM favorites 
+            WHERE id = @favoriteId
+                 ;";
+    return _db.QueryFirstOrDefault<Favorite>(sql, new { favoriteId });
   }
 
   internal void RemoveFavorite(Favorite foundFavorite)
   {
+    int Id = foundFavorite.Id;
     string sql = @"
             DELETE FROM
             favorites 
