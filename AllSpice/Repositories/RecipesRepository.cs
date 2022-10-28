@@ -42,10 +42,11 @@ public class RecipesRepository : BaseRepository
     string sql = @"
             SELECT
             rec.*,
+            COUNT(fav.id) AS favoriteCount,
             a.*
             FROM recipes rec
             JOIN accounts a ON a.id = rec.creatorId
-            LEFT JOIN favorites fav ON fav.recipeId = fav.id
+            LEFT JOIN favorites fav ON fav.recipeId = rec.id
             WHERE rec.id = @recipeId
             ;";
     return _db.Query<Recipe, Profile, Recipe>(sql, (recipe, profile) =>
@@ -73,22 +74,17 @@ public class RecipesRepository : BaseRepository
 
   internal Recipe EditRecipe(Recipe recipeData)
   {
-      string sql = @"
+    string sql = @"
               UPDATE recipes SET
-              title = @title,
-              category = @category,
-              img= @img,
-              instructions = @instructions,
-              WHERE id = @id
-
-
+              instructions = @instructions
+              WHERE id = @Id
                    ;";
-                  int recipeRow = _db.Execute(sql,recipeData);
-                  if( recipeRow == 0)
-                  {
-                  throw new Exception("Unable to update this recipe");
-                  }
-                  
-                   return recipeData;
+    int recipeRow = _db.Execute(sql, recipeData);
+    if (recipeRow == 0)
+    {
+      throw new Exception("Unable to update this recipe");
+    }
+
+    return recipeData;
   }
 }

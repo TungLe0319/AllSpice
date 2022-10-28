@@ -6,4 +6,9 @@ public class IngredientsService{
   {
     _ingredientsRepo = ingredientsRepo;
   }
+
+  internal Ingredient CreateIngredient(Ingredient newIngredient)
+  {
+  return _ingredientsRepo.CreateIngredient(newIngredient);
+  }
 }

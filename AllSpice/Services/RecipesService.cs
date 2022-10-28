@@ -23,6 +23,11 @@ public class RecipesService
   internal Recipe GetById(int recipeId)
   {
     Recipe foundRecipe = _recipesRepo.GetById(recipeId);
+    if (foundRecipe.Archived)
+    {
+      throw new Exception("Invalid Id");
+    }
+
     if (foundRecipe == null)
     {
       throw new Exception("Recipe does not exist");
@@ -48,17 +53,23 @@ public class RecipesService
 
   internal Recipe EditRecipe(Recipe recipeData, string accountId)
   {
+
     if (recipeData.CreatorId != accountId)
     {
       throw new Exception("Unauthorized to edit this recipe");
     }
 
     Recipe original = GetById(recipeData.Id);
-    original.Category = recipeData.Category ?? original.Category;
-    original.Img = recipeData.Img ?? original.Img;
+    // original.Category = recipeData.Category ?? original.Category;
+    // original.Img = recipeData.Img ?? original.Img;
     original.Instructions = recipeData.Instructions ?? original.Instructions;
-    original.Title = recipeData.Title ?? original.Title;
-    Recipe recipe =  _recipesRepo.EditRecipe(original);
+    // original.Title = recipeData.Title ?? original.Title;
+    // original.Creator=original.Creator;
+    // original.CreatorId=original.CreatorId;
+    // original.FavoriteCount=original.FavoriteCount;
+    // original.Archived=original.Archived;
+
+    Recipe recipe = _recipesRepo.EditRecipe(original);
     return recipe;
   }
 }

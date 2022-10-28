@@ -90,7 +90,11 @@ return Ok("Recipe successfully archived");
   {
     try
     {
+      
       Account userInfo = await _auth0provider.GetUserInfoAsync<Account>(HttpContext);
+      recipeData.Creator = userInfo;
+      recipeData.CreatorId = userInfo.Id;
+      recipeData.Id=recipeId;
       Recipe recipe = _rs.EditRecipe(recipeData, userInfo.Id);
       return Ok(recipe);
     }
