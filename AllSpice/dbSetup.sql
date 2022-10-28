@@ -19,8 +19,9 @@ CREATE TABLE
         instructions VARCHAR(1000) NOT NULL,
         img VARCHAR(255) NOT NULL,
         category VARCHAR(255) NOT NULL,
+        archived TINYINT DEFAULT 0,
         creatorId VARCHAR(255) NOT NULL,
-        FOREIGN KEY(creatorId) REFERENCES accounts(id) ON DELETE CASCADE
+        FOREIGN KEY(creatorId) REFERENCES accounts(id)
     ) default charset utf8 COMMENT '';
 
 CREATE TABLE
@@ -31,7 +32,7 @@ CREATE TABLE
         name VARCHAR(255) NOT NULL,
         quantity VARCHAR(255) NOT NULL,
         recipeId INT NOT NULL,
-        FOREIGN KEY (recipeId) REFERENCES recipes(id) ON DELETE CASCADE
+        FOREIGN KEY (recipeId) REFERENCES recipes(id)
     ) default charset utf8 COMMENT '';
 
 CREATE TABLE

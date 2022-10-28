@@ -36,4 +36,54 @@ public class RecipesRepository : BaseRepository
       return recipe;
     }).ToList();
   }
+
+  internal Recipe GetById(int recipeId)
+  {
+    string sql = @"
+            SELECT
+            rec.*,
+            a.*
+            FROM recipes rec
+            JOIN accounts a ON a.id = rec.creatorId
+            LEFT JOIN favorites fav ON fav.recipeId = fav.id
+            WHERE rec.id = @recipeId
+            ;";
+    return _db.Query<Recipe, Profile, Recipe>(sql, (recipe, profile) =>
+    {
+      recipe.Creator = profile;
+      return recipe;
+    }, new { recipeId }).FirstOrDefault();
+  }
+
+  internal void ArchiveRecipe(Recipe foundRecipe)
+  {
+    string sql = @"
+              UPDATE recipes
+              SET
+              archived = 1
+               WHERE id = @Id
+                   ;";
+    var rowsAffected = _db.Execute(sql, foundRecipe);
+    if (rowsAffected == 0)
+    {
+      throw new Exception("Unable to update foundRecipe");
+    }
+
+  }
+
+  internal Recipe EditRecipe(Recipe recipeData)
+  {
+      string sql = @"
+              UPDATE recipes SET
+              title = @title,
+              category = @category,
+              img= @img,
+              instructions = @instructions,
+              WHERE id = @id
+
+
+                   ;";
+                   _db.Execute(sql,recipeData);
+                   return recipeData;
+  }
 }
