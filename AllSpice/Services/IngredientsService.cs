@@ -16,4 +16,34 @@ public class IngredientsService{
   {
   return _ingredientsRepo.GetIngredientsByRecipe(recipeId);
   }
+
+  internal void DeleteIngredient(int ingredientId, string accountId)
+  {
+   Ingredient foundIngredient = GetById(ingredientId);
+   if( foundIngredient == null)
+   {
+   throw new Exception("Ingredient does not exist");
+   }
+   if( foundIngredient.CreatorId != accountId)
+   {
+   throw new Exception("Unauthorized");
+   }
+   
+_ingredientsRepo.DeleteIngredient(foundIngredient);
+
+
+  }
+
+
+  internal Ingredient GetById(int ingredientId)
+  {
+    Ingredient foundIngredient = _ingredientsRepo.GetIngredientById(ingredientId);
+
+    if (foundIngredient == null)
+    {
+      throw new Exception("Ingredient does not exist");
+    }
+return foundIngredient;
+
+  }
 }

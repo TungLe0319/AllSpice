@@ -42,7 +42,6 @@ public class RecipesRepository : BaseRepository
     string sql = @"
             SELECT
             rec.*,
-            COUNT(fav.id) AS favoriteCount,
             a.*
             FROM recipes rec
             JOIN accounts a ON a.id = rec.creatorId
@@ -53,7 +52,7 @@ public class RecipesRepository : BaseRepository
     {
       recipe.Creator = profile;
       return recipe;
-    }, new { recipeId }).FirstOrDefault();
+    }, new { recipeId }).First();
   }
 
   internal void DeleteRecipe(Recipe foundRecipe)

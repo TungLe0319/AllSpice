@@ -37,10 +37,20 @@ CREATE TABLE
         updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Last Update',
         name VARCHAR(255) NOT NULL,
         quantity VARCHAR(255) NOT NULL,
+        creatorId VARCHAR(255) NOT NULL,
         recipeId INT NOT NULL,
         FOREIGN KEY (recipeId) REFERENCES recipes(id) ON DELETE CASCADE,
         FOREIGN KEY (creatorId) REFERENCES accounts(id) ON DELETE CASCADE
     ) default charset utf8 COMMENT '';
+
+SELECT ing.*, a.*
+FROM
+    ingredients ing
+    JOIN accounts a ON a.id = ing.creatorId
+WHERE ing.id = 4;
+
+
+
 
 CREATE TABLE
     IF NOT EXISTS favorites(
