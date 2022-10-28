@@ -56,18 +56,16 @@ public class RecipesRepository : BaseRepository
     }, new { recipeId }).FirstOrDefault();
   }
 
-  internal void ArchiveRecipe(Recipe foundRecipe)
+  internal void DeleteRecipe(Recipe foundRecipe)
   {
     string sql = @"
-              UPDATE recipes
-              SET
-              archived = 1
-               WHERE id = @Id
+            DELETE FROM recipes
+               WHERE id = @id
                    ;";
-    var rowsAffected = _db.Execute(sql, foundRecipe);
+    int rowsAffected = _db.Execute(sql, foundRecipe);
     if (rowsAffected == 0)
     {
-      throw new Exception("Unable to update foundRecipe");
+      throw new Exception("Unable to delete recipe");
     }
 
   }

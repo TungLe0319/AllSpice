@@ -35,20 +35,21 @@ public class RecipesService
     return foundRecipe;
   }
 
-  internal void ArchiveRecipe(int recipeId, string accountId)
+  internal void DeleteRecipe(int recipeId, string accountId)
   {
+
     Recipe foundRecipe = GetById(recipeId);
     if (foundRecipe == null)
     {
-      throw new Exception("Recipe is already archived");
+      throw new Exception("Recipe does not exist");
     }
     if (foundRecipe.CreatorId != accountId)
     {
-      throw new Exception("Unauthorized to archive recipe");
+      throw new Exception("Unauthorized to delete recipe");
     }
 
-    foundRecipe.Archived = true;
-    _recipesRepo.ArchiveRecipe(foundRecipe);
+    // foundRecipe.Archived = true;
+    _recipesRepo.DeleteRecipe(foundRecipe);
   }
 
   internal Recipe EditRecipe(Recipe recipeData, string accountId)
