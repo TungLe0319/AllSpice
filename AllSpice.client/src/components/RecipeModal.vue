@@ -6,77 +6,84 @@
     aria-labelledby="Label"
     aria-hidden="true"
   >
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content bg-dark">
-        <div class="modal-body FORM">
-          <!-- -------------------SECTION FORM----------------------------------- -->
-          <form @submit.prevent="handleSubmit" class="">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+      <div
+        class="modal-content modal-dialog-centered modal-dialog-scrollable modal-xl"
+      >
+      <!-- --------------------------- -->
+        <div class="modal-body FORM p-0 position-relative">
+          <div class="container-fluid" v-if="recipe">
             <div class="row">
-              <div class="col-md-8">
-                <div class="mt-3 inputBox">
-                  <span>CoverImg</span>
-                  <input
-                    type="url"
-                   
-                    name="coverImg"
-                  />
-                </div>
-                <div class="mt-3 inputBox">
-                  <span>UserName</span>
-                  <input
-                    type="text"
-               
-                    required
-                    name="Username"
-                  />
-                </div>
-                <div class="mt-3 inputBox">
-                  <span>Profile Picture</span>
-                  <input
-                    type="url"
-              
-                    required
-                    name="Profile Picture"
-                  />
+              <div class="col-md-4 p-0">
+                <img :src="recipe.img" alt="" class="img-fluid rounded-start" />
+              </div>
+              <div class="col-md-6">
+                 <span class="position-absolute selectable no-select end-0 top-0 deleteIcon"><i class="mdi mdi-delete fs-2" @click="removeRecipe()" data-bs-dismiss="modal"></i></span>
+                <span
+                  ><h5>{{ recipe.title }}</h5>
+                  <p>{{ recipe.category }}</p></span
+                >
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="card">
+                     <div class="card-title bg-info p-1 rounded elevation-1 text-center"> <p class="p-md-0 m-md-0">Recipe Instructions</p></div>
+                     <div class="card-body">
+                      <p> {{recipe.instructions}}</p>
+                     </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6"></div>
                 </div>
               </div>
             </div>
-
-            <div class="my-3">
-              <button
-                class="btn btn-success selectable"
-                type="submit"
-                data-bs-dismiss="modal"
-              >
-                Submit
-              </button>
-            </div>
-          </form>
+          </div>
+          <div v-else>LOADING....</div>
         </div>
+        <!-- ---------------------------------- -->
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { ref, watchEffect } from 'vue';
-import { AppState } from '../AppState.js';
-import Pop from '../utils/Pop.js';
+import { computed } from "@vue/reactivity";
+import { onMounted, ref, watchEffect } from "vue";
+import { AppState } from "../AppState.js";
+import { Recipe } from "../models/Recipe.js";
+import { recipesService } from "../services/RecipesService.js";
+import Pop from "../utils/Pop.js";
 
 export default {
-  setup() {
-    const editable = ref({});
+  props: {
+    recipe: { type: Recipe, required: true },
+  },
+  setup(props) {
+    async function getIngredientsByRecipeId() {
+      try {
+        let id = AppState.activeRecipe.id;
+        await recipesService.getIngredientsByRecipeId(id);
+      } catch (error) {
+        Pop.error(error);
+      }
+    }
 
     watchEffect(() => {
-      // editable.value = { ...AppState.account };
+      // AppState.activeRecipe;
+      // getIngredientsByRecipeId();
     });
     return {
-      async handleSubmit() {
+
+          async removeRecipe() {
         try {
-          // await accountService.editAccount();
+          const yes = await Pop.confirm();
+          if (!yes) {
+            return;
+          }
+
+         const recipeId = AppState.activeRecipe.id
+          await recipesService.removeRecipe(recipeId);
         } catch (error) {
-          console.error(error);
-          Pop.error(error, '[handleSubmit]');
+          Pop.error(error);
         }
       },
     };
@@ -86,10 +93,6 @@ export default {
 
 <style lang="scss" scoped>
 .modal-body {
-  //background-image: url();
- // background-size: cover;
-  //background-position: center;
   box-shadow: 1px 1px 10px rgba(243, 236, 236, 0.308);
 }
-
 </style>

@@ -25,6 +25,7 @@ public class FavoritesRepository : BaseRepository
           rec.*,
           COUNT(fav.id) AS FavoriteCount,
           fav.id AS FavoriteId,
+          rec.id AS recipeId,
           a.*
           FROM favorites fav
           JOIN recipes rec ON rec.id = fav.recipeId

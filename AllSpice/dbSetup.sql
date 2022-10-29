@@ -53,11 +53,8 @@ CREATE TABLE
         updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Last Update',
         accountId VARCHAR(255) NOT NULL,
         recipeId INT NOT NULL,
+        favoritedAlready TINYINT DEFAULT 0,
         FOREIGN KEY (accountId) REFERENCES accounts(id) ON DELETE CASCADE,
         FOREIGN KEY (recipeId) REFERENCES recipes (id) ON DELETE CASCADE
     ) default charset utf8 COMMENT '';
 
-SELECT fav.*, a.*
-FROM favorites fav
-    JOIN accounts a ON a.id = fav.accountId
-WHERE fav.accountId = a.id;

@@ -23,18 +23,11 @@ public class IngredientsRepository : BaseRepository
 
     string sql = @"
           SELECT 
-          ing.*,
-          a.*
-          FROM ingredients ing
-       
-          JOIN accounts a ON a.id = ing.creatorId
-          WHERE ing.recipeId = @recipeId
+          *
+          FROM ingredients 
+          WHERE recipeId = @recipeId
                ;";
-    return _db.Query<Ingredient, Profile, Ingredient>(sql, (ingredient, profile) =>
-    {
-      ingredient.Creator = profile;
-      return ingredient;
-    }, new { recipeId }).ToList();
+    return _db.Query<Ingredient>(sql, new { recipeId }).ToList();
   }
 
 
@@ -43,18 +36,11 @@ public class IngredientsRepository : BaseRepository
 
     string sql = @"
             SELECT 
-            ing.*,
-            a.*
-            FROM ingredients ing
-            JOIN accounts a ON a.id = ing.creatorId
-            WHERE ing.id = @ingredientId
+            *
+            FROM ingredients 
+            WHERE id = @ingredientId
                  ;";
-    return _db.Query<Ingredient, Profile, Ingredient>(sql, (ingredient, profile) =>
-    {
-      ingredient.Creator = profile;
-      return ingredient;
-
-    }, new { ingredientId }).FirstOrDefault();
+    return _db.Query<Ingredient>(sql, new { ingredientId }).FirstOrDefault();
   }
 
   internal void DeleteIngredient(Ingredient foundIngredient)

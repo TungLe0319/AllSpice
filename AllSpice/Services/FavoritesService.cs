@@ -2,15 +2,33 @@ namespace AllSpice.Services;
 public class FavoritesService
 {
   private readonly FavoritesRepository _favoritesRepo;
+  private readonly RecipesRepository _recipeRepo;
 
-  public FavoritesService(FavoritesRepository favoritesRepo)
+  public FavoritesService(FavoritesRepository favoritesRepo, RecipesRepository recipeRepo)
   {
     _favoritesRepo = favoritesRepo;
+    _recipeRepo = recipeRepo;
   }
 
   internal Favorite CreateFavorite(Favorite newFavorite)
   {
-    return _favoritesRepo.CreateFavorite(newFavorite);
+    
+    // Recipe recipe = _recipeRepo.GetById(newFavorite.RecipeId);
+
+    
+    // if( newFavorite.RecipeId == recipe.Id )
+    // {
+    // throw new Exception("Already favorited");
+    // }
+    
+
+   Favorite favorite= _favoritesRepo.CreateFavorite(newFavorite);
+  favorite.FavoritedAlready = true;
+   
+    return favorite;
+
+
+    
   }
 
 

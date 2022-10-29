@@ -4,7 +4,7 @@
   >
     <div class="row">
       <div class="col-md-12">
-        <HomeBanner/>
+        <HomeBanner />
       </div>
     </div>
     <div class="row">
@@ -20,6 +20,7 @@
       modal
     </button>
   </div>
+   <RecipeModal :recipe="activeRecipe"  />
 </template>
 
 <script>
@@ -45,6 +46,7 @@ export default {
     });
     return {
       recipes: computed(() => AppState.recipes),
+      activeRecipe: computed(() => AppState.activeRecipe),
     };
   },
   components: {},

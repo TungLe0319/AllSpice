@@ -1,21 +1,35 @@
 <template>
+  <div
+    class="card text-bg-dark my-2 position-relative"
+    @click="setActiveRecipe()"
+    data-bs-target="#recipeModal"
+    data-bs-toggle="modal"
+  >
+    <img
+      :src="recipe.img"
+      :alt="recipe.title"
+      :title="recipe.title + 'Img'"
+      class="forcedImg card-img"
+    />
 
-
-
-  <div class="card text-bg-dark my-2">
- <img :src="recipe.img" :alt="recipe.title" :title="recipe.title + 'Img'"  class="forcedImg card-img" />
-  <div class="card-img-overlay flex-column d-flex justify-content-end align-items-start" >
-    <span class=" cardText p-2 rounded">
-
-      <p class="card-title">{{recipe.title}}</p>
-    </span>
-    
+    <div
+      class="card-img-overlay flex-column d-flex justify-content-end align-items-start"
+    >
+      <span class="cardText p-2 rounded">
+        <p class="card-title">{{ recipe.title }}</p>
+      </span>
+    </div>
+    <div class="bg-dark position-absolute start-0 px-1 rounded">
+      <p class="mb-0">{{ recipe.category }}</p>
+    </div>
   </div>
-</div>
 </template>
 
 <script>
+import { AppState } from "../AppState.js";
 import { Recipe } from "../models/Recipe.js";
+import { recipesService } from "../services/RecipesService.js";
+import Pop from "../utils/Pop.js";
 
 export default {
   props: {
@@ -23,7 +37,13 @@ export default {
   },
 
   setup(props) {
-    return {};
+    return {
+      setActiveRecipe() {
+        recipesService.setActiveRecipe(props.recipe);
+      },
+
+  
+    };
   },
 };
 </script>
@@ -41,10 +61,13 @@ export default {
   width: auto;
   object-fit: cover;
 }
-.cardText{
+.cardText {
   display: flex;
   justify-content: end;
   background-color: rgba(0, 0, 0, 0.331);
-backdrop-filter: blur(3px);
+  backdrop-filter: blur(3px);
+}
+.deleteIcon {
+  z-index: 9999;
 }
 </style>

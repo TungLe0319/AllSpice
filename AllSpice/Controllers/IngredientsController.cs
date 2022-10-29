@@ -28,7 +28,7 @@ public class IngredientsController : ControllerBase
       newIngredient.CreatorId = userInfo.Id;
       // newIngredient.Creator = userInfo;
       Ingredient createdIngredient = _is.CreateIngredient(newIngredient);
-      createdIngredient.Creator = userInfo;
+    
       return Ok(createdIngredient);
 
     }

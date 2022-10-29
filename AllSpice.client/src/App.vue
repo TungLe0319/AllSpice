@@ -1,11 +1,11 @@
 <template>
-  <header>
+  <!-- <header>
     <Navbar />
-  </header>
+  </header> -->
   <main>
     <router-view />
   </main>
-   <RecipeModal/>
+  
 </template>
 
 <script>
