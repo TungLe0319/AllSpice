@@ -32,7 +32,7 @@ public class AccountController : ControllerBase
   [Authorize]
   public async Task<ActionResult<List<FavRecipe>>> GetFavoritesByAccountId()
   {
-    try
+  try
     {
       Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
       List<FavRecipe> favorites = _accountService.GetFavoritesByAccountId(userInfo.Id);

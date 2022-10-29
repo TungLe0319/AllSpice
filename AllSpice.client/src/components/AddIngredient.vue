@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="addIngredient()">
+  <!-- <form @submit.prevent="addIngredient()">
     <div class="input-group">
       <input
         type="text"
@@ -15,7 +15,7 @@
       />
     </div>
     <button class="btn btn-success" type="submit">submit</button>
-  </form>
+  </form> -->
 </template>
 
 <script>
@@ -35,10 +35,7 @@ export default {
       recipe: computed(() => AppState.activeRecipe),
       async addIngredient() {
         try {
-          // console.log(ingredientData);
-          // await recipesService.editRecipe(recipe.id,editable.value)editable
-          // editable.recipeId = AppState.activeRecipe.id;
-          // console.log(editable.value);
+
            await ingredientsService.addIngredient(editable.value)
         } catch (error) {
           Pop.error(error);

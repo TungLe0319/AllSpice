@@ -12,23 +12,21 @@ public class FavoritesService
 
   internal Favorite CreateFavorite(Favorite newFavorite)
   {
-    
-    // Recipe recipe = _recipeRepo.GetById(newFavorite.RecipeId);
 
-    
-    // if( newFavorite.RecipeId == recipe.Id )
-    // {
-    // throw new Exception("Already favorited");
-    // }
-    
+    if (newFavorite.Favorited)
+    {
+      throw new Exception("Invalid Id [example]");
+    }
 
-   Favorite favorite= _favoritesRepo.CreateFavorite(newFavorite);
-  favorite.FavoritedAlready = true;
-   
+
+
+    Favorite favorite = _favoritesRepo.CreateFavorite(newFavorite);
+    favorite.Favorited = true;
+
     return favorite;
 
 
-    
+
   }
 
 
@@ -36,31 +34,31 @@ public class FavoritesService
   internal void RemoveFavorite(int favoriteId, string accountId)
   {
     Favorite foundFavorite = GetFavoriteById(favoriteId);
-    if( foundFavorite == null)
+    if (foundFavorite == null)
     {
-    throw new Exception("Invalid Id");
+      throw new Exception("Invalid Id");
     }
-    if( foundFavorite.AccountId != accountId)
+    if (foundFavorite.AccountId != accountId)
     {
-    throw new Exception("Unauthorized");
+      throw new Exception("Unauthorized");
     }
-    
+
     _favoritesRepo.RemoveFavorite(foundFavorite);
-    
+
   }
 
   private Favorite GetFavoriteById(int favoriteId)
   {
-  Favorite foundFavorite = _favoritesRepo.GetFavoriteById(favoriteId);
-  if( foundFavorite == null)
-  {
-  throw new Exception("Invalid Id");
-  }
-  if( foundFavorite.Id == 0)
-  {
-  throw new Exception("Invalid Id ");
-  }
-  
-  return foundFavorite;
+    Favorite foundFavorite = _favoritesRepo.GetFavoriteById(favoriteId);
+    if (foundFavorite == null)
+    {
+      throw new Exception("Invalid Id");
+    }
+    if (foundFavorite.Id == 0)
+    {
+      throw new Exception("Invalid Id ");
+    }
+
+    return foundFavorite;
   }
 }

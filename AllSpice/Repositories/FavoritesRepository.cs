@@ -9,12 +9,13 @@ public class FavoritesRepository : BaseRepository
   internal Favorite CreateFavorite(Favorite newFavorite)
   {
     string sql = @"
-              INSERT INTO favorites(recipeId,accountId)
-              VALUES(@RecipeId,@AccountId);
+              INSERT INTO favorites(recipeId,accountId,favorited)
+              VALUES(@RecipeId,@AccountId,@Favorited);
               SELECT LAST_INSERT_ID()
                    ;";
     int id = _db.ExecuteScalar<int>(sql, newFavorite);
     newFavorite.Id = id;
+    newFavorite.Favorited = true;
     return newFavorite;
   }
 

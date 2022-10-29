@@ -1,9 +1,6 @@
 <template>
   <div
-    class="card text-bg-dark my-2 position-relative"
-    @click="setActiveRecipe()"
-    data-bs-target="#recipeModal"
-    data-bs-toggle="modal"
+    class="card text-bg-dark my-2 position-relative elevation-5 border-0"
     v-if="recipe"
   >
     <img
@@ -16,10 +13,30 @@
     <div
       class="card-img-overlay flex-column d-flex justify-content-end align-items-start"
     >
-      <span class="cardText p-2 rounded">
+      <!-- NOTE SET ACTIVE RECIPE -->
+      <span
+        class="cardText p-2 rounded"
+        @click="setActiveRecipe()"
+        data-bs-target="#recipeModal"
+        data-bs-toggle="modal"
+      >
         <p class="card-title">{{ recipe?.title }}</p>
+
+        {{}}
       </span>
-      <span class="position-absolute top-0 end-0"><i class="mdi mdi-heart fs-2 text-danger" @click="favoriteRecipe()"></i> </span>
+      <!-- NOTE FAVORITE A RECIPE -->
+      <span class="position-absolute top-0 end-0"
+        ><i
+          class="mdi mdi-heart fs-2 text-danger no-select selectable"
+          @click="favoriteRecipe()"
+        ></i>
+      </span>
+      <span class="position-absolute top-0 end-50"
+        ><i
+          class="mdi mdi-star fs-2 text-primary no-select selectable"
+          @click="removeFavoriteRecipe()"
+        ></i>
+      </span>
     </div>
     <div class="bg-dark position-absolute start-0 px-1 rounded">
       <p class="mb-0">{{ recipe?.category }}</p>
@@ -32,7 +49,8 @@ import { AppState } from "../AppState.js";
 import { Recipe } from "../models/Recipe.js";
 import { recipesService } from "../services/RecipesService.js";
 import Pop from "../utils/Pop.js";
-
+import { favoritesService } from "../services/FavoritesService.js";
+import { computed } from "@vue/reactivity";
 export default {
   props: {
     recipe: { type: Recipe, required: true },
@@ -44,14 +62,36 @@ export default {
         recipesService.setActiveRecipe(props.recipe);
       },
 
-      async favoriteRecipe(){
+      async favoriteRecipe() {
         try {
-            
-          } catch (error) {
-            Pop.error(error)
+          const recipeId = {
+            recipeId: props.recipe.id,
+          };
+
+          if (props.recipe.favorited == false) {
+            await favoritesService.favoriteRecipe(recipeId, props.recipe.id);
+            props.recipe.favorited = true;
+            Pop.success("Favorited");
+          } else {
+            await favoritesService.removeFavoriteRecipe(
+              props.recipe.favoriteId,
+              props.recipe.id
+            );
+            Pop.success("Removed");
           }
-      }
-  
+        } catch (error) {
+          Pop.error(error);
+        }
+      },
+
+      async removeFavoriteRecipe() {
+        try {
+          await favoritesService.removeFavoriteRecipe(props.recipe.favoriteId);
+          Pop.success("Removed");
+        } catch (error) {
+          Pop.error(error);
+        }
+      },
     };
   },
 };

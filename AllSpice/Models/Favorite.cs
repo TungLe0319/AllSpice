@@ -7,6 +7,6 @@ public class Favorite : IRepoItem<int>
   public int RecipeId { get; set; }
   public DateTime CreatedAt { get; set; }
   public DateTime UpdatedAt { get; set; }
-  public bool FavoritedAlready {get;set;}
+  public bool Favorited { get; set; }
 
 }

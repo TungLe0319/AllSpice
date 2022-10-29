@@ -45,8 +45,16 @@
                       <div class="card-body">
                         <p>{{ recipe?.instructions }}</p>
                       </div>
-                      <div class="card-footer">
-                        <AddInstructions />
+                      <div class="card-footer d-flex justify-content-end">
+                        <button
+                          class="btn btn-success"
+                          type="submit"
+                          data-bs-toggle="modal"
+                          data-bs-target="#instructionsModal"
+                        >
+                         <i class="mdi mdi-plus fs-4"></i>
+                        </button>
+                   
                       </div>
                     </div>
                   </div>
@@ -59,8 +67,8 @@
                       </div>
                       <div class="card-body">
                         <div v-for="i in ingredients" :key="i.id">
-                         <span>{{i.name}}</span> 
-                         <span>{{i.quantity}}</span>
+                          <span>{{ i.name }}</span>
+                          <span>{{ i.quantity }}</span>
                         </div>
                       </div>
 
@@ -109,9 +117,6 @@ export default {
         Pop.error(error);
       }
     }
-    onMounted(() => {
-      // getIngredientsByRecipeId()
-    });
     watchEffect(() => {
       AppState.activeRecipe;
       getIngredientsByRecipeId();
@@ -126,6 +131,12 @@ export default {
           }
           const recipeId = AppState.activeRecipe.id;
           await recipesService.removeRecipe(recipeId);
+          Pop.toast(
+            `${AppState.activeRecipe.title} Removed`,
+            "success",
+            "top-end",
+            1000
+          );
         } catch (error) {
           Pop.error(error);
         }

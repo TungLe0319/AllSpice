@@ -13,5 +13,5 @@ public class Recipe : ICreated, IRepoItem<int>
   public string Img { get; set; }
   public string Category { get; set; }
   public int FavoriteCount { get; set; }
-  public bool Archived {get;set;}
+  public bool Favorited {get;set;}
 }

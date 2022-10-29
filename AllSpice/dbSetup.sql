@@ -19,7 +19,7 @@ CREATE TABLE
         instructions VARCHAR(1000) NOT NULL,
         img VARCHAR(255) NOT NULL,
         category VARCHAR(255) NOT NULL,
-        archived TINYINT DEFAULT 0,
+        favorited TINYINT DEFAULT 0,
         creatorId VARCHAR(255) NOT NULL,
         FOREIGN KEY(creatorId) REFERENCES accounts(id) ON DELETE CASCADE
     ) default charset utf8 COMMENT '';
@@ -53,8 +53,8 @@ CREATE TABLE
         updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Last Update',
         accountId VARCHAR(255) NOT NULL,
         recipeId INT NOT NULL,
-        favoritedAlready TINYINT DEFAULT 0,
+        favorited TINYINT DEFAULT 1,
         FOREIGN KEY (accountId) REFERENCES accounts(id) ON DELETE CASCADE,
-        FOREIGN KEY (recipeId) REFERENCES recipes (id) ON DELETE CASCADE
+        FOREIGN KEY (recipeId) REFERENCES recipes(id) ON DELETE CASCADE
     ) default charset utf8 COMMENT '';
 

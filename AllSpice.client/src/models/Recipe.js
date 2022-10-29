@@ -6,10 +6,13 @@ export class Recipe {
     this.title = data.title;
     this.img = data.img;
     this.instructions = data.instructions;
-    this.ingredients = this.ingredients;
+    // this.ingredients = data.ingredients;
     this.creator = new Account(data.creator);
     this.creatorId = data.creatorId;
-    this.archived = data.archived || false
-    this.category = data.category
+
+    this.category = data.category;
+    this.favorited = data.favorited || false;
+this.favoriteId=data.favoriteId || null
+    // this.accountId = data.accountId;
   }
 }

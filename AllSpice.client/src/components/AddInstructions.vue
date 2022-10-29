@@ -2,7 +2,7 @@
   <form @submit.prevent="addInstruction()">
      <div class="input-group">
 
-    <input type="text" name="instructions" class="rounded" v-model="editable.instructions">
+    <textarea type="text" name="instructions" class="rounded" v-model="editable.instructions"></textarea>
     <button class="btn btn-success" type="submit">submit</button>
   </div>
   </form>
