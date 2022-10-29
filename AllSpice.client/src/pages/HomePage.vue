@@ -5,6 +5,13 @@
     <div class="row">
       <div class="col-md-12">
         <HomeBanner />
+            <button
+      data-bs-target="#recipeFormModal"
+      data-bs-toggle="modal"
+      class="btn btn-success"
+    >
+      CreateRecipe
+    </button>
       </div>
     </div>
     <div class="row">
@@ -12,21 +19,17 @@
         <RecipeCard :recipe="r" :key="r.id" />
       </div>
     </div>
-    <button
-      data-bs-target="#recipeModal"
-      data-bs-toggle="modal"
-      class="btn btn-success"
-    >
-      modal
-    </button>
+
   </div>
    <RecipeModal :recipe="activeRecipe"  />
+   <RecipeForm/>
 </template>
 
 <script>
 import { computed } from "@vue/reactivity";
 import { onMounted } from "vue";
 import { AppState } from "../AppState.js";
+import RecipeForm from "../components/RecipeForm .vue"
 
 import { recipesService } from "../services/RecipesService.js";
 import Pop from "../utils/Pop.js";
@@ -49,7 +52,7 @@ export default {
       activeRecipe: computed(() => AppState.activeRecipe),
     };
   },
-  components: {},
+  components: { RecipeForm },
 };
 </script>
 

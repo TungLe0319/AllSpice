@@ -24,6 +24,13 @@ class RecipesService {
     AppState.activeRecipe = recipeData;
   }
 
+
+  async createRecipe(recipeData){
+    const res = await api.post('api/recipes', recipeData)
+    console.log("[createRecipe]",res.data);
+const newRecipe = new Recipe(res.data)
+AppState.recipes = [newRecipe,...AppState.recipes]
+  }
   async removeRecipe(recipeId) {
   //  const myModalEl = document.getElementById("recipeModal");
    
