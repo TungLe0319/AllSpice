@@ -74,6 +74,9 @@ public class RecipesRepository : BaseRepository
     string sql = @"
               UPDATE recipes SET
               instructions = @instructions
+              title = @title
+              category = @category
+              img = @img
               WHERE id = @Id
                    ;";
     int recipeRow = _db.Execute(sql, recipeData);

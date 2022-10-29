@@ -24,7 +24,6 @@ public class IngredientsRepository : BaseRepository
     string sql = @"
           SELECT 
           ing.*,
-    
           a.*
           FROM ingredients ing
        
