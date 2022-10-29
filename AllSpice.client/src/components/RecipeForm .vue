@@ -12,27 +12,25 @@
           <div class="p-2 bg-success"><h4> New Recipe</h4></div>
           <!-- -------------------SECTION FORM----------------------------------- -->
           <form @submit.prevent="handleSubmit()" class="">
-            <div class="row">
-              <div class="col-md-8">
+        
                 <div class="mt-3 inputBox">
                   <span>Title</span>
                   <input type="text" required name="title" v-model="editable.title" />
                 </div>
                 <div class="mt-3 inputBox">
                   <span>Image</span>
-                  <input type="url" name="img" required v-model="editable.img" />
+                  <input type="url" required name="img" v-model="editable.img" />
                 </div>
                 <div class="mt-3 inputBox">
                   <span>Instructions</span>
-                  <input type="text" name="instructions" v-model="editable.instructions" />
+                  <input type="text" required name="instructions" v-model="editable.instructions" />
                 </div>
                 <div class="mt-3 inputBox">
                   <span>Category</span>
-                  <input type="text" name="instructions" v-model="editable.category" />
+                  <input type="text" required name="instructions" v-model="editable.category" />
                 </div>
          
-              </div>
-            </div>
+          
 
             <div class="my-3">
               <button
@@ -87,5 +85,51 @@ export default {
   // background-size: cover;
   //background-position: center;
   box-shadow: 1px 1px 10px rgba(243, 236, 236, 0.308);
+}
+
+.inputBox {
+  position: relative;
+  width: 250px;
+}
+
+.inputBox input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ffbb00;
+  border-bottom: 3px solid #ff5e00;
+  border-radius: 5px;
+  outline: none;
+  color: rgb(0, 0, 0);
+  font-size: 1em;
+  background-color: transparent;
+  transition: all 1.5s ease;
+  box-shadow: 0.25px 0.25px 10px rgba(243, 236, 236, 0.308);
+}
+
+.inputBox span {
+  position: absolute;
+  left: 0;
+bottom: 35px;
+  padding: 10px;
+  pointer-events: none;
+  font-size: 1em;
+  text-transform: uppercase;
+  color: #13121380;
+  transition: all 1s ease;
+}
+
+.inputBox input:valid ~ span,.inputBox input:required ~ span,
+.inputBox input:focus ~ span {
+  color: #27132a;
+  transform: translateX(10px) translateY(-7px);
+  padding: 0 10px;
+  font-size: 0.65em;
+  border-radius: 4px;
+  font-weight: bold;
+  background: #ffbb00;
+  border-left: 1px solid #ff5e00;
+  border-right: 1px solid #ff5e00;
+  letter-spacing: 0.2em;
+  transition: all 1s ease;
 }
 </style>

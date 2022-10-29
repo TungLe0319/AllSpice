@@ -10,29 +10,65 @@
       <div
         class="modal-content modal-dialog-centered modal-dialog-scrollable modal-xl"
       >
-      <!-- --------------------------- -->
+        <!-- --------------------------- -->
         <div class="modal-body FORM p-0 position-relative">
           <div class="container-fluid" v-if="recipe">
             <div class="row">
               <div class="col-md-4 p-0">
-                <img :src="recipe.img" alt="" class="img-fluid rounded-start" />
+                <img
+                  :src="recipe?.img"
+                  alt=""
+                  class="img-fluid rounded-start"
+                />
               </div>
-              <div class="col-md-6">
-                 <span class="position-absolute selectable no-select end-0 top-0 deleteIcon"><i class="mdi mdi-delete fs-2" @click="removeRecipe()" data-bs-dismiss="modal"></i></span>
+              <div class="col-md-8">
                 <span
-                  ><h5>{{ recipe.title }}</h5>
-                  <p>{{ recipe.category }}</p></span
+                  class="position-absolute selectable no-select end-0 top-0 deleteIcon"
+                  ><i
+                    class="mdi mdi-delete fs-2"
+                    @click="removeRecipe()"
+                    data-bs-dismiss="modal"
+                  ></i
+                ></span>
+                <span
+                  ><h5>{{ recipe?.title }}</h5>
+                  <p>{{ recipe?.category }}</p></span
                 >
                 <div class="row">
                   <div class="col-md-6">
                     <div class="card">
-                     <div class="card-title bg-info p-1 rounded elevation-1 text-center"> <p class="p-md-0 m-md-0">Recipe Instructions</p></div>
-                     <div class="card-body">
-                      <p> {{recipe.instructions}}</p>
-                     </div>
+                      <div
+                        class="card-title bg-info p-1 rounded elevation-1 text-center"
+                      >
+                        <p class="p-md-0 m-md-0">Recipe Instructions</p>
+                      </div>
+                      <div class="card-body">
+                        <p>{{ recipe?.instructions }}</p>
+                      </div>
+                      <div class="card-footer">
+                        <AddInstructions />
+                      </div>
                     </div>
                   </div>
-                  <div class="col-md-6"></div>
+                  <div class="col-md-6">
+                    <div class="card">
+                      <div
+                        class="card-title bg-info p-1 rounded elevation-1 text-center"
+                      >
+                        <p class="p-md-0 m-md-0">Recipe Ingredients</p>
+                      </div>
+                      <div class="card-body">
+                        <div v-for="i in ingredients" :key="i.id">
+                         <span>{{i.name}}</span> 
+                         <span>{{i.quantity}}</span>
+                        </div>
+                      </div>
+
+                      <div class="card-footer">
+                        <AddIngredient />
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -49,38 +85,46 @@
 import { computed } from "@vue/reactivity";
 import { onMounted, ref, watchEffect } from "vue";
 import { AppState } from "../AppState.js";
+import { Ingredient } from "../models/Ingredient.js";
+
 import { Recipe } from "../models/Recipe.js";
 import { recipesService } from "../services/RecipesService.js";
 import Pop from "../utils/Pop.js";
+import AddIngredient from "./AddIngredient.vue";
+import AddInstructions from "./AddInstructions.vue";
 
 export default {
   props: {
-    recipe: { type: Recipe, required: true },
+    recipe: { type: Recipe, required: false },
+    ingredient: { type: Ingredient, required: false },
   },
   setup(props) {
     async function getIngredientsByRecipeId() {
       try {
-        let id = AppState.activeRecipe.id;
-        await recipesService.getIngredientsByRecipeId(id);
+        if (AppState.activeRecipe) {
+          let recipeId = AppState.activeRecipe.id;
+          await recipesService.getIngredientsByRecipeId(recipeId);
+        }
       } catch (error) {
         Pop.error(error);
       }
     }
-
+    onMounted(() => {
+      // getIngredientsByRecipeId()
+    });
     watchEffect(() => {
-      // AppState.activeRecipe;
-      // getIngredientsByRecipeId();
+      AppState.activeRecipe;
+      getIngredientsByRecipeId();
     });
     return {
-
-          async removeRecipe() {
+      ingredients: computed(() => AppState.ingredients),
+      async removeRecipe() {
         try {
           const yes = await Pop.confirm();
           if (!yes) {
             return;
           }
-
-         const recipeId = AppState.activeRecipe.id
+          const recipeId = AppState.activeRecipe.id;
           await recipesService.removeRecipe(recipeId);
         } catch (error) {
           Pop.error(error);
@@ -88,6 +132,7 @@ export default {
       },
     };
   },
+  components: { AddInstructions, AddIngredient },
 };
 </script>
 

@@ -27,11 +27,11 @@ public class RecipesService
     // {
     //   throw new Exception("Invalid Id");
     // }
-    if( foundRecipe.Id == 0)
+    if (foundRecipe.Id == 0)
     {
-    throw new Exception("Invalid Id [example]");
+      throw new Exception("Invalid Id [example]");
     }
-    
+
 
     if (foundRecipe == null)
     {
@@ -48,7 +48,7 @@ public class RecipesService
     // {
     // throw new Exception("Invalid Id [example]");
     // }
-    
+
     if (foundRecipe == null)
     {
       throw new Exception("Recipe does not exist");
@@ -71,7 +71,7 @@ public class RecipesService
     }
 
     Recipe original = GetById(recipeData.Id);
-    
+
     original.Category = recipeData.Category ?? original.Category;
     original.Img = recipeData.Img ?? original.Img;
     original.Instructions = recipeData.Instructions ?? original.Instructions;
@@ -84,4 +84,5 @@ public class RecipesService
     Recipe recipe = _recipesRepo.EditRecipe(original);
     return recipe;
   }
+
 }

@@ -1,14 +1,22 @@
 namespace AllSpice.Services;
 public class IngredientsService{
   private readonly IngredientsRepository _ingredientsRepo;
+  private readonly RecipesRepository _recipeRepo;
 
-  public IngredientsService(IngredientsRepository ingredientsRepo)
+  public IngredientsService(IngredientsRepository ingredientsRepo, RecipesRepository recipeRepo)
   {
     _ingredientsRepo = ingredientsRepo;
+    _recipeRepo = recipeRepo;
   }
 
-  internal Ingredient CreateIngredient(Ingredient newIngredient)
+  internal Ingredient CreateIngredient(Ingredient newIngredient,string accountId)
   {
+    Recipe recipe = _recipeRepo.GetById(newIngredient.RecipeId);
+    if( recipe.CreatorId != newIngredient.CreatorId)
+    {
+    throw new Exception("Unauthorized");
+    }
+    
   return _ingredientsRepo.CreateIngredient(newIngredient);
   }
 

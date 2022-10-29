@@ -73,9 +73,9 @@ public class RecipesRepository : BaseRepository
   {
     string sql = @"
               UPDATE recipes SET
-              instructions = @instructions
-              title = @title
-              category = @category
+              instructions = @instructions,
+              title = @title,
+              category = @category,
               img = @img
               WHERE id = @Id
                    ;";
@@ -87,4 +87,6 @@ public class RecipesRepository : BaseRepository
 
     return recipeData;
   }
+
+
 }

@@ -6,14 +6,16 @@ import { api } from "./AxiosService.js";
 class RecipesService {
   async getAllRecipes() {
     const res = await api.get("api/recipes");
-    console.log(res.data);
+    // console.log(res.data);
     AppState.recipes = res.data.map((r) => new Recipe(r));
   }
 
   async getIngredientsByRecipeId(recipeId) {
-    const res = await api.get(`api/recipe/${recipeId}/ingredients`);
+    const res = await api.get(`api/recipes/${recipeId}/ingredients`);
+    console.log("hi");
     console.log(res.data);
     AppState.ingredients = res.data.map((i) => new Ingredient(i));
+    console.log(AppState.ingredients);
   }
 
   async getRecipeById(recipeId) {
@@ -24,18 +26,17 @@ class RecipesService {
     AppState.activeRecipe = recipeData;
   }
 
-
-  async createRecipe(recipeData){
-    const res = await api.post('api/recipes', recipeData)
-    console.log("[createRecipe]",res.data);
-const newRecipe = new Recipe(res.data)
-AppState.recipes = [newRecipe,...AppState.recipes]
+  async createRecipe(recipeData) {
+    const res = await api.post("api/recipes", recipeData);
+    console.log("[createRecipe]", res.data);
+    const newRecipe = new Recipe(res.data);
+    AppState.recipes = [newRecipe, ...AppState.recipes];
   }
   async removeRecipe(recipeId) {
-  //  const myModalEl = document.getElementById("recipeModal");
-   
-   const res = await api.delete(`api/recipes/${recipeId}`);
-  //  myModalEl.classList.toggle("show")
+    //  const myModalEl = document.getElementById("recipeModal");
+
+    const res = await api.delete(`api/recipes/${recipeId}`);
+    //  myModalEl.classList.toggle("show")
     console.log(res.data);
 
     AppState.recipes = AppState.recipes.filter((r) => {

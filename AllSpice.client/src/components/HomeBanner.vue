@@ -1,14 +1,14 @@
 <template>
-  <div class="card banner mt-2 border-0 mb-5 elevation-3">
+  <div class="card banner mt-2 border-0 mb-5 elevation-3 d-flex align-items-end justify-content-end">
 
 <Login />
 <div class="categoryBar position-absolute bg-light elevation-5 p-2 rounded ">
   <div  class="d-flex justify-content-between ">
 
-    <span> <button class="btn btn-primary"> Cheese</button></span>
-    <span> <button class="btn btn-primary"> Cheese</button></span>
-    <span> <button class="btn btn-primary"> Cheese</button></span>
-    <span> <button class="btn btn-primary"> Cheese</button></span>
+    <span> <button class="btn btn-primary" @click="filterByCategory('Cheese')" > Cheese</button></span>
+    <span> <button class="btn btn-primary" @click="filterByCategory('F')"> Cheese</button></span>
+    <span> <button class="btn btn-primary" @click="filterByCategory('cheese')"> Cheese</button></span>
+    <span> <button class="btn btn-primary" @click="filterByCategory('cheese')"> Cheese</button></span>
   </div>
 </div>
   </div>
@@ -16,11 +16,22 @@
 
 
 <script>
+import { AppState } from "../AppState.js";
+import { recipesService } from "../services/RecipesService.js";
 import Login from "./Login.vue";
 
 export default {
     setup() {
-        return {};
+        return {
+
+        async  filterByCategory(filter){
+          console.log("hi");
+         if (filter == "Cheese") {
+        AppState.recipes =  AppState.recipes.filter(r => r.category == "Cheese")
+      
+         }
+          }
+        };
     },
     components: { Login }
 }

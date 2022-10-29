@@ -4,11 +4,12 @@
     @click="setActiveRecipe()"
     data-bs-target="#recipeModal"
     data-bs-toggle="modal"
+    v-if="recipe"
   >
     <img
-      :src="recipe.img"
-      :alt="recipe.title"
-      :title="recipe.title + 'Img'"
+      :src="recipe?.img"
+      :alt="recipe?.title"
+      :title="recipe?.title + 'Img'"
       class="forcedImg card-img"
     />
 
@@ -16,11 +17,12 @@
       class="card-img-overlay flex-column d-flex justify-content-end align-items-start"
     >
       <span class="cardText p-2 rounded">
-        <p class="card-title">{{ recipe.title }}</p>
+        <p class="card-title">{{ recipe?.title }}</p>
       </span>
+      <span class="position-absolute top-0 end-0"><i class="mdi mdi-heart fs-2 text-danger" @click="favoriteRecipe()"></i> </span>
     </div>
     <div class="bg-dark position-absolute start-0 px-1 rounded">
-      <p class="mb-0">{{ recipe.category }}</p>
+      <p class="mb-0">{{ recipe?.category }}</p>
     </div>
   </div>
 </template>
@@ -42,6 +44,13 @@ export default {
         recipesService.setActiveRecipe(props.recipe);
       },
 
+      async favoriteRecipe(){
+        try {
+            
+          } catch (error) {
+            Pop.error(error)
+          }
+      }
   
     };
   },

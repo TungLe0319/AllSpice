@@ -1,9 +1,15 @@
+import { AppState } from "../AppState.js";
+import { Ingredient } from "../models/Ingredient.js";
 import { api } from "./AxiosService.js";
 
 class IngredientsService {
   async addIngredient(ingredientData) {
-    const res = await api.put("api/ingredients", ingredientData);
+ 
+    const res = await api.post("api/ingredients", ingredientData);
     console.log(res.data);
+    
+    let newIngredient = new Ingredient(res.data)
+    AppState.ingredients = [newIngredient, ...AppState.ingredients]
   }
 
   async removeIngredient(ingredientId) {
