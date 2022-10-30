@@ -1,6 +1,6 @@
 <template>
   <form @submit.prevent="addIngredient()">
-    <div class="input-group">
+    <div class="input-group ">
       <input
         type="text"
         name="instructions"

@@ -46,10 +46,13 @@
             </div>
           </form>
         </div>
-        <div class="col-md-6 rounded" v-if="editable.img">
-<img :src="editable?.img" alt="recipe image" title="recipe image" class="img-fluid ">
+        <div class="col-md-6 rounded d-flex align-items-center justify-contente-center" v-if="editable.img">
+<img :src="editable?.img" alt="recipe image" title="recipe image" class="img-fluid rounded elevation-3  ">
               </div>
-              <div v-else></div>
+              <div v-else class="col-md-6 rounded d-flex align-items-center justify-content-center flex-column" >
+                <img src="https://glfoods.com.au/wp-content/uploads/2018/11/iStock-852068056.jpg" alt="" class="img-fluid rounded elevation-3">
+                <div><h4>Recipe Image (default)</h4></div>
+              </div>
               </div>
               
             </div>

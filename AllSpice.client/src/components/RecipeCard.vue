@@ -32,9 +32,9 @@
         ></i>
       </span>
 
-      <span class="position-absolute top-0 end-0 me-2 hoverOver bg-transparent"
+      <span class="position-absolute top-0 end-0 me-2 hoverOver bg-transparent" 
         ><i
-          class="mdi mdi-heart-circle fs-2 text-danger no-select"
+          class="mdi mdi-heart-circle fs-2 text-danger no-select"   
           @click="favoriteRecipe()"
         ></i>
       </span>
@@ -111,6 +111,7 @@ export default {
   transition: all 0.5s ease;
 }
 .card:hover{
+  filter: brightness(80%);
   transition: all 0.5s ease;
     box-shadow: rgba(240, 169, 46, 0.4) 5px 5px, rgba(240, 140, 46, 0.3) 10px 10px,
     rgba(240, 172, 46, 0.2) 15px 15px, rgba(240, 185, 46, 0.1) 20px 20px,
@@ -129,6 +130,7 @@ export default {
     transition:  1.5s ease;
 }
 .cardText:hover{
+  filter: brightness(114%);
  border-bottom:  4px solid red;
 text-decoration: underline red;
 transition: all 0.5s ease;
@@ -148,6 +150,7 @@ transition: all 0.5s ease;
 .hoverOver:hover{
   transform: rotate(360deg);
   transition: all 0.75s ease;
+  filter: brightness(200%);
  
 
 }

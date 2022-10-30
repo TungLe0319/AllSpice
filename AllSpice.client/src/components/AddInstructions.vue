@@ -1,8 +1,8 @@
 <template>
-  <form @submit.prevent="editInstruction()">
-     <div class="input-group">
+  <form @submit.prevent="editInstruction()" >
+     <div class="input-group  bg-transparent  ">
 
-    <textarea type="text" name="instructions" class="rounded" v-model="editable.instructions"></textarea>
+    <textarea type="text" name="instructions" class="rounded  px-5" v-model="editable.instructions"></textarea>
     <button class="btn btn-success rounded" type="submit">Edit</button>
   </div>
   </form>

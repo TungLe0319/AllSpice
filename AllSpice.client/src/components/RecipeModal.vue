@@ -45,8 +45,9 @@
                       <div class="card-body bg-custom2">
                         <p>{{ recipe?.instructions }}</p>
                       </div>
-                      <div class="card-footer d-flex justify-content-end bg-custom3">
+                      <div class="bg-transparent d-flex justify-content-center  bg-custom3 p-md-0 m-md-0   ">
             
+                        
                         <AddInstructions/>
                       </div>
                     </div>
@@ -65,7 +66,7 @@
                         </div>
                       </div>
 
-                      <div class="card-footer bg-custom3">
+                      <div class="card-footer bg-custom3   ">
                         <AddIngredient />
                       </div>
                     </div>
