@@ -19,7 +19,7 @@
       <div class="col-md-12"></div>
     </div>
     <div class="row">
-      <div class="col-md-3" v-for="r in recipes" v-if="recipes" v-motion-fade-visible >
+      <div class="col-md-3" v-for="r in recipes" v-motion-fade-visible  :class="recipes.length <=2? 'col-md-12':'col-md-3'">
         <RecipeCard :recipe="r" :key="r.id" />
       </div>
     </div>
@@ -38,7 +38,7 @@ import InstructionsModal from "../components/InstructionsModal.vue";
 import RecipeForm from "../components/RecipeForm .vue";
 import { accountService } from "../services/AccountService.js";
 import { favoritesService } from "../services/FavoritesService.js";
-
+ 
 import { recipesService } from "../services/RecipesService.js";
 import Pop from "../utils/Pop.js";
 

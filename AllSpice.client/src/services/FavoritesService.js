@@ -12,6 +12,7 @@ class FavoritesService {
     let favRecipe = new FavRecipe(res.data);
 
     AppState.favorites = [favRecipe, ...AppState.favorites];
+
     console.log(AppState.favorites);
   }
   async removeFavoriteRecipe(favoriteId) {

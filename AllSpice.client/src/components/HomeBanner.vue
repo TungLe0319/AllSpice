@@ -4,7 +4,7 @@
   >
     <Login />
     <div class="categoryBar position-absolute bg-light elevation-5  rounded">
-      <div class="d-flex justify-content-between">
+      <div class="d-flex justify-content-center ">
         <span>
           <button
             class="btn filterbtn fbg-transparent "
@@ -16,7 +16,7 @@
         >
         <span>
           <button
-            class="btn filterbtn bg-transparent"
+            class="btn filterbtn  bg-transparent"
             @click="getFavoriteRecipes()"
           >
             <h3>Favorites</h3>
@@ -50,14 +50,7 @@ export default {
     });
 
     return {
-      async filterByCategory(filter) {
-        console.log("hi");
-        if (filter == "Cheese") {
-          AppState.recipes = AppState.recipes.filter(
-            (r) => r.category == "Cheese"
-          );
-        }
-      },
+
       async getFavoriteRecipes() {
         try {
           await accountService.getFavoriteRecipes();
@@ -98,15 +91,16 @@ export default {
 }
 
 .categoryBar {
-  width: 35vw;
+  border: 0;
+  width: auto;
   bottom: -30px;
-  left: 26vw;
+  left: 34vw;
 }
 
 
 .filterbtn:focus {
   background: linear-gradient(to bottom right, #ffbb00, #ff5e00);
-
+border-radius: 0px;
   color: #ffffff;
   cursor: pointer;
   display: inline-block;

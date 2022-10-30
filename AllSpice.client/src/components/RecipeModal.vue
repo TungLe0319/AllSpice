@@ -14,11 +14,11 @@
         <div class="modal-body FORM p-0 position-relative">
           <div class="container-fluid" v-if="recipe">
             <div class="row">
-              <div class="col-md-4 p-0">
+              <div class="col-md-4 p-0 ">
                 <img
                   :src="recipe?.img"
                   alt=""
-                  class="img-fluid rounded-start"
+                  class="img-fluid rounded-start img1"
                 />
               </div>
               <div class="col-md-8">
@@ -36,7 +36,7 @@
                 >
                 <div class="row h-100">
                   <div class="col-md-6">
-                    <div class="card elevation-4 border-0 h-75">
+                    <div class="card elevation-4 border-0 ">
                       <div
                         class="card-title bg-custom mb-0 p-1 rounded-top elevation-1 text-center"
                       >
@@ -53,7 +53,7 @@
                     </div>
                   </div>
                   <div class="col-md-6">
-                    <div class="card elevation-4 border-0 h-75">
+                    <div class="card elevation-4 border-0 ">
                       <div
                         class="card-title bg-custom p-1 mb-0 rounded-top elevation-1 text-center"
                       >
@@ -166,4 +166,12 @@ color: purple;
 font-weight: 700;
 }
 
+.img1{
+  height: 80vh;
+  width: 400px ;
+  object-fit: cover;
+}
+@media screen  and (max-width: 600px) {
+  
+}
 </style>

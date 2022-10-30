@@ -2,6 +2,8 @@ namespace AllSpice.Repositories;
 
 public class RecipesRepository : BaseRepository
 {
+
+
   public RecipesRepository(IDbConnection db) : base(db)
   {
   }
@@ -23,6 +25,7 @@ public class RecipesRepository : BaseRepository
     string sql = @"
             SELECT
             rec.*,
+            
             COUNT(fav.id) AS FavoriteCount,
             a.*
             FROM recipes rec

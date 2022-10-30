@@ -24,9 +24,20 @@ CREATE TABLE
         FOREIGN KEY(creatorId) REFERENCES accounts(id) ON DELETE CASCADE
     ) default charset utf8 COMMENT '';
 
-DELETE FROM recipes WHERE id = 23;
 
-SELECT * FROM recipes WHERE id = 23;
+SELECT
+    rec.*,
+    
+    COUNT(fav.id) AS favoriteCount,
+    a.*
+FROM recipes rec
+    JOIN accounts a ON a.id = rec.creatorId
+LEFT JOIN favorites fav ON fav.recipeId = rec.id 
+    
+GROUP BY rec.id;
+
+
+
 
 CREATE TABLE
     IF NOT EXISTS ingredients(

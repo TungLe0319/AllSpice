@@ -19,6 +19,15 @@ public class FavoritesRepository : BaseRepository
     return newFavorite;
   }
 
+  internal Favorite GetFavoriteByAccountAndRecipe(Favorite newFavorite)
+  {
+     string sql = @"
+             SELECT * FROM favorites 
+             WHERE recipeId = @recipeId AND accountId = @accountId
+                  ;";
+                  return _db.Query<Favorite>(sql,newFavorite).FirstOrDefault();
+  }
+
   internal List<FavRecipe> GetByAccountId(string accountId)
   {
     string sql = @"

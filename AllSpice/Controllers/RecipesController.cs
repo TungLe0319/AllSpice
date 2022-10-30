@@ -39,10 +39,12 @@ public class RecipesController : ControllerBase
   }
 
   [HttpGet]
-  public ActionResult<List<Recipe>> GetAllRecipes()
+  public async Task<ActionResult<List<Recipe>>> GetAllRecipes()
   {
     try
     {
+     
+  
       List<Recipe> recipes = _rs.GetAllRecipes();
       return Ok(recipes);
     }

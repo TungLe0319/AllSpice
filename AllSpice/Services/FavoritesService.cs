@@ -13,27 +13,24 @@ public class FavoritesService
   internal Favorite CreateFavorite(Favorite newFavorite)
   {
 
-    // List<FavRecipe> favs = _favoritesRepo.GetByAccountId(newFavorite.AccountId);
-    // foreach (var fav in favs)
+    Favorite favoriteRecipe = _favoritesRepo.GetFavoriteByAccountAndRecipe(newFavorite);
+    if (favoriteRecipe != null)
+    {
+      throw new Exception("already Favorited");
+      //---------------------------------------------------------------------------------//
+
+    }
+    // -------------------------------------------------------------------------------------------------//
+    // List<FavRecipe> favoriteRecipes = _favoritesRepo.GetByAccountId(newFavorite.AccountId);
+    // foreach (var f in favoriteRecipes)
     // {
-    //   if (fav.RecipeId == newFavorite.RecipeId)
+    //   if (f.RecipeId == newFavorite.RecipeId)
     //   {
-   
+    //     throw new Exception("already favorited");
     //   }
     // }
-
-    // Recipe recipe = _recipeRepo.GetById(newFavorite.RecipeId);
-
-
-
     Favorite favorite = _favoritesRepo.CreateFavorite(newFavorite);
-    // favorite.Favorited = true;
-    
-
     return favorite;
-
-
-
   }
 
 
@@ -54,7 +51,7 @@ public class FavoritesService
 
   }
 
-  private Favorite GetFavoriteById(int favoriteId)
+  internal Favorite GetFavoriteById(int favoriteId)
   {
     Favorite foundFavorite = _favoritesRepo.GetFavoriteById(favoriteId);
     if (foundFavorite == null)
@@ -68,4 +65,7 @@ public class FavoritesService
 
     return foundFavorite;
   }
+
+
+
 }

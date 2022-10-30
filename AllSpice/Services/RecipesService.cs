@@ -18,8 +18,6 @@ public class RecipesService
   internal List<Recipe> GetAllRecipes()
 
   {
-    
-    
     return _recipesRepo.GetAllRecipes();
   }
 

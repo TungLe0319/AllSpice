@@ -56,7 +56,7 @@ class RecipesService {
     const res = await api.get("api/recipes");
     console.log(res.data);
     AppState.recipes = res.data.map((r) => new Recipe(r));
-    AppState.recipes.filter((r) => r.creator.id == AppState.account.id);
+    AppState.recipes =  AppState.recipes.filter((r) => r.creator.id == AppState.account.id);
   }
 }
 export const recipesService = new RecipesService();

@@ -21,13 +21,14 @@ class AccountService {
     AppState.recipes  = res.data.map((r) => new Recipe(r));
     
 
-
-    // console.log(AppState.recipes);
+    console.log(AppState.recipes);
   }
   async getAllFavorites() {
     const res = await api.get('/account/favorites')
+    console.log(res.data);
     AppState.favoriteIds = res.data.map(f=> new FavRecipe(f))
-    // console.log(AppState.favoriteIds);
+
+    console.log(AppState.favoriteIds);
   }
 }
 
