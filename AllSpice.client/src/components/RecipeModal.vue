@@ -38,7 +38,7 @@
                   <div class="col-md-6">
                     <div class="card">
                       <div
-                        class="card-title bg-info p-1 rounded elevation-1 text-center"
+                        class="card-title bg-info p-1 rounded-top elevation-1 text-center"
                       >
                         <p class="p-md-0 m-md-0">Recipe Instructions</p>
                       </div>
@@ -52,23 +52,22 @@
                           data-bs-toggle="modal"
                           data-bs-target="#instructionsModal"
                         >
-                         <i class="mdi mdi-plus fs-4"></i>
+                          <i class="mdi mdi-plus fs-4"></i>
                         </button>
-                   
                       </div>
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="card">
                       <div
-                        class="card-title bg-info p-1 rounded elevation-1 text-center"
+                        class="card-title bg-info p-1 rounded-top elevation-1 text-center"
                       >
                         <p class="p-md-0 m-md-0">Recipe Ingredients</p>
                       </div>
-                      <div class="card-body">
+                      <div class="card-body d-flex text-center">
                         <div v-for="i in ingredients" :key="i.id">
-                          <span>{{ i.name }}</span>
-                          <span>{{ i.quantity }}</span>
+                          <span class="me-2">{{ i.name }}</span>
+                          <span>({{ i.quantity }})</span>
                         </div>
                       </div>
 

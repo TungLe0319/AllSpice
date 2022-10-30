@@ -19,7 +19,7 @@ CREATE TABLE
         instructions VARCHAR(1000) NOT NULL,
         img VARCHAR(255) NOT NULL,
         category VARCHAR(255) NOT NULL,
-        favorited TINYINT DEFAULT 0,
+       
         creatorId VARCHAR(255) NOT NULL,
         FOREIGN KEY(creatorId) REFERENCES accounts(id) ON DELETE CASCADE
     ) default charset utf8 COMMENT '';

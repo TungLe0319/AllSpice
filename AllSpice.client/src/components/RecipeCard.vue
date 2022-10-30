@@ -21,20 +21,20 @@
         data-bs-toggle="modal"
       >
         <p class="card-title">{{ recipe?.title }}</p>
-
-        {{}}
       </span>
       <!-- NOTE FAVORITE A RECIPE -->
-      <span class="position-absolute top-0 end-0"
-        ><i
-          class="mdi mdi-heart fs-2 text-danger no-select selectable"
-          @click="favoriteRecipe()"
-        ></i>
-      </span>
-      <span class="position-absolute top-0 end-50"
+
+      <span class="position-absolute top-0 end-0" 
         ><i
           class="mdi mdi-star fs-2 text-primary no-select selectable"
           @click="removeFavoriteRecipe()"
+        ></i>
+      </span>
+  
+      <span class="position-absolute top-0 end-50"
+        ><i
+          class="mdi mdi-heart fs-2 text-danger no-select selectable"
+          @click="favoriteRecipe()"
         ></i>
       </span>
     </div>
@@ -58,6 +58,9 @@ export default {
 
   setup(props) {
     return {
+      favorites: computed(() =>
+        AppState.favoriteIds.find((f) => f.recipeId == props.recipe.id)
+      ),
       setActiveRecipe() {
         recipesService.setActiveRecipe(props.recipe);
       },
@@ -68,17 +71,9 @@ export default {
             recipeId: props.recipe.id,
           };
 
-          if (props.recipe.favorited == false) {
-            await favoritesService.favoriteRecipe(recipeId, props.recipe.id);
-            props.recipe.favorited = true;
-            Pop.success("Favorited");
-          } else {
-            await favoritesService.removeFavoriteRecipe(
-              props.recipe.favoriteId,
-              props.recipe.id
-            );
-            Pop.success("Removed");
-          }
+          await favoritesService.favoriteRecipe(recipeId);
+
+          Pop.success("Favorited");
         } catch (error) {
           Pop.error(error);
         }

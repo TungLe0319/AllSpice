@@ -33,6 +33,7 @@ public class RecipesRepository : BaseRepository
     return _db.Query<Recipe, Profile, Recipe>(sql, (recipe, profile) =>
     {
       recipe.Creator = profile;
+      
       return recipe;
     }).ToList();
   }

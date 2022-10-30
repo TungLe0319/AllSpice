@@ -17,7 +17,7 @@
         >
         <span>
           <button class="btn btn-primary" @click="getMyRecipes()">
-            Cheese
+            My Recipes
           </button></span
         >
       </div>

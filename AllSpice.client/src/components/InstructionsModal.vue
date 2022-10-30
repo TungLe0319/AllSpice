@@ -6,37 +6,25 @@
     aria-labelledby="Label"
     aria-hidden="true"
   >
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content bg-dark">
-        <div class="modal-body FORM">
-          <!-- -------------------SECTION FORM----------------------------------- -->
-          <form @submit.prevent="addInstructions()" class="">
-            <div class="input-group">
-              <input
-                type="text"
-                name="instructions"
-                class="rounded"
-                v-model="editable.name"
-              />
-              <input
-                type="text"
-                name="instructions"
-                class="rounded"
-                v-model="editable.quantity"
-              />
-            </div>
+    <div class="modal-dialog modal-dialog-centered ">
+      <div class="modal-content ">
+        <div class="modal-body FORM d-flex justify-content-center flex-column align-items-center">
+         <div class="row justify-content-center" >
 
-            <div class="my-3">
-              <button
-                class="btn btn-success selectable"
-                type="submit"
-                data-bs-toggle="modal"
-                data-bs-target="#recipeModal"
-              >
-                Submit
-              </button>
-            </div>
-          </form>
+          <div class="col-md-6 " >
+          <h6 v-if="recipe">   {{recipe.instructions}}</h6>
+          <h6 >  {{editable.instructions}}</h6>
+          </div>
+         </div>
+          <!-- -------------------SECTION FORM----------------------------------- -->
+          <form @submit.prevent="addInstruction()">
+     <div class="input-group">
+
+    <textarea type="text" name="instructions" class="rounded" v-model="editable.instructions"></textarea>
+    <button class="btn btn-success" type="submit">submit</button>
+  </div>
+  </form>
+ 
         </div>
       </div>
     </div>
@@ -44,8 +32,10 @@
 </template>
 
 <script>
+import { computed } from "@vue/reactivity";
 import { ref, watchEffect } from "vue";
 import { AppState } from "../AppState.js";
+import { recipesService } from "../services/RecipesService.js";
 import Pop from "../utils/Pop.js";
 
 export default {
@@ -56,10 +46,11 @@ export default {
       // editable.value = { ...AppState.account };
     });
     return {
+      recipe : computed(()=>AppState.activeRecipe),
       editable,
-      async addIngredient() {
+      async addInstruction() {
         try {
-          await ingredientsService.addIngredient(editable.value);
+          await recipesService.editRecipe(editable.value,AppState.activeRecipe.id);
         } catch (error) {
           Pop.error(error);
         }

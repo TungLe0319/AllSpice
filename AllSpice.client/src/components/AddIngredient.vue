@@ -1,5 +1,5 @@
 <template>
-  <!-- <form @submit.prevent="addIngredient()">
+  <form @submit.prevent="addIngredient()">
     <div class="input-group">
       <input
         type="text"
@@ -15,7 +15,7 @@
       />
     </div>
     <button class="btn btn-success" type="submit">submit</button>
-  </form> -->
+  </form>
 </template>
 
 <script>

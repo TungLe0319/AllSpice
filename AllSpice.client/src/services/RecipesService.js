@@ -7,10 +7,9 @@ class RecipesService {
   async getAllRecipes() {
     const res = await api.get("api/recipes");
     console.log(res.data);
+
     AppState.recipes = res.data.map((r) => new Recipe(r));
-    console.log(AppState.recipes);
-    // let fav = AppState.favorites
-    console.log(AppState.favorites);
+
   }
 
   async getIngredientsByRecipeId(recipeId) {
@@ -36,9 +35,9 @@ class RecipesService {
     AppState.recipes = [newRecipe, ...AppState.recipes];
   }
   async removeRecipe(recipeId) {
-     await api.delete(`api/recipes/${recipeId}`);
-   let recipe = AppState.recipes.findIndex(r=> r.id == recipeId)
-  AppState.recipes.splice(recipe,1)
+    await api.delete(`api/recipes/${recipeId}`);
+    let recipe = AppState.recipes.findIndex((r) => r.id == recipeId);
+    AppState.recipes.splice(recipe, 1);
   }
 
   async editRecipe(recipeId, recipeData) {

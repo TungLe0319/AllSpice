@@ -13,15 +13,21 @@ public class FavoritesService
   internal Favorite CreateFavorite(Favorite newFavorite)
   {
 
-    if (newFavorite.Favorited)
-    {
-      throw new Exception("Invalid Id [example]");
-    }
+    // List<FavRecipe> favs = _favoritesRepo.GetByAccountId(newFavorite.AccountId);
+    // foreach (var fav in favs)
+    // {
+    //   if (fav.RecipeId == newFavorite.RecipeId)
+    //   {
+    //  _favoritesRepo.RemoveFavorite(newFavorite);
+    //   }
+    // }
+
+    // Recipe recipe = _recipeRepo.GetById(newFavorite.RecipeId);
 
 
 
     Favorite favorite = _favoritesRepo.CreateFavorite(newFavorite);
-    favorite.Favorited = true;
+    // favorite.Favorited = true;
 
     return favorite;
 

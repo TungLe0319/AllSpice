@@ -5,19 +5,16 @@ import { api } from "./AxiosService.js";
 import { recipesService } from "./RecipesService.js";
 
 class FavoritesService {
-  async favoriteRecipe(recipeId,recipeIdString) {
+  async favoriteRecipe(recipeId) {
     console.log(recipeId);
     const res = await api.post("api/favorites", recipeId);
-    // let recipe = AppState.recipes.find(r => r.id == recipeIdString)
-    // console.log(recipe);
-    // recipe.favorited = true
+
     let favRecipe = new FavRecipe(res.data);
-    favRecipe.favorited = true
-    console.log(res.data);
+
     AppState.favorites = [favRecipe, ...AppState.favorites];
     console.log(AppState.favorites);
   }
-  async removeFavoriteRecipe(favoriteId, recipeId) {
+  async removeFavoriteRecipe(favoriteId) {
     await api.delete(`api/favorites/${favoriteId}`);
     AppState.favorites = AppState.favorites.filter((f) => f.id != favoriteId);
     AppState.recipes = AppState.recipes.filter(
@@ -25,8 +22,8 @@ class FavoritesService {
     );
   }
 
-  async getAllFavorites(){
-const res = await api.get;
+  async getAllFavorites() {
+    const res = await api.get;
   }
 }
 export const favoritesService = new FavoritesService();
