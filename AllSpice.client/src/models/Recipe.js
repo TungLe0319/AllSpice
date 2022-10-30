@@ -1,3 +1,4 @@
+import { AppState } from "../AppState.js";
 import { Account } from "./Account.js";
 
 export class Recipe {
@@ -6,13 +7,20 @@ export class Recipe {
     this.title = data.title;
     this.img = data.img;
     this.instructions = data.instructions;
-    // this.ingredients = data.ingredients;
+    this.createdAt = data.createdAt;
     this.creator = new Account(data.creator);
     this.creatorId = data.creatorId;
-
+    this.favoriteCount = data.favoriteCount;
     this.category = data.category;
-    this.favorited = data.favorited || false;
-this.favoriteId=data.favoriteId || null
-    // this.accountId = data.accountId;
+    this.favorited = getFavorite(data.id);
+    this.favoriteId = data.favoriteId || null;
   }
+}
+
+function getFavorite(id) {
+  let fav = AppState.favorites.find((f) => f.recipeId == id);
+  if (fav) {
+    return true;
+  }
+  return false;
 }

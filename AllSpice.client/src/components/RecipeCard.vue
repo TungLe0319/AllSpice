@@ -7,11 +7,13 @@
       :src="recipe?.img"
       :alt="recipe?.title"
       :title="recipe?.title + 'Img'"
-      class="forcedImg card-img"
+      class="forcedImg card-img favoriteShadow"
+  
     />
 
     <div
       class="card-img-overlay flex-column d-flex justify-content-end align-items-center"
+         :class="favorited? 'favoriteShadow':''"
     >
       <!-- NOTE SET ACTIVE RECIPE -->
       <span
@@ -20,30 +22,18 @@
         @click="setActiveRecipe()"
         data-bs-target="#recipeModal"
         data-bs-toggle="modal"
+
       >
         <p class="card-title">{{ recipe?.title }}</p>
       </span>
       <!-- NOTE FAVORITE A RECIPE -->
-
-      <span
-        class="position-absolute top-0 end-0 m-1 hoverOver"
-        v-if="recipe?.favorited"
-        ><i
-          class="mdi mdi-minus-box fs-1 text-danger no-select"
-          @click="removeFavoriteRecipe()"
-        ></i>
-      </span>
-
-      <span
-        class="position-absolute top-0 end-0 m-1 bg-transparent"
-        v-if="!recipe?.favorited"
-      >
+   <FavoriteButton/>
+      <span class="position-absolute top-75 end-0 m-1 bg-transparent">
         <img
           id="favImg"
-          src="https://cdn-icons-png.flaticon.com/512/3237/3237427.png"
+          src="https://cdn-icons-png.flaticon.com/512/4729/4729341.png"
           alt=""
-          class="hoverOver"
-          @click="favoriteRecipe()"
+          class=""
           height="30"
           width="30"
         />
@@ -69,12 +59,13 @@ export default {
   },
 
   setup(props) {
-    watchEffect(() => {
-      AppState.recipes = AppState.recipes;
-    });
+    // watchEffect(() => {
+    //   AppState.recipes = AppState.recipes;
+    // });
     return {
+      creator: computed(() => AppState.account.id == props.recipe.creator.id),
       favorited: computed(() =>
-        AppState.favoriteIds.find((f) => f.recipeId == props.recipe.id)
+        AppState.favorites.find((f) => f.id == props.recipe.id)
       ),
       setActiveRecipe() {
         recipesService.setActiveRecipe(props.recipe);
@@ -82,21 +73,8 @@ export default {
 
       async favoriteRecipe() {
         try {
-          const recipeId = {
-            recipeId: props.recipe.id,
-          };
-          let foundRecipe = AppState.recipes.find(
-            (r) => r.id == props.recipe.id
-          );
-
-          if (props.recipe.favorited == false) {
-            foundRecipe.favorited = true;
-            props.recipe.favorited = true;
-            await favoritesService.favoriteRecipe(recipeId);
-            Pop.success("Favorited");
-          } else {
-            await favoritesService.removeFavoriteRecipe(foundRecipe.favoriteId);
-          }
+          await favoritesService.favoriteRecipe(props.recipe);
+          Pop.success("Favorited");
         } catch (error) {
           Pop.error(error);
         }
@@ -104,7 +82,14 @@ export default {
 
       async removeFavoriteRecipe() {
         try {
-          await favoritesService.removeFavoriteRecipe(props.recipe.favoriteId);
+          let id = this.favorited.favoriteId;
+          console.log(this.favorited);
+
+          const yes = await Pop.confirm();
+          if (!yes) {
+            return;
+          }
+          await favoritesService.removeFavoriteRecipe(id);
           Pop.success("Removed");
         } catch (error) {
           Pop.error(error);
@@ -147,7 +132,6 @@ export default {
   font-weight: 600;
   letter-spacing: 0.04rem;
 
-  transition: 1.5s ease;
 }
 .cardText:hover {
   filter: brightness(114%);
@@ -168,5 +152,15 @@ export default {
 .hoverOver:hover {
   transform: rotate(180deg) scale(1.1);
   transition: all 0.75s ease;
+}
+
+.favoriteShadow{
+  box-shadow: 1px 2px 16px 8px rgba(245,179,9,0.75) inset;
+-webkit-box-shadow: 1px 2px 16px 8px rgba(245,179,9,0.75) inset;
+-moz-box-shadow: 1px 2px 16px 8px rgba(245,179,9,0.75) inset;
+}
+
+.card-img{
+  
 }
 </style>

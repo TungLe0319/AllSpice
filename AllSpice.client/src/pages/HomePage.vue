@@ -19,8 +19,8 @@
       <div class="col-md-12"></div>
     </div>
     <div class="row">
-      <div class="col-md-3" v-for="r in recipes" v-motion-fade-visible  :class="recipes.length <=2? 'col-md-12':'col-md-3'">
-        <RecipeCard :recipe="r" :key="r.id" />
+      <div class="col-md-3" v-for="r in recipes" :class="recipes.length <=5? 'col-md-12':'col-md-3'">
+        <RecipeCard :recipe="r" :key="r.id" v-motion-fade />
       </div>
     </div>
   </div>

@@ -5,28 +5,34 @@ import { api } from "./AxiosService.js";
 import { recipesService } from "./RecipesService.js";
 
 class FavoritesService {
-  async favoriteRecipe(recipeId) {
-    console.log(recipeId);
-    const res = await api.post("api/favorites", recipeId);
+  async favoriteRecipe(recipe) {
+    let newFav = {};
+    newFav.recipeId = recipe.id;
 
-    let favRecipe = new FavRecipe(res.data);
+   
+    const res = await api.post("api/favorites", newFav);
 
-    AppState.favorites = [favRecipe, ...AppState.favorites];
+    recipe.favoriteId = res.data.id;
+recipe.favorited= true
+    AppState.favorites.push(recipe);
 
     console.log(AppState.favorites);
   }
   async removeFavoriteRecipe(favoriteId) {
+    console.log(favoriteId,"service");
     await api.delete(`api/favorites/${favoriteId}`);
-    AppState.favorites = AppState.favorites.filter((f) => f.id != favoriteId);
-    AppState.recipes = AppState.recipes.filter(
-      (r) => r.favoriteId != favoriteId
-    );
+
+    let index = AppState.favorites.findIndex(f=> f.favoriteId == favoriteId)
+    AppState.favorites.splice(index,1)
+    // AppState.favorites = AppState.favorites.filter((f) => f.id != favoriteId);
+    // AppState.recipes = AppState.recipes.filter(
+    //   (r) => r.favoriteId != favoriteId
+    // );
   }
 
   async getAllFavorites(recipeId) {
-    const res = await api.get('api/favorites',recipeId);
-    AppState.favoriteIds = res.data.map(f=> new FavRecipe(f))
-
+    const res = await api.get("api/favorites", recipeId);
+    AppState.favoriteIds = res.data.map((f) => new FavRecipe(f));
   }
 }
 export const favoritesService = new FavoritesService();

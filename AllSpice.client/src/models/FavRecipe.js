@@ -3,7 +3,7 @@ import { Recipe } from "./Recipe.js";
 
 export class FavRecipe  {
   constructor(data) {
-    this.favoriteId = data.id;
+    this.id = data.id;
     this.recipeId = data.recipeId;
     this.accountId = data.accountId;
   }
