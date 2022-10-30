@@ -6,10 +6,13 @@
     aria-labelledby="Label"
     aria-hidden="true"
   >
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content ">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content  ">
         <div class="modal-body FORM">
-          <div class="p-2 bg-success"><h4> New Recipe</h4></div>
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-md-6">
+                        <div class=" "><h2> New Recipe</h2></div>
           <!-- -------------------SECTION FORM----------------------------------- -->
           <form @submit.prevent="handleSubmit()" class="">
         
@@ -43,6 +46,15 @@
             </div>
           </form>
         </div>
+        <div class="col-md-6 rounded" v-if="editable.img">
+<img :src="editable?.img" alt="recipe image" title="recipe image" class="img-fluid ">
+              </div>
+              <div v-else></div>
+              </div>
+              
+            </div>
+          </div>
+  
       </div>
     </div>
   </div>

@@ -18,7 +18,7 @@ public class FavoritesService
     // {
     //   if (fav.RecipeId == newFavorite.RecipeId)
     //   {
-    //  _favoritesRepo.RemoveFavorite(newFavorite);
+   
     //   }
     // }
 
@@ -28,6 +28,7 @@ public class FavoritesService
 
     Favorite favorite = _favoritesRepo.CreateFavorite(newFavorite);
     // favorite.Favorited = true;
+    
 
     return favorite;
 

@@ -7,5 +7,6 @@ export class FavRecipe {
 // this.favorited=data.favorited || false;
     this.recipeId = data.recipeId;
     this.accountId = data.accountId;
+    
   }
 }

@@ -23,58 +23,58 @@
               </div>
               <div class="col-md-8">
                 <span
-                  class="position-absolute selectable no-select end-0 top-0 deleteIcon"
+                  class="position-absolute  end-0 top-0 deleteIcon"
                   ><i
-                    class="mdi mdi-delete fs-2"
+                    class="mdi mdi-alpha-x-circle-outline hoverOver  text-danger m-2 fs-2"
                     @click="removeRecipe()"
                     data-bs-dismiss="modal"
                   ></i
                 ></span>
-                <span
-                  ><h5>{{ recipe?.title }}</h5>
-                  <p>{{ recipe?.category }}</p></span
+                <span class="d-flex align-items-center p-1 rounded no-select "
+                  ><h3 class="text-custom p-2">{{ recipe?.title }}</h3>
+                  <p class="bg-secondary p-1 mt-1 rounded fw-bold ">{{ recipe?.category }}</p></span
                 >
-                <div class="row">
+                <div class="row h-100">
                   <div class="col-md-6">
-                    <div class="card">
+                    <div class="card elevation-4 border-0 h-75">
                       <div
-                        class="card-title bg-info p-1 rounded-top elevation-1 text-center"
+                        class="card-title bg-custom mb-0 p-1 rounded-top elevation-1 text-center"
                       >
-                        <p class="p-md-0 m-md-0">Recipe Instructions</p>
+                        <h3 class="p-md-0 m-md-0 text-light">Recipe Instructions</h3>
                       </div>
-                      <div class="card-body">
+                      <div class="card-body bg-custom2">
                         <p>{{ recipe?.instructions }}</p>
                       </div>
-                      <div class="card-footer d-flex justify-content-end">
-                        <button
-                          class="btn btn-success"
-                          type="submit"
-                          data-bs-toggle="modal"
-                          data-bs-target="#instructionsModal"
-                        >
-                          <i class="mdi mdi-plus fs-4"></i>
-                        </button>
+                      <div class="card-footer d-flex justify-content-end bg-custom3">
+            
+                        <AddInstructions/>
                       </div>
                     </div>
                   </div>
                   <div class="col-md-6">
-                    <div class="card">
+                    <div class="card elevation-4 border-0 h-75">
                       <div
-                        class="card-title bg-info p-1 rounded-top elevation-1 text-center"
+                        class="card-title bg-custom p-1 mb-0 rounded-top elevation-1 text-center"
                       >
-                        <p class="p-md-0 m-md-0">Recipe Ingredients</p>
+                        <h3 class="p-md-0 m-md-0 text-light">Recipe Ingredients</h3>
                       </div>
-                      <div class="card-body d-flex text-center">
+                      <div class="card-body  bg-custom2">
                         <div v-for="i in ingredients" :key="i.id">
                           <span class="me-2">{{ i.name }}</span>
                           <span>({{ i.quantity }})</span>
                         </div>
                       </div>
 
-                      <div class="card-footer">
+                      <div class="card-footer bg-custom3">
                         <AddIngredient />
                       </div>
                     </div>
+                  </div>
+                </div>
+                <div class="col-md-12 d-flex justify-content-end align-items-end">
+                  <div class="position-absolute bottom-0 d-flex align-items-center ">
+                    <p class="text-secondary mb-md-0 ">published By   <b class=" text-decoration-underline"> @{{recipe?.creator.name.split("@")[0]}}</b> </p>
+                    <img :src="recipe?.creator.picture" alt="creator profile picture " :title="recipe.creator.name +'picture'" class="rounded-circle  ms-2 mb-1" height="40">
                   </div>
                 </div>
               </div>
@@ -99,6 +99,7 @@ import { recipesService } from "../services/RecipesService.js";
 import Pop from "../utils/Pop.js";
 import AddIngredient from "./AddIngredient.vue";
 import AddInstructions from "./AddInstructions.vue";
+
 
 export default {
   props: {
@@ -142,12 +143,26 @@ export default {
       },
     };
   },
-  components: { AddInstructions, AddIngredient },
+  components: { AddInstructions, AddIngredient, AddInstructions },
 };
 </script>
 
 <style lang="scss" scoped>
 .modal-body {
-  box-shadow: 1px 1px 10px rgba(243, 236, 236, 0.308);
+    box-shadow: rgba(240, 169, 46, 0.4) 5px 5px, rgba(240, 140, 46, 0.3) 10px 10px,
+    rgba(240, 172, 46, 0.2) 15px 15px, rgba(240, 185, 46, 0.1) 20px 20px,
+    
 }
+
+.bg-custom{
+  background: #645273
+}
+.bg-custom2{
+  background:#f2f0f4
+}
+.text-custom{
+color: purple;
+font-weight: 700;
+}
+
 </style>

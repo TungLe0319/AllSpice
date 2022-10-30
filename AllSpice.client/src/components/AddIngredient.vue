@@ -4,13 +4,17 @@
       <input
         type="text"
         name="instructions"
-        class="rounded"
+        class="rounded border-success border-2"
+        required
+        placeholder="name"
         v-model="editable.name"
       />
       <input
         type="text"
         name="instructions"
+        required
         class="rounded"
+        placeholder="quantity"
         v-model="editable.quantity"
       />
     </div>
@@ -25,7 +29,7 @@ import { ingredientsService } from "../services/IngredientsService.js";
 import { recipesService } from "../services/RecipesService.js";
 import Pop from "../utils/Pop.js";
 
-export default {
+export default { 
   props: {},
 
   setup(props) {
@@ -37,6 +41,7 @@ export default {
         try {
 
            await ingredientsService.addIngredient(editable.value)
+           editable.value = {}
         } catch (error) {
           Pop.error(error);
         }

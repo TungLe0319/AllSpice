@@ -3,21 +3,28 @@
     class="card banner mt-2 border-0 mb-5 elevation-3 d-flex align-items-end justify-content-end"
   >
     <Login />
-    <div class="categoryBar position-absolute bg-light elevation-5 p-2 rounded">
+    <div class="categoryBar position-absolute bg-light elevation-5  rounded">
       <div class="d-flex justify-content-between">
         <span>
-          <button class="btn btn-primary" @click="getAllRecipes()">
-            Home
+          <button
+            class="btn filterbtn fbg-transparent "
+            id="homeBtn"
+            @click="getAllRecipes()"
+          >
+            <h3>Home</h3>
           </button></span
         >
         <span>
-          <button class="btn btn-primary" @click="getFavoriteRecipes()">
-            Favorites
+          <button
+            class="btn filterbtn bg-transparent"
+            @click="getFavoriteRecipes()"
+          >
+            <h3>Favorites</h3>
           </button></span
         >
         <span>
-          <button class="btn btn-primary" @click="getMyRecipes()">
-            My Recipes
+          <button class="btn filterbtn bg-transparent" @click="getMyRecipes()">
+            <h3>My Recipes</h3>
           </button></span
         >
       </div>
@@ -26,6 +33,7 @@
 </template>
 
 <script>
+import { onMounted } from "vue";
 import { AppState } from "../AppState.js";
 import { accountService } from "../services/AccountService.js";
 import { recipesService } from "../services/RecipesService.js";
@@ -34,6 +42,13 @@ import Login from "./Login.vue";
 
 export default {
   setup() {
+    function focus() {
+      document.getElementById("homeBtn").focus();
+    }
+    onMounted(() => {
+      focus();
+    });
+
     return {
       async filterByCategory(filter) {
         console.log("hi");
@@ -59,13 +74,12 @@ export default {
         }
       },
 
-    async  getMyRecipes() {
+      async getMyRecipes() {
         try {
-            await recipesService.getRecipesByAccountId()
-          } catch (error) {
-            Pop.error(error)
-          }
-   
+          await recipesService.getRecipesByAccountId();
+        } catch (error) {
+          Pop.error(error);
+        }
       },
     };
   },
@@ -84,8 +98,33 @@ export default {
 }
 
 .categoryBar {
-  width: 40vw;
-  bottom: -20px;
+  width: 35vw;
+  bottom: -30px;
   left: 26vw;
+}
+
+
+.filterbtn:focus {
+  background: linear-gradient(to bottom right, #ffbb00, #ff5e00);
+
+  color: #ffffff;
+  cursor: pointer;
+  display: inline-block;
+  font-family: "Baloo 2", cursive;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  line-height: 2.5;
+  outline: transparent;
+  text-align: center;
+  text-decoration: none;
+  transition: all 0.25s ease-in-out;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+  box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 1px, rgba(0, 0, 0, 0.07) 0px 2px 2px,
+    rgba(0, 0, 0, 0.07) 0px 4px 4px, rgba(0, 0, 0, 0.07) 0px 8px 8px,
+    rgba(0, 0, 0, 0.07) 0px 16px 16px;
 }
 </style>

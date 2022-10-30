@@ -8,6 +8,18 @@ body{
   overscroll-behavior: none;
 }
 
+.text-shadow2{
+  text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.459);
+}
+.hoverOver{
+  cursor: pointer;
+  transition: all 0.5s ease;
+}
+.hoverOver:hover{
+  transform: scale(1.05);
+
+  transition: all 0.5s ease;
+}
 #app {
   display: flex;
   flex-direction: column;

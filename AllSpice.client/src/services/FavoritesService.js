@@ -22,8 +22,10 @@ class FavoritesService {
     );
   }
 
-  async getAllFavorites() {
-    const res = await api.get;
+  async getAllFavorites(recipeId) {
+    const res = await api.get('api/favorites',recipeId);
+    AppState.favoriteIds = res.data.map(f=> new FavRecipe(f))
+
   }
 }
 export const favoritesService = new FavoritesService();
