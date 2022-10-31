@@ -1,4 +1,5 @@
 import { AppState } from "../AppState.js";
+import { Comment } from "../models/Comment.js";
 import { Ingredient } from "../models/Ingredient.js";
 import { Recipe } from "../models/Recipe.js";
 import { api } from "./AxiosService.js";
@@ -17,6 +18,13 @@ class RecipesService {
     console.log(res.data);
     AppState.ingredients = res.data.map((i) => new Ingredient(i));
     console.log(AppState.ingredients);
+  }
+
+
+  async getCommentsByRecipeId(recipeId){
+    const res = await api.get(`api/recipes/${recipeId}/comments`)
+    AppState.comments = res.data.map(c=> new Comment(c))
+    console.log(AppState.comments);
   }
 
   async getRecipeById(recipeId) {

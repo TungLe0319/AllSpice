@@ -67,4 +67,15 @@ public class CommentsRepository : BaseRepository
     return _db.QueryFirstOrDefault<Comment>(sql, new { commentId });
   }
 
+  internal List<Comment> GetCommentsByRecipe(int recipeId)
+  {
+
+    string sql = @"
+          SELECT 
+          *
+          FROM comments 
+          WHERE recipeId = @recipeId
+               ;";
+    return _db.Query<Comment>(sql, new { recipeId }).ToList();
+  }
 }

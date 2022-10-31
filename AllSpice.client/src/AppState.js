@@ -8,8 +8,7 @@ export const AppState = reactive({
 
   /** @type {import('./models/Recipe.js').Recipe[]} */
   recipes: [],
-  
-  
+
   /** @type {import('./models/Recipe.js').Recipe[]} */
   favorites: [],
 
@@ -20,5 +19,14 @@ export const AppState = reactive({
   /** @type {import('./models/Ingredient.js').Ingredient[]} */
   ingredients: [],
 
+  /** @type {import('./models/Comment.js').comments[]} */
+  comments: [],
 
+  categories: [
+    { name: "specialtyCoffee", id: 1 },
+    { name: "asian ", id: 2 },
+    { name: " mexican ", id: 3 },
+    { name: "italian", id: 4 },
+    { name: "mexican ", id: 5 },
+  ],
 });

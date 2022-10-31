@@ -16,6 +16,7 @@
           <h6 >  {{editable.instructions}}</h6>
           </div>
          </div>
+         
           <!-- -------------------SECTION FORM----------------------------------- -->
           <form @submit.prevent="addInstruction()">
      <div class="input-group">
@@ -46,6 +47,7 @@ export default {
       // editable.value = { ...AppState.account };
     });
     return {
+      
       recipe : computed(()=>AppState.activeRecipe),
       editable,
       async addInstruction() {

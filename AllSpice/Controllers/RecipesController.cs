@@ -9,15 +9,18 @@ public class RecipesController : ControllerBase
   private readonly Auth0Provider _auth0provider;
   private readonly RecipesService _rs;
   private readonly IngredientsService _is;
-  
+  private readonly CommentsService _cs;
 
-  public RecipesController(Auth0Provider auth0provider, RecipesService rs, IngredientsService @is)
+  private readonly InstructionsService _instructS;
+
+  public RecipesController(Auth0Provider auth0provider, RecipesService rs, IngredientsService @is, CommentsService cs, InstructionsService instructS)
   {
     _auth0provider = auth0provider;
     _rs = rs;
     _is = @is;
+    _cs = cs;
+    _instructS = instructS;
   }
-
 
   [HttpPost]
   [Authorize]
@@ -43,8 +46,9 @@ public class RecipesController : ControllerBase
   {
     try
     {
-     
-  
+      Account userInfo = await _auth0provider.GetUserInfoAsync<Account>(HttpContext);
+
+
       List<Recipe> recipes = _rs.GetAllRecipes();
       return Ok(recipes);
     }
@@ -77,7 +81,7 @@ public class RecipesController : ControllerBase
     try
     {
 
-     List<Ingredient> ingredients = _is.GetIngredientsByRecipe(recipeId);
+      List<Ingredient> ingredients = _is.GetIngredientsByRecipe(recipeId);
       return Ok(ingredients);
     }
     catch (Exception e)
@@ -86,6 +90,22 @@ public class RecipesController : ControllerBase
     }
   }
 
+
+  [HttpGet("{recipeId}/comments")]
+  [Authorize]
+  public ActionResult<List<Comment>> GetCommentsByRecipe(int recipeId)
+  {
+    try
+    {
+
+      List<Comment> comments = _cs.GetCommentsByRecipe(recipeId);
+      return Ok(comments);
+    }
+    catch (Exception e)
+    {
+      return BadRequest(e.Message);
+    }
+  }
 
 
 
@@ -97,7 +117,7 @@ public class RecipesController : ControllerBase
     {
       Account userInfo = await _auth0provider.GetUserInfoAsync<Account>(HttpContext);
       _rs.DeleteRecipe(recipeId, userInfo.Id);
-return Ok("Recipe successfully archived");
+      return Ok("Recipe successfully archived");
     }
     catch (Exception e)
     {
@@ -111,11 +131,11 @@ return Ok("Recipe successfully archived");
   {
     try
     {
-      
+
       Account userInfo = await _auth0provider.GetUserInfoAsync<Account>(HttpContext);
       recipeData.Creator = userInfo;
       recipeData.CreatorId = userInfo.Id;
-      recipeData.Id=recipeId;
+      recipeData.Id = recipeId;
       Recipe recipe = _rs.EditRecipe(recipeData, userInfo.Id);
       return Ok(recipe);
     }

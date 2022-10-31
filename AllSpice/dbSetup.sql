@@ -28,7 +28,7 @@ CREATE TABLE
         id INT NOT NULL PRIMARY KEY AUTO_INCREMENT COMMENT 'primary key',
         createdAt DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'Time Created',
         updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Last Update',
-        body MEDIUMTEXT COMMENT NOT NULL 'body',
+        body MEDIUMTEXT NOT NULL,
         recipeId INT NOT NULL,
         creatorId varchar(255) NOT NULL COMMENT 'creatorId',
         FOREIGN KEY (recipeId) REFERENCES recipes(id) ON DELETE CASCADE,

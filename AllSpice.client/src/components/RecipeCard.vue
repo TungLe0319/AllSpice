@@ -1,11 +1,8 @@
 <template>
   <div
-    class="card text-bg-dark my-2 position-relative elevation-5 border-0"
+    class="card text-bg-dark my-2  position-relative elevation-5 border-0"
     v-if="recipe"
-           @click="setActiveRecipe()"
-        data-bs-target="#recipeModal"
-        data-bs-toggle="modal"
-
+   
   >
     <img
       :src="recipe?.img"
@@ -23,7 +20,10 @@
       <span
         class="cardText p-2 rounded no-select selectable"
         :title="'Show More Details '"
-  
+          @click="setActiveRecipe()"
+        data-bs-target="#recipeModal"
+        data-bs-toggle="modal"
+
       >
         <p class="card-title">{{ recipe?.title }}</p>
       </span>
@@ -198,7 +198,10 @@ export default {
 -moz-box-shadow: 1px 2px 16px 8px rgba(245,179,9,0.75) inset;
 }
 
-.card-img{
-  
-}
+ //when screen is 700px OR LESS
+ @media only screen and (max-width: 700px){
+ .card{
+ 
+ }
+ }
 </style>

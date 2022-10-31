@@ -17,6 +17,7 @@ public class AccountController : ControllerBase
   [Authorize]
   public async Task<ActionResult<Account>> Get()
   {
+    
     try
     {
       Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);

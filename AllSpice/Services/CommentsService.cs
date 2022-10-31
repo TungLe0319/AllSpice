@@ -55,5 +55,8 @@ public class CommentsService
 _commentsRepo.RemoveComment(foundComment);
   }
 
-
+  internal List<Comment> GetCommentsByRecipe(int recipeId)
+  {
+ return _commentsRepo.GetCommentsByRecipe(recipeId);
+  }
 }

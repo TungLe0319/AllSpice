@@ -1,6 +1,6 @@
 <template>
   <div
-    class="modal fade"
+    class="modal fade recipe"
     id="recipeModal"
     tabindex="-1"
     aria-labelledby="Label"
@@ -118,9 +118,20 @@ export default {
         Pop.error(error);
       }
     }
+    async function getCommentsByRecipeId(){
+   try {
+         if (AppState.activeRecipe) {
+        let recipeId = AppState.activeRecipe.id
+        await recipesService.getCommentsByRecipeId(recipeId)
+      }
+     } catch (error) {
+       Pop.error(error)
+     }
+    }
     watchEffect(() => {
       AppState.activeRecipe;
       getIngredientsByRecipeId();
+      getCommentsByRecipeId();
     });
     return {
       ingredients: computed(() => AppState.ingredients),
@@ -173,5 +184,10 @@ font-weight: 700;
 }
 @media screen  and (max-width: 600px) {
   
+}
+
+.recipe{
+ background-image: url(https://www.9-elephants.co.uk/wp-content/uploads/thai-food.jpg);
+ transition: all 0.25s ease;
 }
 </style>

@@ -7,6 +7,7 @@ public class ValuesController : ControllerBase
   [HttpGet]
   public ActionResult<List<string>> Get()
   {
+    
     try
     {
       return Ok(new List<string>() { "Value 1", "Value 2" });

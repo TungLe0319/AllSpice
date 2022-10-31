@@ -6,7 +6,7 @@
     <SearchBar/>
   </div>
     <Login />
-    <div class="categoryBar position-absolute bg-light elevation-5  rounded">
+    <div class="categoryBar  bg-light elevation-5  rounded">
       <div class="d-flex justify-content-center ">
         <span>
           <button
@@ -95,6 +95,7 @@ export default {
 }
 
 .categoryBar {
+  position: absolute ;
   border: 0;
   width: auto;
   bottom: -30px;
@@ -124,5 +125,20 @@ border-radius: 0px;
   box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 1px, rgba(0, 0, 0, 0.07) 0px 2px 2px,
     rgba(0, 0, 0, 0.07) 0px 4px 4px, rgba(0, 0, 0, 0.07) 0px 8px 8px,
     rgba(0, 0, 0, 0.07) 0px 16px 16px;
+}
+
+
+//when screen is 700px OR LESS
+@media only screen and (max-width: 700px){
+.categoryBar{
+  margin-left: 10px;
+  position: relative;
+   position: absolute ;
+ display: flex;
+ justify-content: center;
+  width: auto;
+  bottom: 0px;
+  left: 0px;
+}
 }
 </style>
