@@ -5,6 +5,6 @@ export class Comment {
     this.id = data.id;
     this.body = data.body;
     this.recipeId = data.recipeId;
-    this.creator = new Account(data.creator);
+    this.creator = new Account(data.creator) || null;
   }
 }

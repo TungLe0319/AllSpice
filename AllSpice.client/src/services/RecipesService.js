@@ -15,15 +15,14 @@ class RecipesService {
   async getIngredientsByRecipeId(recipeId) {
     const res = await api.get(`api/recipes/${recipeId}/ingredients`);
 
-    console.log(res.data);
     AppState.ingredients = res.data.map((i) => new Ingredient(i));
     console.log(AppState.ingredients);
   }
 
-
-  async getCommentsByRecipeId(recipeId){
-    const res = await api.get(`api/recipes/${recipeId}/comments`)
-    AppState.comments = res.data.map(c=> new Comment(c))
+  async getCommentsByRecipeId(recipeId) {
+    const res = await api.get(`api/recipes/${recipeId}/comments`);
+    console.log(res.data);
+    AppState.comments = res.data.map((c) => new Comment(c));
     console.log(AppState.comments);
   }
 
@@ -39,7 +38,9 @@ class RecipesService {
     const res = await api.post("api/recipes", recipeData);
     console.log("[createRecipe]", res.data);
     const newRecipe = new Recipe(res.data);
+    AppState.activeRecipe = newRecipe
     AppState.recipes = [newRecipe, ...AppState.recipes];
+
   }
   async removeRecipe(recipeId) {
     await api.delete(`api/recipes/${recipeId}`);

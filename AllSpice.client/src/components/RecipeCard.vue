@@ -66,16 +66,7 @@
         </span>
       </TransitionGroup>
 
-      <span class="position-absolute top-75 end-0 m-1 bg-transparent">
-        <img
-          id="favImg"
-          src="https://cdn-icons-png.flaticon.com/512/4729/4729341.png"
-          alt=""
-          class=""
-          height="30"
-          width="30"
-        />
-      </span>
+     
     </div>
     <div class="position-absolute start-0 px-1 rounded category">
       <p class="mb-0 text-shadow2">{{ recipe?.category }}</p>
@@ -112,7 +103,7 @@ export default {
       async favoriteRecipe() {
         try {
           await favoritesService.favoriteRecipe(props.recipe);
-          Pop.success("Favorited");
+          Pop.toast(`${props.recipe.title} added to favorites`,'success','top-end',1000)
         } catch (error) {
           Pop.error(error);
         }
@@ -123,7 +114,7 @@ export default {
           let id = this.favorited.favoriteId;
           console.log(this.favorited);
 
-          const yes = await Pop.confirm();
+          const yes = await Pop.confirm('Remove Recipe','','Remove','question');
           if (!yes) {
             return;
           }
@@ -157,9 +148,9 @@ export default {
 }
 .card:hover {
   filter: brightness(90%);
-  transition: all 0.5s ease;
-  box-shadow: rgba(240, 169, 46, 0.4) 5px 5px, rgba(240, 140, 46, 0.3) 10px 10px,
-    rgba(240, 172, 46, 0.2) 15px 15px, rgba(240, 185, 46, 0.1) 20px 20px;
+  transition: all 0.25s ease;
+  box-shadow: rgba(240, 78, 46, 0.4) 5px 5px, rgba(240, 75, 46, 0.3) 10px 10px,
+    rgba(240, 46, 46, 0.2) 15px 15px, rgba(240, 53, 46, 0.1) 20px 20px;
 }
 .cardText {
   display: flex;

@@ -1,112 +1,121 @@
 <template>
   <div
     class="modal fade "
-    id="recipeFormModal"
+    id="ingredientForm"
     tabindex="-1"
     aria-labelledby="Label"
     aria-hidden="true"
+     data-bs-backdrop="static" data-bs-keyboard="false"
   >
-    <div class="modal-dialog modal-dialog-centered modal-lg ">
+    <div class="modal-dialog modal-dialog-centered modal-xl ">
       <div class="modal-content ">
-        <div class="modal-body FORM ">
+        <div class="modal-body FORM  ">
           <div class="container-fluid">
             <div class="row">
-              <div class="col-md-5">
-                <div class=" "><h2>New Recipe</h2></div>
+              <div class="col-md-12">
+                <div class="mb-2 "><h2>Add Ingredients</h2></div>
                 <!-- -------------------SECTION FORM----------------------------------- -->
                 <form @submit.prevent="handleSubmit()" class="">
                   <div class="mt-3 inputBox">
-                    <span>Recipe-Title</span>
+                    <span>Ingredient Name</span>
                     <input
                       type="text"
                       required
-                      name="title"
-                      v-model="editable.title"
+                      name="name"
+                      v-model="editable.name"
                     />
                   </div>
                   <div class="mt-3 inputBox">
-                    <span>Image</span>
-                    <input
-                      type="url"
-                      required
-                      name="img"
-                      v-model="editable.img"
-                    />
-                  </div>
-                  <div class="mt-3 inputBox">
-                    <span>Instructions</span>
+                    <span>Quantity</span>
                     <input
                       type="text"
                       required
-                      name="instructions"
-                      v-model="editable.instructions"
+                      name="quantity"
+                      v-model="editable.quantity"
                     />
                   </div>
-                  <div class="mt-5 inputBox">
-                    <span>Category</span>
-                    <select
-                      class="form-select border-warning border-bottom"
-                      v-model="editable.category"
-                      aria-label="Default select example"
-                    >
-                      <option>Select Category</option>
-                      <option v-for="c in category" :key="c.id" :value="c.name">
-                        {{ c.name.toLowerCase() }}
-                      </option>
-                    </select>
-                  </div>
+                 
 
                   <div class="my-3">
                     <button
-                      class="btn btn-success selectable"
+                      class="btn btn-outline-success selectable"
                       type="submit"
-                      data-bs-toggle="modal"
-                      data-bs-target="#ingredientForm"
+                  
                     >
-                      Submit
+                     Add Ingredient
+                    </button>
+                    <button
+                      class="btn btn-outline-success selectable"
+                      type="submit"
+                  data-bs-dismiss="modal"
+                    >
+                 close 
                     </button>
                   </div>
                 </form>
               </div>
 
               <div
-                class="col-md-7 rounded d-flex align-items-center justify-content-center flex-column"
+                class="col-md-6 rounded d-flex align-items-center justify-content-center flex-column"
               >
                 <div
                   class="card text-bg-dark my-2 position-relative elevation-5 border-0"
-                 
+                 v-if="activeRecipe"
                 >
-                  <img v-if="!editable?.img"
-                    src="https://glfoods.com.au/wp-content/uploads/2018/11/iStock-852068056.jpg"
+                  <img 
+                    :src="activeRecipe?.img"
                     class="forcedImg card-img favoriteShadow animate__animated animate__fadeIn"
                   />
-                  <img v-else
-                    :src="editable.img"
-                    class="forcedImg card-img favoriteShadow animate__animated animate__fadeIn"
-                  />
+                
 
                   <div
                     class="card-img-overlay flex-column d-flex justify-content-end align-items-center"
                   
                   >
-                    <!-- NOTE SET ACTIVE RECIPE -->
+                 
                     <span
                       class="cardText p-2 rounded no-select selectable"
                      
                     >
-                    <p v-if="!editable.title" class="card-title animate__animated animate__fadeInLeft ">RecipeTitle</p>
-                      <p  v-else class="card-title">{{ editable.title }}</p>
+                    <p  class="card-title animate__animated animate__fadeInLeft ">RecipeTitle</p>
+                  
                     </span>
                   </div>
                   <div class="position-absolute start-0 px-1 rounded category">
-                    <p v-if="!editable.category" class="mb-0 text-shadow2">Category</p>
-                    <p v-else class="mb-0 text-shadow2">{{ editable.category }}</p>
+                    <p class="mb-0 text-shadow2">{{activeRecipe?.category}}</p>
+                  
                   </div>
 
                 </div>
                 <div>
                   <h6 class="text-decoration-underline">Instructions</h6>
-                  <p>{{editable.instructions}}</p></div>
+                  <p>{{activeRecipe?.instructions}}</p></div>
+              </div>
+              <div
+                class="col-md-6 d-flex justify-content-center  text-center"
+              >
+            
+ <div class="card mt-2 mb-5 w-75 " >
+                      <div
+                        class="card-title bg-info  rounded-top elevation-1 text-center"
+                      >
+                        <p class="p-0 p-md-1 m-md-0">Recipe Ingredients</p>
+                      </div>
+                      <div class="card-body d-flex flex-column "  v-if="ingredients">
+                        <p class="me-1 animate__animated animate__fadeInLeft" v-for="i in ingredients">{{i.name}} ({{i.quantity}})  </p>
+                     
+                        <div class="d-flex   justify-content-center text-success darken-10">
+
+                          <p class="me-1"> {{editable?.name}} </p>
+                          <p> ({{editable?.quantity}}) </p>
+                        </div>
+                      </div>
+                     
+                      <div class="card-footer ">
+               
+                      </div>
+                    </div>
+
               </div>
             </div>
           </div>
@@ -120,25 +129,44 @@
 
 <script>
 import { computed } from "@vue/reactivity";
-import { ref, watchEffect } from "vue";
+import { onMounted, ref, watchEffect } from "vue";
 import { AppState } from "../AppState.js";
 import { Recipe } from "../models/Recipe.js";
+import { ingredientsService } from "../services/IngredientsService.js";
 import { recipesService } from "../services/RecipesService.js";
 import Pop from "../utils/Pop.js";
 
 export default {
   setup() {
     const editable = ref({});
+  async function getIngredientsByRecipeId() {
+      try {
+        if (AppState.activeRecipe) {
+          let recipeId = AppState.activeRecipe.id;
+          await recipesService.getIngredientsByRecipeId(recipeId);
+        }
+      } catch (error) {
+        Pop.error(error);
+      }
+    }
+
+onMounted(()=>{
+
+})
 
     watchEffect(() => {
- 
+
     });
     return {
       editable,
+      activeRecipe : computed(()=> AppState.activeRecipe),
+      ingredients: computed(()=> AppState.ingredients),
       category: computed(() => AppState.categories),
       async handleSubmit() {
         try {
-          await recipesService.createRecipe(editable.value);
+          editable.value.recipeId = AppState.activeRecipe.id
+          await ingredientsService.addIngredient(editable.value);
+          editable.value = {}
         } catch (error) {
           console.error(error);
           Pop.error(error, "[handleSubmit]");

@@ -4,18 +4,11 @@
   >
     <div class="row">
       <div class="col-md-12">
+          
         <HomeBanner />
         <div class="fixed-bottom d-flex align-items-start flex-column justify-content-center ms-1 mb-1">
 
-          <div class="mb-1">
-              <button
-            data-bs-target="#recipeFormModal"
-            data-bs-toggle="modal"
-            class="btn addBtn"
-          >
-          <i class="mdi mdi-food fs-6"></i><i class="mdi mdi-plus fs-6" ></i>
-          </button>
-          </div>
+     
           <div>
               <button
             data-bs-target="#recipeFormModal"
@@ -39,6 +32,7 @@
   <RecipeModal :recipe="activeRecipe" />
   <RecipeForm />
   <InstructionsModal/>
+  <IngredientModal/>
 </template>
 
 <script>
@@ -46,6 +40,7 @@ import { onAuthLoaded } from "@bcwdev/auth0provider-client";
 import { computed } from "@vue/reactivity";
 import { onMounted } from "vue";
 import { AppState } from "../AppState.js";
+import IngredientModal from "../components/IngredientModal.vue";
 import InstructionsModal from "../components/InstructionsModal.vue";
 import RecipeForm from "../components/RecipeForm .vue";
 import { accountService } from "../services/AccountService.js";
@@ -93,7 +88,7 @@ export default {
       ingredients: computed(() => AppState.ingredients),
     };
   },
-  components: { RecipeForm, InstructionsModal },
+  components: { RecipeForm, InstructionsModal, IngredientModal },
 };
 </script>
 

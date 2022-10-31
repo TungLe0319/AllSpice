@@ -25,6 +25,7 @@ public class CommentsController : ControllerBase
     {
       Account userInfo = await _auth0provider.GetUserInfoAsync<Account>(HttpContext);
       newComment.CreatorId = userInfo.Id;
+      newComment.Creator = userInfo;
       Comment createdComment = _cs.CreateComment(newComment);
 
       return Ok(createdComment);

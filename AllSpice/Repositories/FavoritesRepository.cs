@@ -48,7 +48,7 @@ public class FavoritesRepository : BaseRepository
     {
       recipe.Creator = profile;
       recipe.AccountId = profile.Id;
-      recipe.Favorited = true;
+    
       return recipe;
     }, new { accountId }).ToList();
   }

@@ -5,8 +5,10 @@
                       >
                         <p class="p-md-0 m-md-0">Recipe Ingredients</p>
                       </div>
-                      <div class="card-body" >
+                      <div class="card-body d-flex" >
                         <p>{{ingredient?.name}}</p>
+
+                         
                       </div>
                      
                       <div class="card-footer ">

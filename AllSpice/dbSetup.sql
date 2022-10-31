@@ -16,7 +16,7 @@ CREATE TABLE
         createdAt DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'Time Created',
         updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Last Update',
         title VARCHAR(255) NOT NULL,
-        instructions LONGTEXT NOT NULL,
+        instructions MEDIUMTEXT,
         img VARCHAR(255) NOT NULL,
         category VARCHAR(255) NOT NULL,
         creatorId VARCHAR(255) NOT NULL,
@@ -28,9 +28,9 @@ CREATE TABLE
         id INT NOT NULL PRIMARY KEY AUTO_INCREMENT COMMENT 'primary key',
         createdAt DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'Time Created',
         updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Last Update',
-        body MEDIUMTEXT NOT NULL,
+        body VARCHAR(2000) NOT NULL,
         recipeId INT NOT NULL,
-        creatorId varchar(255) NOT NULL COMMENT 'creatorId',
+        creatorId varchar(255) NOT NULL,
         FOREIGN KEY (recipeId) REFERENCES recipes(id) ON DELETE CASCADE,
         FOREIGN KEY(creatorId) REFERENCES accounts(id) ON DELETE CASCADE
     ) default charset utf8 COMMENT '';

@@ -1,11 +1,14 @@
 <template>
-  <form @submit.prevent="editInstruction()" >
-     <div class="input-group  bg-transparent  ">
+  <div class="container">
 
-    <textarea type="text" name="instructions" class="rounded  px-5" v-model="editable.instructions"></textarea>
-    <button class="btn btn-success rounded" type="submit">Edit</button>
+    <form @submit.prevent="editInstruction()" >
+       <div class="p-1 px-0  d-flex ">
+  
+      <textarea type="text" name="instructions" class="rounded  px-5" v-model="editable.instructions"></textarea>
+      <button class="btn editBtn" type="submit">Edit</button>
+    </div>
+    </form>
   </div>
-  </form>
  
 </template>
 
@@ -36,9 +39,14 @@ export default {
 async editInstruction(){
   try {
    let recipe = AppState.activeRecipe
-//    let test = editable.value
-// console.log(editable.value);
-      // await recipesService.editRecipe(recipe.id,editable.value)
+  const yes = await Pop.confirm(` <div class="container">
+<p>  ${this.recipe.instructions}</p>
+
+
+  </div>`,'','Edit','warning')
+        if (!yes) {
+          return
+        }
       await recipesService.editRecipe(recipe.id,editable.value)
     } catch (error) {
       Pop.error(error)
@@ -65,4 +73,9 @@ async editInstruction(){
 }
 
 
+.editBtn:hover {
+  transform: scale(1.03);
+  transition: all 0.25s ease;
+
+}
 </style>

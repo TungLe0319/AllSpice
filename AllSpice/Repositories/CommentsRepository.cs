@@ -10,13 +10,13 @@ public class CommentsRepository : BaseRepository
   {
     string sql = @"
           INSERT INTO
-          comments (body,creatorId)
-          VALUES (@Body,@CreatorId);
+          comments (body,recipeId,creatorId)
+          VALUES (@Body,@RecipeId,@CreatorId);
           SELECT LAST_INSERT_ID()
               ; ";
 
-    int commentId = _db.ExecuteScalar<int>(sql, newComment);
-    newComment.Id = commentId;
+    int id = _db.ExecuteScalar<int>(sql, newComment);
+    newComment.Id =  id;
     return newComment;
   }
 
