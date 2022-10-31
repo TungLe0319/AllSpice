@@ -45,6 +45,9 @@ public class Startup
     services.AddTransient<IngredientsRepository>();
     services.AddTransient<IngredientsService>();
 
+    services.AddTransient<InstructionsRepository>();
+    services.AddTransient<InstructionsService>();
+
     services.AddTransient<FavoritesRepository>();
     services.AddTransient<FavoritesService>();
 

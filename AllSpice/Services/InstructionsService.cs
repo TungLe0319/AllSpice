@@ -11,20 +11,20 @@ public class InstructionsService
   }
 
 
-  // internal List<Ingredient> GetInstructionsByRecipe(int recipeId)
-  // {
-  //   return _instructionsRepo.GetInstructionsByRecipe(recipeId);
-  // }
-
-  internal Ingredient GetById(int ingredientId)
+  internal List<Instruction> GetInstructionsByRecipe(int recipeId)
   {
-    Ingredient foundIngredient = _instructionsRepo.GetIngredientById(ingredientId);
+    return _instructionsRepo.GetInstructionsByRecipe(recipeId);
+  }
 
-    if (foundIngredient == null)
+  internal Instruction GetInstructionById(int instructionId)
+  {
+    Instruction foundInstruction = _instructionsRepo.GetInstructionById(instructionId);
+
+    if (foundInstruction == null)
     {
       throw new Exception("Ingredient does not exist");
     }
-    return foundIngredient;
+    return foundInstruction;
 
   }
 
@@ -40,33 +40,33 @@ public class InstructionsService
     return _instructionsRepo.CreateInstruction(newInstruction);
   }
 
-//   internal void DeleteInstruction(int instructionId, string accountId)
-//   {
-//     Instruction foundInstruction = _instructionsRepo.GetIngredientById(instructionId);
-//     if (foundInstruction.CreatorId != accountId)
-//     {
-//       throw new Exception("Unauthorized");
-//     }
+  internal void DeleteInstruction(int instructionId, string accountId)
+  {
+    Instruction foundInstruction = _instructionsRepo.GetInstructionById(instructionId);
+    if (foundInstruction.CreatorId != accountId)
+    {
+      throw new Exception("Unauthorized");
+    }
 
-//  _instructionsRepo.CreateInstruction(foundInstruction);
-//   }
+    _instructionsRepo.CreateInstruction(foundInstruction);
+  }
 
-  // internal void DeleteIngredient(int instructionId, string accountId)
-  // {
-  //   Instruction foundInstruction = GetById(instructionId);
-  //   if (foundInstruction == null)
-  //   {
-  //     throw new Exception("instruction does not exist");
-  //   }
-  //   if (foundInstruction.CreatorId != accountId)
-  //   {
-  //     throw new Exception("Unauthorized");
-  //   }
+  internal void DeleteIngredient(int instructionId, string accountId)
+  {
+    Instruction foundInstruction = GetInstructionById(instructionId);
+    if (foundInstruction == null)
+    {
+      throw new Exception("instruction does not exist");
+    }
+    if (foundInstruction.CreatorId != accountId)
+    {
+      throw new Exception("Unauthorized");
+    }
 
-  //   _instructionsRepo.DeletenIstruction(foundInstruction);
+    _instructionsRepo.DeleteInstruction(foundInstruction);
 
 
-  // }
+  }
 
 
 

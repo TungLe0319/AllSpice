@@ -6,57 +6,54 @@ public class InstructionsRepository : BaseRepository
   {
   }
 
-  internal Ingredient CreateIngredient(Ingredient newIngredient)
-  {
-    string sql = @"
-           INSERT INTO ingredients(name,quantity,creatorId,recipeId)
-           VALUES(@Name,@Quantity,@CreatorId,@RecipeId);
-           SELECT LAST_INSERT_ID()
-                ;";
-    int id = _db.ExecuteScalar<int>(sql, newIngredient);
-    newIngredient.Id = id;
-    return newIngredient;
-  }
+ 
 
-  internal List<Ingredient> GetIngredientsByRecipe(int recipeId)
+  internal List<Instruction> GetInstructionsByRecipe(int recipeId)
   {
 
     string sql = @"
           SELECT 
           *
-          FROM ingredients 
+          FROM instructions
           WHERE recipeId = @recipeId
                ;";
-    return _db.Query<Ingredient>(sql, new { recipeId }).ToList();
+    return _db.Query<Instruction>(sql, new { recipeId }).ToList();
   }
 
-
-  internal Ingredient GetIngredientById(int ingredientId)
+  internal Instruction GetInstructionById(int instructionId)
   {
-
     string sql = @"
             SELECT 
             *
-            FROM ingredients 
-            WHERE id = @ingredientId
+            FROM instructions 
+            WHERE id = @instructionId
                  ;";
-    return _db.Query<Ingredient>(sql, new { ingredientId }).FirstOrDefault();
+    return _db.Query<Instruction>(sql, new { instructionId }).FirstOrDefault();
   }
+
 
   internal Instruction CreateInstruction(Instruction newInstruction)
   {
-    throw new NotImplementedException();
+    string sql = @"
+           INSERT INTO instructions(steps,creatorId,recipeId)
+           VALUES(@Steps,@CreatorId,@RecipeId);
+           SELECT LAST_INSERT_ID()
+                ;";
+    int id = _db.ExecuteScalar<int>(sql, newInstruction);
+    newInstruction.Id = id;
+    return newInstruction;
   }
 
-  internal void DeleteIngredient(Ingredient foundIngredient)
+
+  internal void DeleteInstruction(Instruction foundInstruction)
   {
     string sql = @"
           DELETE 
-          FROM ingredients
+          FROM instructions
           WHERE id = @id
               ; ";
 
-    int rowsAffected = _db.Execute(sql, foundIngredient);
+    int rowsAffected = _db.Execute(sql, foundInstruction);
     if (rowsAffected == 0)
     {
       throw new Exception("Unable to delete ingredient");
