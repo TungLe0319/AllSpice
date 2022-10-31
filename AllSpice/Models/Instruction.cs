@@ -1,14 +1,13 @@
-
-
 namespace AllSpice.Models;
 
-public class Comment : ICreated, IRepoItem<int>
+public class Instruction : ICreated, IRepoItem<int>
 {
   public int Id { get; set; }
-  public string CreatorId { get; set; }
   public int RecipeId { get; set; }
 
-  public string Body { get; private set; }
+  public string Steps { get; set; }
+
+  public string CreatorId { get; set; }
   public Profile Creator { get; set; }
   public DateTime CreatedAt { get; set; }
   public DateTime UpdatedAt { get; set; }

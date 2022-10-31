@@ -13,24 +13,11 @@ public class CommentsService
     _commentsRepo = commentsRepo;
   }
 
-  internal Comment CreateComment(Comment newComment)
-  {
-    return _commentsRepo.CreateComment(newComment);
-  }
+
 
   internal List<Comment> GetAllComments()
   {
     return _commentsRepo.GetAllComments();
-  }
-
-  internal void RemoveComment(int commentId, string accountId)
-  {
-    Comment foundComment = GetCommentById(commentId);
-    if (foundComment == null)
-    {
-      throw new Exception("Invalid commentId");
-    }
-
   }
 
   internal Comment GetCommentById(int commentId)
@@ -41,12 +28,32 @@ public class CommentsService
     {
       throw new Exception("Invalid commentId");
     }
-    // if (foundComment.Id == 0)
-    // {
-    //   throw new Exception("Invalid commentId");
-    // }
 
     return foundComment;
 
   }
+
+
+  internal Comment CreateComment(Comment newComment)
+  {
+    return _commentsRepo.CreateComment(newComment);
+  }
+
+
+  internal void RemoveComment(int commentId, string accountId)
+  {
+    Comment foundComment = GetCommentById(commentId);
+    if (foundComment == null)
+    {
+      throw new Exception("Invalid commentId");
+    }
+    if (foundComment.CreatorId != accountId)
+    {
+      throw new Exception("Unauthorized to remove comment");
+    }
+
+_commentsRepo.RemoveComment(foundComment);
+  }
+
+
 }

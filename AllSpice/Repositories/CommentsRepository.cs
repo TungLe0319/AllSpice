@@ -20,6 +20,24 @@ public class CommentsRepository : BaseRepository
     return newComment;
   }
 
+
+  internal void RemoveComment(Comment foundComment)
+  {
+    string sql = @"
+             REMOVE FROM
+             comments
+            WHERE id = @Id LIMIT 1
+                  ";
+    int rowsAffected = _db.Execute(sql, foundComment);
+
+    if (rowsAffected == 0)
+    {
+      throw new Exception("Unable to delete comment");
+    }
+
+  }
+
+
   internal List<Comment> GetAllComments()
   {
     string sql = @"
@@ -48,4 +66,5 @@ public class CommentsRepository : BaseRepository
                  ;";
     return _db.QueryFirstOrDefault<Comment>(sql, new { commentId });
   }
+
 }
