@@ -39,11 +39,16 @@ public class Startup
     services.AddTransient<RecipesRepository>();
     services.AddTransient<RecipesService>();
 
+    services.AddTransient<CommentsRepository>();
+    services.AddTransient<CommentsService>();
+
     services.AddTransient<IngredientsRepository>();
     services.AddTransient<IngredientsService>();
 
     services.AddTransient<FavoritesRepository>();
     services.AddTransient<FavoritesService>();
+
+
   }
 
   private void ConfigureCors(IServiceCollection services)

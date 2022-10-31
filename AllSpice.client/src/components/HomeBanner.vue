@@ -2,6 +2,9 @@
   <div
     class="card banner mt-2 border-0 mb-5 elevation-3 d-flex align-items-end justify-content-end"
   >
+  <div>
+    <SearchBar/>
+  </div>
     <Login />
     <div class="categoryBar position-absolute bg-light elevation-5  rounded">
       <div class="d-flex justify-content-center ">
@@ -39,6 +42,7 @@ import { accountService } from "../services/AccountService.js";
 import { recipesService } from "../services/RecipesService.js";
 import Pop from "../utils/Pop.js";
 import Login from "./Login.vue";
+import SearchBar from "./SearchBar.vue";
 
 export default {
   setup() {
@@ -76,7 +80,7 @@ export default {
       },
     };
   },
-  components: { Login },
+  components: { Login, SearchBar },
 };
 </script>
 

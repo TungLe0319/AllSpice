@@ -2,13 +2,17 @@
   <div
     class="card text-bg-dark my-2 position-relative elevation-5 border-0"
     v-if="recipe"
+           @click="setActiveRecipe()"
+        data-bs-target="#recipeModal"
+        data-bs-toggle="modal"
+
   >
     <img
       :src="recipe?.img"
       :alt="recipe?.title"
       :title="recipe?.title + 'Img'"
       class="forcedImg card-img favoriteShadow"
-  
+ 
     />
 
     <div
@@ -19,15 +23,49 @@
       <span
         class="cardText p-2 rounded no-select selectable"
         :title="'Show More Details '"
-        @click="setActiveRecipe()"
-        data-bs-target="#recipeModal"
-        data-bs-toggle="modal"
-
+  
       >
         <p class="card-title">{{ recipe?.title }}</p>
       </span>
       <!-- NOTE FAVORITE A RECIPE -->
-   <FavoriteButton/>
+      <TransitionGroup
+        name=""
+        enterActiveClass="animate__fadeInLeft animate__animated"
+        leaveActiveClass="animate__fadeOutRight animate__animated"
+      >
+        <span
+          class="position-absolute top-0 end-0 m-1 hoverOver deleteIcon"
+          v-if="favorited"
+        >
+          <img
+            id="favImg"
+            src="https://cdn-icons-png.flaticon.com/512/1828/1828843.png"
+            alt=""
+            class="hoverOver"
+            @click="removeFavoriteRecipe()"
+            height="30"
+            width="30"
+          />
+          
+        </span>
+
+        <span
+          class="position-absolute top-0 end-0 m-1 bg-transparent deleteIcon"
+          v-else
+          v-motion-fade
+        >
+          <img
+            id="favImg"
+            src="https://cdn-icons-png.flaticon.com/512/3237/3237420.png"
+            alt=""
+            class="hoverOver"
+            @click="favoriteRecipe()"
+            height="30"
+            width="30"
+          />
+        </span>
+      </TransitionGroup>
+
       <span class="position-absolute top-75 end-0 m-1 bg-transparent">
         <img
           id="favImg"

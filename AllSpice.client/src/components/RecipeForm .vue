@@ -46,7 +46,7 @@
             </div>
           </form>
         </div>
-        <div class="col-md-6 rounded d-flex align-items-center justify-contente-center" v-if="editable.img">
+        <div class="col-md-6 rounded d-flex align-items-center justify-content-center" v-if="editable.img">
 <img :src="editable?.img" alt="recipe image" title="recipe image" class="img-fluid rounded elevation-3  ">
               </div>
               <div v-else class="col-md-6 rounded d-flex align-items-center justify-content-center flex-column" >

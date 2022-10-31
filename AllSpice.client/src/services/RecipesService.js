@@ -9,7 +9,6 @@ class RecipesService {
     console.log(res.data);
 
     AppState.recipes = res.data.map((r) => new Recipe(r));
-
   }
 
   async getIngredientsByRecipeId(recipeId) {
@@ -56,7 +55,20 @@ class RecipesService {
     const res = await api.get("api/recipes");
     console.log(res.data);
     AppState.recipes = res.data.map((r) => new Recipe(r));
-    AppState.recipes =  AppState.recipes.filter((r) => r.creator.id == AppState.account.id);
+    AppState.recipes = AppState.recipes.filter(
+      (r) => r.creator.id == AppState.account.id
+    );
+  }
+
+  async searchByQuery(query) {
+    const res = await api.get("api/recipes");
+    console.log(res.data);
+
+    AppState.recipes = res.data.map((r) => new Recipe(r));
+
+    AppState.recipes = AppState.recipes.filter((f) =>
+      f.title.toUpperCase().includes(query.toUpperCase())
+    );
   }
 }
 export const recipesService = new RecipesService();

@@ -16,7 +16,7 @@ CREATE TABLE
         createdAt DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'Time Created',
         updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Last Update',
         title VARCHAR(255) NOT NULL,
-        instructions VARCHAR(1000) NOT NULL,
+        instructions LONGTEXT NOT NULL,
         img VARCHAR(255) NOT NULL,
         category VARCHAR(255) NOT NULL,
        
@@ -25,16 +25,29 @@ CREATE TABLE
     ) default charset utf8 COMMENT '';
 
 
-SELECT
-    rec.*,
+CREATE TABLE IF NOT EXISTS comments(
+  id INT NOT NULL PRIMARY KEY AUTO_INCREMENT COMMENT 'primary key',
+  createdAt DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'Time Created',
+  updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Last Update',
+  body MEDIUMTEXT COMMENT NOT NULL 'body',
+  creatorId varchar(255)  NOT NULL COMMENT 'creatorId',
+  FOREIGN KEY(creatorId) REFERENCES accounts(id) ON DELETE CASCADE
+) default charset utf8 COMMENT '';
+
+
+
+
+
+-- SELECT
+--     rec.*,
     
-    COUNT(fav.id) AS favoriteCount,
-    a.*
-FROM recipes rec
-    JOIN accounts a ON a.id = rec.creatorId
-LEFT JOIN favorites fav ON fav.recipeId = rec.id 
+--     COUNT(fav.id) AS favoriteCount,
+--     a.*
+-- FROM recipes rec
+--     JOIN accounts a ON a.id = rec.creatorId
+-- LEFT JOIN favorites fav ON fav.recipeId = rec.id 
     
-GROUP BY rec.id;
+-- GROUP BY rec.id;
 
 
 
