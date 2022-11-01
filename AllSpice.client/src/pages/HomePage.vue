@@ -4,37 +4,41 @@
   >
     <div class="row">
       <div class="col-md-12">
-          
         <HomeBanner />
-        <div class="fixed-bottom d-flex align-items-start flex-column justify-content-center ms-1 mb-1">
-
-     
+        <div
+          class="fixed-bottom d-flex align-items-start flex-column justify-content-center ms-1 mb-1"
+        >
           <div>
-              <button
-            data-bs-target="#recipeFormModal"
-            data-bs-toggle="modal"
-            class="btn addBtn"
-          >
-          <i class="mdi mdi-food fs-6"></i><i class="mdi mdi-plus fs-6" ></i>
-          </button>
+            <button
+              data-bs-target="#recipeFormModal"
+              data-bs-toggle="modal"
+              class="btn addBtn"
+            >
+              <i class="mdi mdi-food fs-6"></i><i class="mdi mdi-plus fs-6"></i>
+            </button>
           </div>
-        
         </div>
       </div>
       <div class="col-md-12"></div>
     </div>
-    <div class="row  " v-if="recipes">
-      <div class="col-10 col-md-3 recipeCard "  v-for="r in recipes" :class="recipes.length <=5? 'col-md-12':'col-md-3'">
+    <div class="row" v-if="recipes">
+
+
+
+      <div
+        class="col-10 col-md-3 recipeCard"
+        v-for="r in recipes"
+        :class="recipes.length <= 5 ? 'col-md-12' : 'col-md-3'"
+      >
         <RecipeCard :recipe="r" :key="r.id" v-motion-fade />
       </div>
-      
     </div>
-      <LoadingSpinner  v-else /> 
+    <LoadingSpinner v-else />
   </div>
   <RecipeModal :recipe="activeRecipe" />
   <RecipeForm />
-  <InstructionsModal/>
-  <IngredientModal/>
+  <InstructionsModal />
+  <IngredientModal />
 </template>
 
 <script>
@@ -48,7 +52,7 @@ import LoadingSpinner from "../components/LoadingSpinner.vue";
 import RecipeForm from "../components/RecipeForm .vue";
 import { accountService } from "../services/AccountService.js";
 import { favoritesService } from "../services/FavoritesService.js";
- 
+
 import { recipesService } from "../services/RecipesService.js";
 import Pop from "../utils/Pop.js";
 
@@ -56,7 +60,11 @@ export default {
   setup() {
     async function getAllRecipes() {
       try {
-        await recipesService.getAllRecipes();
+        let offSet = AppState.offSet;
+        await recipesService.getAllRecipes(offSet);
+        AppState.offSet += 4;
+
+        console.log(AppState.offSet);
       } catch (error) {
         Pop.error(error);
       }
@@ -64,8 +72,7 @@ export default {
     async function getAllFavorites() {
       try {
         if (AppState.account) {
-          
-          await accountService.getAllFavorites()
+          await accountService.getAllFavorites();
         }
       } catch (error) {
         Pop.error(error);
@@ -74,32 +81,37 @@ export default {
 
     onMounted(() => {
       getAllRecipes();
-      infiniteScroll()
+      infiniteScroll();
     });
-    
-    onAuthLoaded(()=>{
-      getAllFavorites()
 
-    })
+    onAuthLoaded(() => {
+      getAllFavorites();
+    });
 
-function infiniteScroll(){
-  window.onscroll = () => {
-  let bottomOfWindow = document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight;
+    async function infiniteScroll() {
+      window.onscroll = () => {
+        let bottomOfWindow =
+          document.documentElement.scrollTop + window.innerHeight ===
+          document.documentElement.offsetHeight;
+        let x = AppState.infinite;
+        if (bottomOfWindow) {
+          if (x == 0) {
+            getAllRecipes();
+          } else if (x == 1) {
 
-  if (bottomOfWindow) {
-  
-  }
-};
-}
+          } else {
+          }
+        }
+      };
+    }
 
-
-    watchEffect(()=>{
+    watchEffect(() => {
       // document.addEventListener('scroll', () => {
       //   console.log('hi');
       // }, true);
-    })
+    });
     return {
-    
+      testTung: computed(() => AppState.offSet),
       recipes: computed(() => AppState.recipes),
       activeRecipe: computed(() => AppState.activeRecipe),
       favrecipe: computed(() => AppState.favoriteRecipes),
@@ -109,15 +121,18 @@ function infiniteScroll(){
       ingredients: computed(() => AppState.ingredients),
     };
   },
-  components: { RecipeForm, InstructionsModal, IngredientModal, LoadingSpinner },
+  components: {
+    RecipeForm,
+    InstructionsModal,
+    IngredientModal,
+    LoadingSpinner,
+  },
 };
 </script>
 
 <style scoped lang="scss">
-
-.addBtn{
- 
-    background: linear-gradient(to bottom right, #ffbb00, #ff5e00);
+.addBtn {
+  background: linear-gradient(to bottom right, #ffbb00, #ff5e00);
   border: 0;
   border-radius: 12px;
   color: #ffffff;
@@ -141,11 +156,8 @@ function infiniteScroll(){
     rgba(0, 0, 0, 0.07) 0px 16px 16px;
 }
 //when screen is 700px OR LESS
-@media only screen and (max-width: 700px){
-.recipeCard{
-
-
+@media only screen and (max-width: 700px) {
+  .recipeCard {
+  }
 }
-}
-
 </style>

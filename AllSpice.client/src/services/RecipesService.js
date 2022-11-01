@@ -8,11 +8,17 @@ import { Recipe } from "../models/Recipe.js";
 import { api } from "./AxiosService.js";
 
 class RecipesService {
-  async getAllRecipes() {
-    const res = await api.get("api/recipes");
-    console.log(res.data);
+  async getAllRecipes(offSet) {
 
-    AppState.recipes = res.data.map((r) => new Recipe(r));
+  
+    const res = await api.get(`api/recipes/${offSet}`);
+    // console.log(["recipes"],res.data);
+    
+ let recipes = res.data.map(x=> new Recipe(x))
+
+ AppState.recipes = [...AppState.recipes,...recipes]
+    // AppState.recipes = res.data.map((r) => new Recipe(r));
+ 
   }
 
   async getIngredientsByRecipeId(recipeId) {
@@ -69,8 +75,8 @@ class RecipesService {
     console.log(AppState.account.id);
   }
 
-  async getRecipesByAccountId() {
-    const res = await api.get("api/recipes");
+  async getRecipesByAccountId(offSet) {
+    const res = await api.get(`api/recipes/${offSet}`);
     console.log(res.data);
     AppState.recipes = res.data.map((r) => new Recipe(r));
     AppState.recipes = AppState.recipes.filter(

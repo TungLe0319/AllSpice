@@ -24,6 +24,11 @@ export const AppState = reactive({
   /** @type {import('./models/Comment.js').Comment[]} */
   comments: [],
 
+infinite: 0,
+
+
+  offSet: 12,
+
   categories: [
     { name: "specialtyCoffee", id: 1 },
     { name: "asian ", id: 2 },

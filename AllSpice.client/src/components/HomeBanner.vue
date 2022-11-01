@@ -2,15 +2,15 @@
   <div
     class="card banner mt-2 border-0 mb-5 elevation-3 d-flex align-items-end justify-content-end"
   >
-  <div>
-    <SearchBar/>
-  </div>
+    <div>
+      <SearchBar />
+    </div>
     <Login />
-    <div class="categoryBar  bg-light elevation-5  rounded">
-      <div class="d-flex justify-content-center ">
+    <div class="categoryBar bg-light elevation-5 rounded">
+      <div class="d-flex justify-content-center">
         <span>
           <button
-            class="btn filterbtn fbg-transparent "
+            class="btn filterbtn fbg-transparent"
             id="homeBtn"
             @click="getAllRecipes()"
           >
@@ -19,10 +19,9 @@
         >
         <span>
           <button
-            class="btn filterbtn  bg-transparent"
+            class="btn filterbtn bg-transparent"
             @click="getFavoriteRecipes()"
           >
-          
             <h3>Favorites</h3>
           </button></span
         >
@@ -55,9 +54,9 @@ export default {
     });
 
     return {
-
       async getFavoriteRecipes() {
         try {
+          AppState.infinite = 1
           await accountService.getFavoriteRecipes();
         } catch (error) {
           Pop.error(error, "[getFavoriteRecipes]");
@@ -66,7 +65,9 @@ export default {
 
       async getAllRecipes() {
         try {
-          await recipesService.getAllRecipes();
+          AppState.infinite = 0
+          AppState.offSet = 0;
+          await recipesService.getAllRecipes(AppState.offSet);
         } catch (error) {
           Pop.error(error, "[getFavoriteRecipes]");
         }
@@ -74,7 +75,9 @@ export default {
 
       async getMyRecipes() {
         try {
-          await recipesService.getRecipesByAccountId();
+          AppState.infinite = 1
+          AppState.offSet = 0;
+          await recipesService.getRecipesByAccountId(AppState.offSet);
         } catch (error) {
           Pop.error(error);
         }
@@ -96,17 +99,16 @@ export default {
 }
 
 .categoryBar {
-  position: absolute ;
+  position: absolute;
   border: 0;
   width: auto;
   bottom: -30px;
   left: 34vw;
 }
 
-
 .filterbtn:focus {
   background: linear-gradient(to bottom right, #ffbb00, #ff5e00);
-border-radius: 0px;
+  border-radius: 0px;
   color: #ffffff;
   cursor: pointer;
   display: inline-block;
@@ -128,18 +130,17 @@ border-radius: 0px;
     rgba(0, 0, 0, 0.07) 0px 16px 16px;
 }
 
-
 //when screen is 700px OR LESS
-@media only screen and (max-width: 700px){
-.categoryBar{
-  margin-left: 10px;
-  position: relative;
-   position: absolute ;
- display: flex;
- justify-content: center;
-  width: auto;
-  bottom: 0px;
-  left: 0px;
-}
+@media only screen and (max-width: 700px) {
+  .categoryBar {
+    margin-left: 10px;
+    position: relative;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    width: auto;
+    bottom: 0px;
+    left: 0px;
+  }
 }
 </style>

@@ -20,7 +20,7 @@ public class RecipesRepository : BaseRepository
     return newRecipe;
   }
 
-  internal List<Recipe> GetAllRecipes()
+  internal List<Recipe> GetAllRecipes(int offSet)
   {
     string sql = @"
             SELECT
@@ -33,6 +33,8 @@ public class RecipesRepository : BaseRepository
             LEFT JOIN favorites fav ON fav.recipeId = rec.id
             
             GROUP BY rec.id
+            LIMIT 4
+            OFFSET @Offset
             
             ;";
     return _db.Query<Recipe, Profile, Recipe>(sql, (recipe, profile) =>
@@ -40,7 +42,7 @@ public class RecipesRepository : BaseRepository
       recipe.Creator = profile;
       
       return recipe;
-    }).ToList();
+    }, new {offSet}).ToList();
   }
 
   internal Recipe GetById(int recipeId)

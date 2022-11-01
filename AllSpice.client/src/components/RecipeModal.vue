@@ -6,10 +6,10 @@
     aria-labelledby="Label"
     aria-hidden="true"
   >
-    <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
-      <div
-        class="modal-content "
-      >
+    <div
+      class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable"
+    >
+      <div class="modal-content">
         <!-- --------------------------- -->
         <div class="modal-body FORM p-0 position-relative">
           <div class="container-fluid" v-if="recipe">
@@ -26,10 +26,9 @@
                   ><i
                     class="mdi mdi-alpha-x-circle-outline hoverOver text-danger m-2 fs-2"
                     @click="removeRecipe()"
-      
                   ></i
                 ></span>
-                
+
                 <span class="d-flex align-items-center p-1 rounded no-select"
                   ><h3 class="text-custom p-2">{{ recipe?.title }}</h3>
                   <p class="bg-secondary p-1 mt-1 rounded fw-bold">
@@ -38,7 +37,7 @@
                 >
                 <div class="row">
                   <div class="col-md-6">
-                    <div class="card elevation-4 border-0 ">
+                    <div class="card elevation-4 border-0">
                       <div
                         class="card-title bg-custom mb-0 p-1 rounded-top elevation-1 text-center"
                       >
@@ -49,8 +48,8 @@
                       <div class="card-body bg-custom2 p-0">
                         <TransitionGroup
                           name=""
-                          enterActiveClass="animate__fadeIn animate__animated"
-                          leaveActiveClass="animate__fadeOut animate__animated"
+                          enterActiveClass="animate__fadeInUp animate__animated "
+                          leaveActiveClass="animate__fadeOutDown animate__animated"
                         >
                           <InstructionsCard
                             :instruction="i"
@@ -76,13 +75,13 @@
                         </h3>
                       </div>
                       <div class="card-body bg-custom2">
-                        <div v-for="i in ingredients" :key="i.id">
-                          <span class="me-2">{{ i.name }}</span>
+                        <ul v-for="i in ingredients" :key="i.id">
+                          <li class="me-2">{{ i.name }}</li>
                           <span>({{ i.quantity }})</span>
                           <button @click="removeIngredient()" class="btn">
                             <i class="mdi mdi-minus-box fs-5 text-danger"></i>
                           </button>
-                        </div>
+                        </ul>
                       </div>
 
                       <div class="card-footer bg-custom3">
@@ -205,7 +204,7 @@ export default {
             "top-end",
             2000
           );
-          AppState.activeRecipe= null
+          AppState.activeRecipe = null;
         } catch (error) {
           Pop.error(error);
         }
@@ -219,9 +218,9 @@ export default {
         }
       },
 
-      test(){
-        console.log('hi');
-      }
+      test() {
+        console.log("hi");
+      },
     };
   },
   components: {
