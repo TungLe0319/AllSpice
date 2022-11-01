@@ -66,28 +66,7 @@
                     </div>
                   </div>
                   <div class="col-md-6">
-                    <div class="card elevation-4 border-0">
-                      <div
-                        class="card-title bg-custom p-1 mb-0 rounded-top elevation-1 text-center"
-                      >
-                        <h3 class="p-md-0 m-md-0 text-light">
-                          Recipe Ingredients
-                        </h3>
-                      </div>
-                      <div class="card-body bg-custom2">
-                        <ul v-for="i in ingredients" :key="i.id">
-                          <li class="me-2">{{ i.name }}</li>
-                          <span>({{ i.quantity }})</span>
-                          <button @click="removeIngredient()" class="btn">
-                            <i class="mdi mdi-minus-box fs-5 text-danger"></i>
-                          </button>
-                        </ul>
-                      </div>
-
-                      <div class="card-footer bg-custom3">
-                        <AddIngredient />
-                      </div>
-                    </div>
+                 <IngredientsCard/>
                   </div>
 
                   <div class="col-md-6">

@@ -6,9 +6,12 @@
     <ul class="card-body d-flex">
       <li class="d-flex">
         <p class="me-2">
-          {{ ingredient?.name }}
+          {{ ingredient.name }}
         </p>
-        <p>({{ ingredient?.quantity }})</p>
+        <p>({{ ingredient.quantity }})</p>
+        <button @click="removeIngredient()" class="btn">
+          <i class="mdi mdi-minus-box fs-5 text-danger"></i>
+        </button>
       </li>
     </ul>
 
