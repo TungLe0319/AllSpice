@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="addComment()">
+  <form @submit.prevent="addComment()" class="m-5">
     <div class="input-group ">
     
       <input
@@ -27,13 +27,13 @@ export default {
   props: {},
 
   setup(props) {
-    let editable = ref({recipeId:AppState.activeRecipe.id});
+    let editable = ref({});
     return {
       editable,
       recipe: computed(() => AppState.activeRecipe),
       async addComment() {
         try {
-
+editable.value.recipeId = AppState.activeRecipe.id
            await commentsService.addComment(editable.value)
            editable.value = {}
         } catch (error) {

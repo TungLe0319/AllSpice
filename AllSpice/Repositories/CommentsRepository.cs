@@ -72,10 +72,15 @@ public class CommentsRepository : BaseRepository
 
     string sql = @"
           SELECT 
-          *
-          FROM comments 
+          c.*,
+          a.*
+          FROM comments c
+          JOIN accounts a ON a.id = c.creatorId
           WHERE recipeId = @recipeId
                ;";
-    return _db.Query<Comment>(sql, new { recipeId }).ToList();
+    return _db.Query<Comment,Profile,Comment>(sql,(comment,profile)=>{
+comment.Creator = profile;
+return comment;
+    }, new { recipeId }).ToList();
   }
 }

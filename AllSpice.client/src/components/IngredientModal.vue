@@ -44,13 +44,7 @@
                     >
                      Add Ingredient
                     </button>
-                    <button
-                      class="btn btn-outline-success selectable"
-                      type="submit"
-                  data-bs-dismiss="modal"
-                    >
-                 close 
-                    </button>
+                  
                   </div>
                 </form>
               </div>

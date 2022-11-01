@@ -1,7 +1,10 @@
 import { AppState } from "../AppState.js";
 import { Comment } from "../models/Comment.js";
 import { Ingredient } from "../models/Ingredient.js";
+import { Instruction } from "../models/Instruction.js";
 import { Recipe } from "../models/Recipe.js";
+
+
 import { api } from "./AxiosService.js";
 
 class RecipesService {
@@ -21,9 +24,15 @@ class RecipesService {
 
   async getCommentsByRecipeId(recipeId) {
     const res = await api.get(`api/recipes/${recipeId}/comments`);
-    console.log(res.data);
+    // console.log('[comments]',res.data);
     AppState.comments = res.data.map((c) => new Comment(c));
-    console.log(AppState.comments);
+    // console.log(AppState.comments);
+  }
+
+  async getInstructionsByRecipeId() {
+    const res = await api.get(`api/recipes/instructions`);
+    console.log(res.data);
+    AppState.instructions = res.data.map((i) => new Instruction(i));
   }
 
   async getRecipeById(recipeId) {
@@ -38,9 +47,8 @@ class RecipesService {
     const res = await api.post("api/recipes", recipeData);
     console.log("[createRecipe]", res.data);
     const newRecipe = new Recipe(res.data);
-    AppState.activeRecipe = newRecipe
+    AppState.activeRecipe = newRecipe;
     AppState.recipes = [newRecipe, ...AppState.recipes];
-
   }
   async removeRecipe(recipeId) {
     await api.delete(`api/recipes/${recipeId}`);
@@ -70,14 +78,15 @@ class RecipesService {
   }
 
   async searchByQuery(query) {
-    const res = await api.get("api/recipes");
-    console.log(res.data);
+    if (query == "") {
+      const res = await api.get("api/recipes");
+      //  console.log(res.data);
 
-    AppState.recipes = res.data.map((r) => new Recipe(r));
-
-    AppState.recipes = AppState.recipes.filter((f) =>
-      f.title.toUpperCase().includes(query.toUpperCase())
-    );
+      AppState.recipes = res.data.map((r) => new Recipe(r));
+    } else
+      AppState.recipes = AppState.recipes.filter((f) =>
+        f.title.toUpperCase().includes(query.toUpperCase())
+      );
   }
 }
 export const recipesService = new RecipesService();

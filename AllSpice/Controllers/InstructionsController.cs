@@ -26,7 +26,7 @@ public class InstructionsController : ControllerBase
     {
       Account userInfo = await _auth0provider.GetUserInfoAsync<Account>(HttpContext);
       newInstruction.CreatorId = userInfo.Id;
-      // newInstruction.Creator = userInfo;
+      newInstruction.Creator = userInfo;
       Instruction createdInstruction = _is.CreateInstruction(newInstruction, userInfo.Id);
 
       return Ok(createdInstruction);

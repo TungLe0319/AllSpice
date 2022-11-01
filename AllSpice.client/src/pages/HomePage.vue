@@ -23,11 +23,13 @@
       </div>
       <div class="col-md-12"></div>
     </div>
-    <div class="row  ">
-      <div class="col-10 col-md-3 recipeCard " v-for="r in recipes" :class="recipes.length <=5? 'col-md-12':'col-md-3'">
+    <div class="row  " v-if="recipes">
+      <div class="col-10 col-md-3 recipeCard "  v-for="r in recipes" :class="recipes.length <=5? 'col-md-12':'col-md-3'">
         <RecipeCard :recipe="r" :key="r.id" v-motion-fade />
       </div>
+      
     </div>
+      <LoadingSpinner  v-else /> 
   </div>
   <RecipeModal :recipe="activeRecipe" />
   <RecipeForm />
@@ -42,6 +44,7 @@ import { onMounted } from "vue";
 import { AppState } from "../AppState.js";
 import IngredientModal from "../components/IngredientModal.vue";
 import InstructionsModal from "../components/InstructionsModal.vue";
+import LoadingSpinner from "../components/LoadingSpinner.vue";
 import RecipeForm from "../components/RecipeForm .vue";
 import { accountService } from "../services/AccountService.js";
 import { favoritesService } from "../services/FavoritesService.js";
@@ -88,7 +91,7 @@ export default {
       ingredients: computed(() => AppState.ingredients),
     };
   },
-  components: { RecipeForm, InstructionsModal, IngredientModal },
+  components: { RecipeForm, InstructionsModal, IngredientModal, LoadingSpinner },
 };
 </script>
 

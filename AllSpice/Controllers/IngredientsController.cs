@@ -19,7 +19,7 @@ public class IngredientsController : ControllerBase
 
 
   [HttpPost]
-  [Authorize]
+ 
   public async Task<ActionResult<Ingredient>> CreateRecipe([FromBody] Ingredient newIngredient)
   {
     try

@@ -1,23 +1,28 @@
 <template>
   
   <div class="card elevation-4 border-0">
-    <div
-      class="card-title bg-custom p-1 mb-0 rounded-top elevation-1 text-center"
-    >
-      <h3 class="p-md-0 m-md-0 text-light">Comments</h3>
-    </div>
+    
+   
     <div class="card-body  text-dark ">
-      {{ comment.body }}
+      <div class="">
+ <div>
+  <img :src="comment.creator.picture" alt=""  class="rounded-circle elevation-3 me-2" height="50">
+  <small> {{comment.creator.name.split("@")[0]}} </small>
+ </div>
+        <p> {{ comment.body }}</p>
+      </div>
     </div>
   </div>
   
 </template>
 
 <script>
+import { Account } from "../models/Account.js";
 import { Comment } from "../models/Comment.js";
 
 export default {
   props: {
+    profile: {type: Account},
     comment: { type: Comment, required: true },
   },
 

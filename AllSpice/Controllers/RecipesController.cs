@@ -59,7 +59,7 @@ public class RecipesController : ControllerBase
   }
 
   [HttpGet("{recipeId}")]
-  [Authorize]
+
   public ActionResult<Recipe> GetById(int recipeId)
   {
     try
@@ -75,7 +75,7 @@ public class RecipesController : ControllerBase
 
 
   [HttpGet("{recipeId}/ingredients")]
-  [Authorize]
+ 
   public ActionResult<List<Ingredient>> GetIngredientsByRecipe(int recipeId)
   {
     try
@@ -91,8 +91,29 @@ public class RecipesController : ControllerBase
   }
 
 
+  [HttpGet("{recipeId}/instructions")]
+ 
+  public ActionResult<List<Instruction>> GetInstructionsByRecipe(int recipeId)
+  {
+    try
+    {
+
+      List<Instruction> instructions = _instructS.GetInstructionsByRecipe(recipeId);
+      return Ok(instructions);
+    }
+    catch (Exception e)
+    {
+      return BadRequest(e.Message);
+    }
+  }
+
+
+
+
+
+
   [HttpGet("{recipeId}/comments")]
-  [Authorize]
+
   public ActionResult<List<Comment>> GetCommentsByRecipe(int recipeId)
   {
     try

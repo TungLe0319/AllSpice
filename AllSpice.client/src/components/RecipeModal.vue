@@ -68,7 +68,7 @@
                         <div v-for="i in ingredients" :key="i.id">
                           <span class="me-2">{{ i.name }}</span>
                           <span>({{ i.quantity }})</span>
-                          <button  class="btn "> <i class="mdi mdi-minus-box fs-5 text-danger"></i></button>
+                          <button  @click="removeIngredient()" class="btn "> <i class="mdi mdi-minus-box fs-5 text-danger"></i></button>
                         </div>
                       </div>
 
@@ -126,6 +126,7 @@ import { AppState } from "../AppState.js";
 import { Ingredient } from "../models/Ingredient.js";
 
 import { Recipe } from "../models/Recipe.js";
+import { ingredientsService } from "../services/IngredientsService.js";
 import { recipesService } from "../services/RecipesService.js";
 import Pop from "../utils/Pop.js";
 import AddComment from "./AddComment.vue";
@@ -162,7 +163,7 @@ export default {
     watchEffect(() => {
       AppState.activeRecipe;
       getIngredientsByRecipeId();
-      // getCommentsByRecipeId();
+      getCommentsByRecipeId();
     });
     return {
       ingredients: computed(() => AppState.ingredients),
@@ -185,6 +186,14 @@ export default {
           Pop.error(error);
         }
       },
+      async removeIngredient(){
+        try {
+          let id = props.ingredient.id
+            await ingredientsService.removeIngredient(id)
+          } catch (error) {
+            Pop.error(error)
+          }
+      }
     };
   },
   components: {
@@ -216,7 +225,7 @@ export default {
 
 .img1 {
   height: 80vh;
-  width: 400px;
+  width: auto;
   object-fit: cover;
 }
 @media screen and (max-width: 600px) {

@@ -22,6 +22,7 @@
             class="btn filterbtn  bg-transparent"
             @click="getFavoriteRecipes()"
           >
+          
             <h3>Favorites</h3>
           </button></span
         >

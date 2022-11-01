@@ -18,6 +18,8 @@ export const AppState = reactive({
 
   /** @type {import('./models/Ingredient.js').Ingredient[]} */
   ingredients: [],
+  /** @type {import('./models/Instruction.js').Instruction[]} */
+  instructions: [],
 
   /** @type {import('./models/Comment.js').Comment[]} */
   comments: [],

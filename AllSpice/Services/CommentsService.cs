@@ -34,7 +34,7 @@ public class CommentsService
   }
 
 
-  internal Comment CreateComment(Comment newComment)
+  internal Comment CreateComment(Comment newComment, string accountId)
   {
  
     

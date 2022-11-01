@@ -4,6 +4,7 @@
     v-if="recipe"
    
   >
+  
     <img
       :src="recipe?.img"
       :alt="recipe?.title"
@@ -72,6 +73,7 @@
       <p class="mb-0 text-shadow2">{{ recipe?.category }}</p>
     </div>
   </div>
+  <div v-else> <LoadingSpinner/> </div>
 </template>
 
 <script>
