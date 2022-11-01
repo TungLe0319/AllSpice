@@ -23,6 +23,22 @@ CREATE TABLE
         FOREIGN KEY(creatorId) REFERENCES accounts(id) ON DELETE CASCADE
     ) default charset utf8 COMMENT '';
 
+SELECT
+    rec.*,
+    COUNT(fav.id) AS FavoriteCount,
+    a.*
+FROM recipes rec
+    JOIN accounts a ON a.id = rec.creatorId
+    LEFT JOIN favorites fav ON fav.recipeId = rec.id
+    
+GROUP BY
+    rec.id;
+
+
+
+
+
+
 CREATE TABLE
     IF NOT EXISTS comments(
         id INT NOT NULL PRIMARY KEY AUTO_INCREMENT COMMENT 'primary key',

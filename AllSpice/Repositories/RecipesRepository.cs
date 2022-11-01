@@ -33,6 +33,7 @@ public class RecipesRepository : BaseRepository
             LEFT JOIN favorites fav ON fav.recipeId = rec.id
             
             GROUP BY rec.id
+            
             ;";
     return _db.Query<Recipe, Profile, Recipe>(sql, (recipe, profile) =>
     {
