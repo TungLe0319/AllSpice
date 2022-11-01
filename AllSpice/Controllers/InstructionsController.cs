@@ -40,22 +40,22 @@ public class InstructionsController : ControllerBase
 
 
 
-  // [HttpDelete("{ingredientId}")]
-  // [Authorize]
-  // public async Task<ActionResult<string>> DeleteInstruction(int instructionId)
-  // {
-  //   try
-  //   {
-  //     Account userInfo = await _auth0provider.GetUserInfoAsync<Account>(HttpContext);
-  //     // _rs.DeleteRecipe(recipeId, userInfo.Id);
-  //     _is.DeleteInstruction(instructionId, userInfo.Id);
-  //     return Ok("Instruction deleted");
-  //   }
-  //   catch (Exception e)
-  //   {
-  //     return BadRequest(e.Message);
-  //   }
-  // }
+  [HttpDelete("{instructionId}")]
+  [Authorize]
+  public async Task<ActionResult<string>> DeleteInstruction(int instructionId)
+  {
+    try
+    {
+      Account userInfo = await _auth0provider.GetUserInfoAsync<Account>(HttpContext);
+      // _rs.DeleteRecipe(recipeId, userInfo.Id);
+      _is.DeleteInstruction(instructionId, userInfo.Id);
+      return Ok("Instruction deleted");
+    }
+    catch (Exception e)
+    {
+      return BadRequest(e.Message);
+    }
+  }
 
 
 }

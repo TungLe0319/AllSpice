@@ -2,7 +2,7 @@
   <div
     class="card text-bg-dark my-2  position-relative elevation-5 border-0"
     v-if="recipe"
-   
+               @onmouseover="test()"
   >
   
     <img
@@ -126,6 +126,9 @@ export default {
           Pop.error(error);
         }
       },
+      test(){
+        console.log('hi');
+      }
     };
   },
 };

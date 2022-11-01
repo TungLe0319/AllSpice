@@ -5,12 +5,12 @@ import { api } from "./AxiosService.js";
 
 class InstructionsService {
   async addInstruction(instructionsData) {
-    const res = await api.post("api/instructionss", instructionsData);
+    const res = await api.post("api/instructions", instructionsData);
         console.log('[instructions]',res.data);
        
 
     let newInstruction = new Instruction(res.data);
-    AppState.instructions = [newInstruction, ...AppState.instructions];
+    AppState.instructions = [...AppState.instructions, newInstruction];
   }
 
   async removeInstruction(instructionId) {

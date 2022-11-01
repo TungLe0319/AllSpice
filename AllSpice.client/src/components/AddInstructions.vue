@@ -1,11 +1,23 @@
 <template>
-  <div class="container">
+  <!-- <div class="container">
 
     <form @submit.prevent="editInstruction()" >
        <div class="p-1 px-0  d-flex ">
   
       <textarea type="text" name="instructions" class="rounded  px-5" v-model="editable.instructions"></textarea>
       <button class="btn editBtn" type="submit">Edit</button>
+    </div>
+    </form>
+  </div>
+  -->
+
+    <div class="container">
+
+    <form @submit.prevent="addInstruction()" >
+       <div class="p-1 px-0  d-flex ">
+  
+      <textarea type="text" name="instructions" class="rounded  " v-model="editable.step"></textarea>
+      <button class="btn editBtn" type="submit">Add Instruction</button>
     </div>
     </form>
   </div>
@@ -16,6 +28,7 @@
 import { computed ,ref} from "@vue/reactivity";
 import { watchEffect } from "vue";
 import { AppState } from "../AppState.js";
+import { instructionsService } from "../services/InstructionsService.js";
 import { recipesService } from "../services/RecipesService.js";
 import Pop from "../utils/Pop.js";
 
@@ -48,6 +61,15 @@ async editInstruction(){
           return
         }
       await recipesService.editRecipe(recipe.id,editable.value)
+    } catch (error) {
+      Pop.error(error)
+    }
+},
+
+async addInstruction(){
+  try {
+    editable.value.recipeId = AppState.activeRecipe.id
+      await instructionsService.addInstruction(editable.value)
     } catch (error) {
       Pop.error(error)
     }

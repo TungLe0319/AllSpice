@@ -31,6 +31,7 @@ public class RecipesRepository : BaseRepository
             FROM recipes rec
             JOIN accounts a ON a.id = rec.creatorId
             LEFT JOIN favorites fav ON fav.recipeId = rec.id
+            
             GROUP BY rec.id
             ;";
     return _db.Query<Recipe, Profile, Recipe>(sql, (recipe, profile) =>

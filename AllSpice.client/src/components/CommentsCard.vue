@@ -1,15 +1,15 @@
 <template>
   
-  <div class="card elevation-4 border-0">
+  <div class="card elevation-4 border-0 my-1">
     
    
-    <div class="card-body  text-dark ">
-      <div class="">
+    <div class="card-body  text-dark  p-1">
+      <div class="ms-2 mt-1">
  <div>
-  <img :src="comment.creator.picture" alt=""  class="rounded-circle elevation-3 me-2" height="50">
+  <img :src="comment.creator.picture" alt=""  class="rounded-circle elevation-3 me-2" height="30">
   <small> {{comment.creator.name.split("@")[0]}} </small>
  </div>
-        <p> {{ comment.body }}</p>
+        <p class="ms-2 mt-2"> {{ comment.body }}</p>
       </div>
     </div>
   </div>

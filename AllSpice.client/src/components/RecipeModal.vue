@@ -6,9 +6,9 @@
     aria-labelledby="Label"
     aria-hidden="true"
   >
-    <div class="modal-dialog modal-dialog-centered modal-xl">
+    <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
       <div
-        class="modal-content modal-dialog-centered modal-dialog-scrollable modal-xl"
+        class="modal-content "
       >
         <!-- --------------------------- -->
         <div class="modal-body FORM p-0 position-relative">
@@ -26,9 +26,10 @@
                   ><i
                     class="mdi mdi-alpha-x-circle-outline hoverOver text-danger m-2 fs-2"
                     @click="removeRecipe()"
-                    data-bs-dismiss="modal"
+      
                   ></i
                 ></span>
+                
                 <span class="d-flex align-items-center p-1 rounded no-select"
                   ><h3 class="text-custom p-2">{{ recipe?.title }}</h3>
                   <p class="bg-secondary p-1 mt-1 rounded fw-bold">
@@ -37,7 +38,7 @@
                 >
                 <div class="row">
                   <div class="col-md-6">
-                    <div class="card elevation-4 border-0">
+                    <div class="card elevation-4 border-0 ">
                       <div
                         class="card-title bg-custom mb-0 p-1 rounded-top elevation-1 text-center"
                       >
@@ -45,8 +46,18 @@
                           Recipe Instructions
                         </h3>
                       </div>
-                      <div class="card-body bg-custom2">
-                        <p>{{ recipe?.instructions }}</p>
+                      <div class="card-body bg-custom2 p-0">
+                        <TransitionGroup
+                          name=""
+                          enterActiveClass="animate__fadeIn animate__animated"
+                          leaveActiveClass="animate__fadeOut animate__animated"
+                        >
+                          <InstructionsCard
+                            :instruction="i"
+                            v-for="i in instructions"
+                            :key="i.id"
+                          />
+                        </TransitionGroup>
                       </div>
                       <div
                         class="bg-transparent d-flex justify-content-center bg-custom3 p-md-0 m-md-0"
@@ -68,7 +79,9 @@
                         <div v-for="i in ingredients" :key="i.id">
                           <span class="me-2">{{ i.name }}</span>
                           <span>({{ i.quantity }})</span>
-                          <button  @click="removeIngredient()" class="btn "> <i class="mdi mdi-minus-box fs-5 text-danger"></i></button>
+                          <button @click="removeIngredient()" class="btn">
+                            <i class="mdi mdi-minus-box fs-5 text-danger"></i>
+                          </button>
                         </div>
                       </div>
 
@@ -79,11 +92,7 @@
                   </div>
 
                   <div class="col-md-6">
-                    <CommentsCard
-                      v-for="c in comments"
-                      :comment="c"
-                      
-                    />
+                    <CommentsCard v-for="c in comments" :comment="c" />
                   </div>
                 </div>
                 <div
@@ -101,7 +110,7 @@
                     <img
                       :src="recipe?.creator.picture"
                       alt="creator profile picture "
-                      :title="recipe.creator.name + 'picture'"
+                      :title="recipe?.creator.name + 'picture'"
                       class="rounded-circle ms-2 mb-1"
                       height="40"
                     />
@@ -127,12 +136,14 @@ import { Ingredient } from "../models/Ingredient.js";
 
 import { Recipe } from "../models/Recipe.js";
 import { ingredientsService } from "../services/IngredientsService.js";
+import { instructionsService } from "../services/InstructionsService.js";
 import { recipesService } from "../services/RecipesService.js";
 import Pop from "../utils/Pop.js";
 import AddComment from "./AddComment.vue";
 import AddIngredient from "./AddIngredient.vue";
 import AddInstructions from "./AddInstructions.vue";
 import CommentsCard from "./CommentsCard.vue";
+import InstructionsCard from "./InstructionsCard.vue";
 
 export default {
   props: {
@@ -160,14 +171,26 @@ export default {
         Pop.error(error);
       }
     }
+    async function getInstructionsByRecipeId() {
+      try {
+        if (AppState.activeRecipe) {
+          let recipeId = AppState.activeRecipe.id;
+          await recipesService.getInstructionsByRecipeId(recipeId);
+        }
+      } catch (error) {
+        Pop.error(error);
+      }
+    }
     watchEffect(() => {
       AppState.activeRecipe;
       getIngredientsByRecipeId();
       getCommentsByRecipeId();
+      getInstructionsByRecipeId();
     });
     return {
       ingredients: computed(() => AppState.ingredients),
       comments: computed(() => AppState.comments),
+      instructions: computed(() => AppState.instructions),
       async removeRecipe() {
         try {
           const yes = await Pop.confirm();
@@ -180,19 +203,24 @@ export default {
             `${AppState.activeRecipe.title} Removed`,
             "success",
             "top-end",
-            1000
+            2000
           );
+          AppState.activeRecipe= null
         } catch (error) {
           Pop.error(error);
         }
       },
-      async removeIngredient(){
+      async removeIngredient() {
         try {
-          let id = props.ingredient.id
-            await ingredientsService.removeIngredient(id)
-          } catch (error) {
-            Pop.error(error)
-          }
+          let id = props.ingredient.id;
+          await ingredientsService.removeIngredient(id);
+        } catch (error) {
+          Pop.error(error);
+        }
+      },
+
+      test(){
+        console.log('hi');
       }
     };
   },
@@ -202,6 +230,7 @@ export default {
     AddInstructions,
     CommentsCard,
     AddComment,
+    InstructionsCard,
   },
 };
 </script>

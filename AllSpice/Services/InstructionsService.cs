@@ -48,7 +48,7 @@ public class InstructionsService
       throw new Exception("Unauthorized");
     }
 
-    _instructionsRepo.CreateInstruction(foundInstruction);
+    _instructionsRepo.DeleteInstruction(foundInstruction);
   }
 
   internal void DeleteIngredient(int instructionId, string accountId)

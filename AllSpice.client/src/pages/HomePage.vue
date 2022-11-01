@@ -40,7 +40,7 @@
 <script>
 import { onAuthLoaded } from "@bcwdev/auth0provider-client";
 import { computed } from "@vue/reactivity";
-import { onMounted } from "vue";
+import { onMounted, watchEffect } from "vue";
 import { AppState } from "../AppState.js";
 import IngredientModal from "../components/IngredientModal.vue";
 import InstructionsModal from "../components/InstructionsModal.vue";
@@ -74,11 +74,29 @@ export default {
 
     onMounted(() => {
       getAllRecipes();
+      infiniteScroll()
     });
     
     onAuthLoaded(()=>{
       getAllFavorites()
 
+    })
+
+function infiniteScroll(){
+  window.onscroll = () => {
+  let bottomOfWindow = document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight;
+
+  if (bottomOfWindow) {
+  
+  }
+};
+}
+
+
+    watchEffect(()=>{
+      // document.addEventListener('scroll', () => {
+      //   console.log('hi');
+      // }, true);
     })
     return {
     

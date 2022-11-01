@@ -40,7 +40,7 @@ CREATE TABLE
         id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
         createdAt DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'Time Created',
         updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Last Update',
-        steps LONGTEXT NOT NULL COMMENT 'steps',
+        step LONGTEXT NOT NULL COMMENT 'steps',
         creatorId varchar(255) NOT NULL COMMENT 'creatorId',
         recipeId INT NOT NULL,
         FOREIGN KEY (recipeId) REFERENCES recipes(id) ON DELETE CASCADE,

@@ -13,11 +13,16 @@ public class InstructionsRepository : BaseRepository
 
     string sql = @"
           SELECT 
-          *
-          FROM instructions
+      i.*,
+      a.*
+          FROM instructions i
+          JOIN accounts a ON a.id = i.creatorId
           WHERE recipeId = @recipeId
                ;";
-    return _db.Query<Instruction>(sql, new { recipeId }).ToList();
+    return _db.Query<Instruction,Profile,Instruction>(sql,(instruction,profile)=>{
+      instruction.Creator = profile;
+      return instruction;
+    }, new { recipeId }).ToList();
   }
 
   internal Instruction GetInstructionById(int instructionId)
@@ -35,8 +40,8 @@ public class InstructionsRepository : BaseRepository
   internal Instruction CreateInstruction(Instruction newInstruction)
   {
     string sql = @"
-           INSERT INTO instructions(steps,creatorId,recipeId)
-           VALUES(@Steps,@CreatorId,@RecipeId);
+           INSERT INTO instructions(step,creatorId,recipeId)
+           VALUES(@Step,@CreatorId,@RecipeId);
            SELECT LAST_INSERT_ID()
                 ;";
     int id = _db.ExecuteScalar<int>(sql, newInstruction);

@@ -29,9 +29,10 @@ class RecipesService {
     // console.log(AppState.comments);
   }
 
-  async getInstructionsByRecipeId() {
-    const res = await api.get(`api/recipes/instructions`);
-    console.log(res.data);
+  async getInstructionsByRecipeId(recipeId) {
+    const res = await api.get(`api/recipes/${recipeId}/instructions`);
+         console.log('[instructions]',res.data);
+        //  console.log(AppState.instructions);
     AppState.instructions = res.data.map((i) => new Instruction(i));
   }
 
