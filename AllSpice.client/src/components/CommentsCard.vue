@@ -9,7 +9,7 @@
   <img :src="comment.creator.picture" alt=""  class="rounded-circle elevation-3 me-2" height="30">
   <small> {{comment.creator.name.split("@")[0]}} </small>
  </div>
-        <p class="ms-2 mt-2"> {{ comment.body }}</p>
+        <p class="mb-0 mt-1"> {{ comment.body }}</p>
       </div>
     </div>
   </div>

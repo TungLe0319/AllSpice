@@ -16,9 +16,9 @@ class AccountService {
 
   async getFavoriteRecipes() {
     const res = await api.get(`/account/favorites`);
-    // console.log(res.data);
+    console.log(res.data);
     // AppState.recipes =[]
-    AppState.recipes = res.data.map((r) => new Recipe(r));
+    AppState.recipes = res.data.map((r) => new FavRecipe(r));
 
     console.log(AppState.recipes);
   }
@@ -26,15 +26,16 @@ class AccountService {
   async getAllFavorites() {
     const res = await api.get("/account/favorites");
     console.log(res.data);
-    AppState.favorites = res.data.map((f) => new Recipe(f));
+    AppState.favorites = res.data.map((f) => new FavRecipe(f));
 
-    AppState.recipes.forEach((r) => {
-      let fav = AppState.favorites.find((f) => f.id == r.id);
-      if (fav) {
-        r.favorited = true;
-        r.favoriteId = fav.favoriteId;
-      }
-    });
+    // AppState.recipes.forEach((r) => {
+    //   let fav = AppState.favorites.find((f) => f.id == r.id);
+    //   if (fav) {
+    //     r.favorited = true;
+    //     r.favoriteId = fav.favoriteId;
+    //   }
+    // });
+    console.log(AppState.favorites);
   }
 }
 export const accountService = new AccountService();

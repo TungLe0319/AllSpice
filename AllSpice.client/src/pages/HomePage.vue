@@ -9,6 +9,18 @@
           class="fixed-bottom d-flex align-items-start flex-column justify-content-center ms-1 mb-1"
         >
           <div>
+              <!-- <button
+        class="btn  addBtn py-1 px-2 "
+       
+       @click="toggleSearchBar()"
+      >
+        <i class="mdi mdi-magnify mx-2" alt="" title="search By Name"></i>
+      </button> -->
+
+<span>
+  <h6>{{recipes.length}} </h6>
+</span>
+
             <button
               data-bs-target="#recipeFormModal"
               data-bs-toggle="modal"
@@ -28,7 +40,7 @@
       <div
         class="col-10 col-md-3 recipeCard"
         v-for="r in recipes"
-        :class="recipes.length <= 5 ? 'col-md-12' : 'col-md-3'"
+        :class="recipes.length <= 3 ? 'col-md-12' : 'col-md-3'"
       >
         <RecipeCard :recipe="r" :key="r.id" v-motion-fade />
       </div>
@@ -39,6 +51,7 @@
   <RecipeForm />
   <InstructionsModal />
   <IngredientModal />
+ 
 </template>
 
 <script>
@@ -49,7 +62,9 @@ import { AppState } from "../AppState.js";
 import IngredientModal from "../components/IngredientModal.vue";
 import InstructionsModal from "../components/InstructionsModal.vue";
 import LoadingSpinner from "../components/LoadingSpinner.vue";
+
 import RecipeForm from "../components/RecipeForm .vue";
+import SearchIcon from "../components/SearchIcon.vue";
 import { accountService } from "../services/AccountService.js";
 import { favoritesService } from "../services/FavoritesService.js";
 
@@ -62,7 +77,7 @@ export default {
       try {
         let offSet = AppState.offSet;
         await recipesService.getAllRecipes(offSet);
-        AppState.offSet += 4;
+        AppState.offSet += 12;
 
         console.log(AppState.offSet);
       } catch (error) {
@@ -119,14 +134,25 @@ export default {
         AppState.recipes.filter((r) => r.category == "cheese")
       ),
       ingredients: computed(() => AppState.ingredients),
+
+
+      toggleSearchBar(){
+           document.getElementById("searchBar1").classList.toggle("d-none");
+   
+      document.getElementById("searchBar1").focus();
+      }
     };
+
+
+
   },
   components: {
     RecipeForm,
     InstructionsModal,
     IngredientModal,
     LoadingSpinner,
-  },
+    SearchIcon
+},
 };
 </script>
 

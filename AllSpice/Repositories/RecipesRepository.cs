@@ -33,7 +33,7 @@ public class RecipesRepository : BaseRepository
             LEFT JOIN favorites fav ON fav.recipeId = rec.id
             
             GROUP BY rec.id
-            LIMIT 4
+            LIMIT 12
             OFFSET @Offset
             
             ;";

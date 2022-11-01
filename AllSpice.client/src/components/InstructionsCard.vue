@@ -1,8 +1,11 @@
 <template> 
   <div class=" instructionCard  bg-light p-1  " v-if="instruction">
     <div class="d-flex justify-content-between">
-      <p class="ms-3">{{instruction.step}}</p>
-      <button  @click="removeInstruction()" class="btn"> <i class="mdi mdi-minus-box fs-6 text-danger"></i></button>
+      <img src="https://cdn-icons-png.flaticon.com/512/1094/1094675.png" alt=""  width="30" height="30">
+      <p class="mb-0  d-flex align-items-center">{{instruction.step}}</p>
+      <button  @click="removeInstruction()" class="btn deleteButton"> 
+        <img src="https://cdn-icons-png.flaticon.com/512/458/458594.png" alt="" width="25"  height="25">
+      </button>
     </div>
   </div>
 </template>
@@ -35,7 +38,9 @@ async removeInstruction(){
 
 <style lang="scss" scoped>
 
-
+.instructionCard{
+  transition: all 0.5s ease;
+}
 .instructionCard:hover {
   transform: scale(1.01);
   transition: all 0.5s ease;

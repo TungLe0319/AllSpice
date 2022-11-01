@@ -20,6 +20,12 @@
                   alt=""
                   class="img-fluid rounded-start img1"
                 />
+
+                <div class="card-img-overlay">
+                  <div class="col-md-3 ms-2">
+                    <CommentsCard v-for="c in comments" :comment="c" />
+                  </div>
+                </div>
               </div>
               <div class="col-md-8">
                 <span class="position-absolute end-0 top-0 deleteIcon"
@@ -39,17 +45,27 @@
                   <div class="col-md-6">
                     <div class="card elevation-4 border-0">
                       <div
-                        class="card-title bg-custom mb-0 p-1 rounded-top elevation-1 text-center"
+                        class="card-title bg-custom justify-content-between mb-0 p-1 rounded-top elevation-1 text-center d-flex"
                       >
                         <h3 class="p-md-0 m-md-0 text-light">
                           Recipe Instructions
                         </h3>
+                        <button
+                          class="btn p-0 m-0"
+                          type="button"
+                          data-bs-toggle="collapse"
+                          data-bs-target="#instructionCollapse"
+                          aria-expanded="false"
+                          aria-controls="collapseExample"
+                        >
+                          <i class="mdi mdi-plus-box fs-4"> </i>
+                        </button>
                       </div>
-                      <div class="card-body bg-custom2 p-0">
+                      <div class="card-body bg-custom2 p-0 yScroll">
                         <TransitionGroup
                           name=""
-                          enterActiveClass="animate__fadeInUp animate__animated "
-                          leaveActiveClass="animate__fadeOutDown animate__animated"
+                          enterActiveClass="animate__fadeIn animate__animated "
+                          leaveActiveClass="animate__fadeOut animate__animated"
                         >
                           <InstructionsCard
                             :instruction="i"
@@ -58,19 +74,61 @@
                           />
                         </TransitionGroup>
                       </div>
-                      <div
-                        class="bg-transparent d-flex justify-content-center bg-custom3 p-md-0 m-md-0"
-                      >
-                        <AddInstructions />
+                      <div class="bg-transparent bg-custom3 p-md-0 m-md-0">
+                        <div
+                          class="collapse animate__animated animate__fadeIn"
+                          id="instructionCollapse"
+                        >
+                          <AddInstructions />
+                        </div>
                       </div>
                     </div>
                   </div>
                   <div class="col-md-6">
-                 <IngredientsCard/>
-                  </div>
+                    <div class="card">
+                      <div
+                        class="card-title bg-custom mb-0 p-1 rounded-top elevation-1 text-center"
+                      >
+                        <h3 class="p-md-0 m-md-0 text-light">
+                          Recipe Ingredients
+                        </h3>
+                      </div>
+                      <div class="card-body yScroll">
+                        <ul class="">
+                          <TransitionGroup
+                            name=""
+                            enterActiveClass="animate__fadeIn animate__animated"
+                            leaveActiveClass="animate__fadeOut animate__animated"
+                          >
+                            <IngredientsCard
+                              :ingredient="i"
+                              v-for="i in ingredients"
+                              :key="i.id"
+                            />
+                          </TransitionGroup>
+                        </ul>
+                      </div>
 
-                  <div class="col-md-6">
-                    <CommentsCard v-for="c in comments" :comment="c" />
+                      <div class="mx-2">
+                        <button
+                          class="btn p-0 m-0"
+                          type="button"
+                          data-bs-toggle="collapse"
+                          data-bs-target="#ingredientCollapse"
+                          aria-expanded="false"
+                          aria-controls="collapseExample"
+                        >
+                          <i class="mdi mdi-plus-box fs-4"> </i>
+                        </button>
+
+                        <div
+                          class="collapse animate__animated animate__fadeIn"
+                          id="ingredientCollapse"
+                        >
+                          <AddIngredient />
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div
@@ -79,6 +137,13 @@
                   <div
                     class="position-absolute bottom-0 d-flex align-items-center"
                   >
+                    <div class="me-4 text-dark">
+                      <i
+                        class="mdi mdi-comment-text fs-1"
+                        @click="showComments()"
+                      ></i>
+                    </div>
+
                     <p class="text-secondary mb-md-0">
                       published By
                       <b class="text-decoration-underline">
@@ -121,6 +186,7 @@ import AddComment from "./AddComment.vue";
 import AddIngredient from "./AddIngredient.vue";
 import AddInstructions from "./AddInstructions.vue";
 import CommentsCard from "./CommentsCard.vue";
+import IngredientsCard from "./IngredientsCard.vue";
 import InstructionsCard from "./InstructionsCard.vue";
 
 export default {
@@ -209,6 +275,7 @@ export default {
     CommentsCard,
     AddComment,
     InstructionsCard,
+    IngredientsCard,
   },
 };
 </script>
@@ -220,7 +287,7 @@ export default {
 }
 
 .bg-custom {
-  background: #645273;
+  background: linear-gradient(to bottom right, #3b6086, #9edbf0);
 }
 .bg-custom2 {
   background: #f2f0f4;
@@ -241,5 +308,11 @@ export default {
 .recipe {
   // background-image: url(https://www.9-elephants.co.uk/wp-content/uploads/thai-food.jpg);
   transition: all 0.25s ease;
+}
+
+.yScroll {
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 400px;
 }
 </style>

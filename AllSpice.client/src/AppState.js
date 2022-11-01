@@ -27,6 +27,8 @@ export const AppState = reactive({
 infinite: 0,
 
 
+test1:0,
+
   offSet: 12,
 
   categories: [

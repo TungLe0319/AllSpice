@@ -1,23 +1,26 @@
 <template>
-  <form @keyup="searchRecipes()">
-    <div class="d-flex">
-      <input
-        v-model="editable"
-        type="text"
-        class="form-control phtext"
-        placeholder="Search for board game . . ."
-        aria-label="Search"
-        aria-describedby="button-addon2"
-      />
-      <button
-        class="btn btn-danger py-1 px-2 mx-2"
-        type="submit"
-        id="button-addon2"
-      >
-        <i class="mdi mdi-magnify mx-2" alt="" title="search By Name"></i>
-      </button>
-    </div>
-  </form>
+  <div class="card bg-dark">
+
+    <form @keyup="searchRecipes()" class="">
+      <div class="d-flex" >
+        <input
+          v-model="editable"
+          type="text"
+          class="form-control phtext"
+          placeholder="Search for recipes . . ."
+          aria-label="Search"
+          aria-describedby="button-addon2"
+        />
+        <button
+          class="btn btn-danger py-1 px-2 "
+          type="submit"
+          id="button-addon2"
+        >
+          <i class="mdi mdi-magnify mx-2" alt="" title="search By Name"></i>
+        </button>
+      </div>
+    </form>
+  </div>
 </template>
 
 <script>

@@ -1,10 +1,11 @@
 import { Account } from "./Account.js";
 import { Recipe } from "./Recipe.js";
 
-export class FavRecipe {
+export class FavRecipe extends Recipe {
   constructor(data) {
-    this.id = data.id;
-    this.recipeId = data.recipeId;
+    super(data);
+    this.favoriteId = data.favoriteId;
+    this.recipeId = data.id;
     this.accountId = data.accountId;
   }
 }

@@ -40,18 +40,18 @@
         >
           <img
             id="favImg"
-            src="https://cdn-icons-png.flaticon.com/512/1828/1828843.png"
+            src="https://cdn-icons-png.flaticon.com/512/458/458594.png"
             alt=""
             class="hoverOver"
             @click="removeFavoriteRecipe()"
-            height="30"
-            width="30"
+            height="25"
+            width="25"
           />
           
         </span>
 
         <span
-          class="position-absolute top-0 end-0 m-1 bg-transparent deleteIcon"
+          class="position-absolute top-0 end-0 m-1 bg-transparent deleteButton "
           v-else
           v-motion-fade
         >
@@ -61,8 +61,8 @@
             alt=""
             class="hoverOver"
             @click="favoriteRecipe()"
-            height="30"
-            width="30"
+            height="25"
+            width="25"
           />
         </span>
       </TransitionGroup>
@@ -180,13 +180,7 @@ export default {
   background-color: rgba(0, 0, 0, 0.331);
 }
 
-.hoverOver {
-  transition: all 0.75s ease;
-}
-.hoverOver:hover {
-  transform: rotate(180deg) scale(1.1);
-  transition: all 0.75s ease;
-}
+
 
 .favoriteShadow{
   box-shadow: 1px 2px 16px 8px rgba(245,179,9,0.75) inset;

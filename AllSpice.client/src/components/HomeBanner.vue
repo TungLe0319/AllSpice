@@ -1,11 +1,20 @@
 <template>
   <div
-    class="card banner mt-2 border-0 mb-5 elevation-3 d-flex align-items-end justify-content-end"
+    class="card banner sticky-top mt-2 border-0 mb-5 elevation-3 d-flex align-items-end justify-content-end" 
   >
-    <div>
-      <SearchBar />
-    </div>
+
+
+   
+          <div id="searchBar1" class="searchBar  elevation-5 rounded">
+            
+            <SearchBar />
+           </div>
+        
+         
+  
     <Login />
+    
+
     <div class="categoryBar bg-light elevation-5 rounded">
       <div class="d-flex justify-content-center">
         <span>
@@ -104,6 +113,14 @@ export default {
   width: auto;
   bottom: -30px;
   left: 34vw;
+}
+
+.searchBar {
+  position: absolute;
+  border: 0;
+  width: 600px;
+  bottom: 100px;
+  left: 28vw;
 }
 
 .filterbtn:focus {
