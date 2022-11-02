@@ -15,12 +15,17 @@ public class RecipesService
     return _recipesRepo.CreateRecipe(newRecipe);
   }
 
-  internal List<Recipe> GetAllRecipes(int Offset)
+  internal List<Recipe> GetAllRecipes()
 
   {
-    return _recipesRepo.GetAllRecipes(Offset);
+    return _recipesRepo.GetAllRecipes();
   }
 
+
+  internal List<Recipe> GetRecipesInfiniteScroll( int offSet)
+  {
+    return _recipesRepo.GetRecipesInfiniteScroll( offSet);
+  }
   internal Recipe GetById(int recipeId)
   {
     Recipe foundRecipe = _recipesRepo.GetById(recipeId);
@@ -85,5 +90,6 @@ public class RecipesService
     Recipe recipe = _recipesRepo.EditRecipe(original);
     return recipe;
   }
+
 
 }

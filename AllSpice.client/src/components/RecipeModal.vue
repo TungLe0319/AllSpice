@@ -45,9 +45,9 @@
                   <div class="col-md-6">
                     <div class="card elevation-4 border-0">
                       <div
-                        class="card-title bg-custom justify-content-between mb-0 p-1 rounded-top elevation-1 text-center d-flex"
+                        class="card-title bg-custom justify-content-between mb-0 p-1 rounded-top elevation-4 text-center d-flex"
                       >
-                        <h3 class="p-md-0 m-md-0 text-light">
+                        <h3 class="ms-2 text-light">
                           Recipe Instructions
                         </h3>
                         <button
@@ -62,6 +62,14 @@
                         </button>
                       </div>
                       <div class="card-body bg-custom2 p-0 yScroll">
+                               <div class="bg-transparent  p-md-0 m-md-0">
+                        <div
+                          class="collapse animate__animated animate__fadeIn"
+                          id="instructionCollapse"
+                        >
+                          <AddInstructions />
+                        </div>
+                      </div>
                         <TransitionGroup
                           name=""
                           enterActiveClass="animate__fadeIn animate__animated "
@@ -74,27 +82,38 @@
                           />
                         </TransitionGroup>
                       </div>
-                      <div class="bg-transparent bg-custom3 p-md-0 m-md-0">
-                        <div
-                          class="collapse animate__animated animate__fadeIn"
-                          id="instructionCollapse"
-                        >
-                          <AddInstructions />
-                        </div>
-                      </div>
+               
                     </div>
                   </div>
                   <div class="col-md-6">
-                    <div class="card">
+                    <div class="card elevation-4 border-0">
                       <div
-                        class="card-title bg-custom mb-0 p-1 rounded-top elevation-1 text-center"
+                        class="card-title bg-custom mb-0 p-1 rounded-top elevation-1 d-flex justify-content-between"
                       >
-                        <h3 class="p-md-0 m-md-0 text-light">
+               
+                        <h3 class="ms-2 text-light">
                           Recipe Ingredients
                         </h3>
+                                      <button
+                          class="btn p-0 m-0"
+                          type="button"
+                          data-bs-toggle="collapse"
+                          data-bs-target="#ingredientCollapse"
+                          aria-expanded="false"
+                          aria-controls="collapseExample"
+                        >
+                          <i class="mdi mdi-plus-box fs-4"> </i>
+                        </button>
+
                       </div>
-                      <div class="card-body yScroll">
-                        <ul class="">
+                      <div class="card-body p-0  bg-custom2 yScroll">
+                          <div
+                          class="collapse animate__animated animate__fadeIn"
+                          id="ingredientCollapse"
+                        >
+                          <AddIngredient />
+                        </div>
+                        <ul class="ps-0 m-0">
                           <TransitionGroup
                             name=""
                             enterActiveClass="animate__fadeIn animate__animated"
@@ -110,23 +129,8 @@
                       </div>
 
                       <div class="mx-2">
-                        <button
-                          class="btn p-0 m-0"
-                          type="button"
-                          data-bs-toggle="collapse"
-                          data-bs-target="#ingredientCollapse"
-                          aria-expanded="false"
-                          aria-controls="collapseExample"
-                        >
-                          <i class="mdi mdi-plus-box fs-4"> </i>
-                        </button>
-
-                        <div
-                          class="collapse animate__animated animate__fadeIn"
-                          id="ingredientCollapse"
-                        >
-                          <AddIngredient />
-                        </div>
+                 
+                      
                       </div>
                     </div>
                   </div>

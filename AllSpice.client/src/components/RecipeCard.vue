@@ -1,30 +1,27 @@
 <template>
   <div
-    class="card text-bg-dark my-2  position-relative elevation-5 border-0"
+    class="card text-bg-dark my-2 position-relative elevation-5 border-0"
     v-if="recipe"
-               @onmouseover="test()"
+    @onmouseover="test()"
   >
-  
     <img
       :src="recipe?.img"
       :alt="recipe?.title"
       :title="recipe?.title + 'Img'"
       class="forcedImg card-img favoriteShadow"
- 
     />
 
     <div
       class="card-img-overlay flex-column d-flex justify-content-end align-items-center"
-         :class="favorited? 'favoriteShadow':''"
+      :class="favorited ? 'favoriteShadow' : ''"
     >
       <!-- NOTE SET ACTIVE RECIPE -->
       <span
         class="cardText p-2 rounded no-select selectable"
         :title="'Show More Details '"
-          @click="setActiveRecipe()"
+        @click="setActiveRecipe()"
         data-bs-target="#recipeModal"
         data-bs-toggle="modal"
-
       >
         <p class="card-title">{{ recipe?.title }}</p>
       </span>
@@ -47,11 +44,10 @@
             height="25"
             width="25"
           />
-          
         </span>
 
         <span
-          class="position-absolute top-0 end-0 m-1 bg-transparent deleteButton "
+          class="position-absolute top-0 end-0 m-1 bg-transparent deleteButton"
           v-else
           v-motion-fade
         >
@@ -66,14 +62,12 @@
           />
         </span>
       </TransitionGroup>
-
-     
     </div>
     <div class="position-absolute start-0 px-1 rounded category">
       <p class="mb-0 text-shadow2">{{ recipe?.category }}</p>
     </div>
   </div>
-  <div v-else> <LoadingSpinner/> </div>
+  <div v-else><LoadingSpinner /></div>
 </template>
 
 <script>
@@ -96,7 +90,7 @@ export default {
     return {
       creator: computed(() => AppState.account.id == props.recipe.creator.id),
       favorited: computed(() =>
-        AppState.favorites.find((f) => f.id == props.recipe.id)
+        AppState.favorites.find((f) => f.recipeId == props.recipe.id)
       ),
       setActiveRecipe() {
         recipesService.setActiveRecipe(props.recipe);
@@ -105,7 +99,12 @@ export default {
       async favoriteRecipe() {
         try {
           await favoritesService.favoriteRecipe(props.recipe);
-          Pop.toast(`${props.recipe.title} added to favorites`,'success','top-end',1000)
+          Pop.toast(
+            `${props.recipe.title} added to favorites`,
+            "success",
+            "top-end",
+            1000
+          );
         } catch (error) {
           Pop.error(error);
         }
@@ -114,21 +113,31 @@ export default {
       async removeFavoriteRecipe() {
         try {
           let id = this.favorited.favoriteId;
-          console.log(this.favorited);
+          // console.log(this.favorited);
 
-          const yes = await Pop.confirm('Remove Recipe','','Remove','question');
+          const yes = await Pop.confirm(
+            "Unfavorite Recipe?",
+            "",
+            "Unfavorite",
+            "question"
+          );
           if (!yes) {
             return;
           }
           await favoritesService.removeFavoriteRecipe(id);
-          Pop.success("Removed");
+         Pop.toast(
+            `${props.recipe.title} removed favorites`,
+            "success",
+            "top-end",
+            1000
+          );
         } catch (error) {
           Pop.error(error);
         }
       },
-      test(){
-        console.log('hi');
-      }
+      test() {
+        console.log("hi");
+      },
     };
   },
 };
@@ -165,7 +174,6 @@ export default {
   text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.459);
   font-weight: 600;
   letter-spacing: 0.04rem;
-
 }
 .cardText:hover {
   filter: brightness(114%);
@@ -180,18 +188,15 @@ export default {
   background-color: rgba(0, 0, 0, 0.331);
 }
 
-
-
-.favoriteShadow{
-  box-shadow: 1px 2px 16px 8px rgba(245,179,9,0.75) inset;
--webkit-box-shadow: 1px 2px 16px 8px rgba(245,179,9,0.75) inset;
--moz-box-shadow: 1px 2px 16px 8px rgba(245,179,9,0.75) inset;
+.favoriteShadow {
+  box-shadow: 1px 2px 16px 8px rgba(245, 179, 9, 0.75) inset;
+  -webkit-box-shadow: 1px 2px 16px 8px rgba(245, 179, 9, 0.75) inset;
+  -moz-box-shadow: 1px 2px 16px 8px rgba(245, 179, 9, 0.75) inset;
 }
 
- //when screen is 700px OR LESS
- @media only screen and (max-width: 700px){
- .card{
- 
- }
- }
+//when screen is 700px OR LESS
+@media only screen and (max-width: 700px) {
+  .card {
+  }
+}
 </style>

@@ -4,21 +4,31 @@ import { Ingredient } from "../models/Ingredient.js";
 import { Instruction } from "../models/Instruction.js";
 import { Recipe } from "../models/Recipe.js";
 
-
 import { api } from "./AxiosService.js";
 
 class RecipesService {
-  async getAllRecipes(offSet) {
-
-  
-    const res = await api.get(`api/recipes/${offSet}`);
-    // console.log(["recipes"],res.data);
+  async getAllRecipes() {
     
- let recipes = res.data.map(x=> new Recipe(x))
+    const res = await api.get(`api/recipes`);
+    // console.log(["recipes"],res.data);
 
- AppState.recipes = [...AppState.recipes,...recipes]
+    let recipes = res.data.map((x) => new Recipe(x));
+    AppState.offSet += recipes.length;
+    AppState.recipes = [...AppState.recipes, ...recipes];
     // AppState.recipes = res.data.map((r) => new Recipe(r));
- 
+  }
+
+  async getRecipesInfiniteScroll(offSetNum) {
+    const res = await api.get(`api/recipes/infiniteScroll`, {
+      params: {
+        offSet: offSetNum,
+      },
+    });
+    // console.log(["recipes"],res.data);
+//  AppState.offSet += 12;
+    let recipes = res.data.map((x) => new Recipe(x));
+    AppState.offSet += recipes.length;
+    AppState.recipes = [...AppState.recipes, ...recipes];
   }
 
   async getIngredientsByRecipeId(recipeId) {
@@ -37,8 +47,8 @@ class RecipesService {
 
   async getInstructionsByRecipeId(recipeId) {
     const res = await api.get(`api/recipes/${recipeId}/instructions`);
-         console.log('[instructions]',res.data);
-        //  console.log(AppState.instructions);
+    console.log("[instructions]", res.data);
+    //  console.log(AppState.instructions);
     AppState.instructions = res.data.map((i) => new Instruction(i));
   }
 

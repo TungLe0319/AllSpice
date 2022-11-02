@@ -13,7 +13,7 @@ export class Recipe {
     this.favoriteCount = data.favoriteCount;
     this.category = data.category;
     this.favorited = getFavorite(data.id);
-    // this.favoriteId = data.favoriteId || null;
+    this.favoriteId = data.favoriteId ;
   }
 }
 

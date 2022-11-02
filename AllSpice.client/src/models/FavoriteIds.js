@@ -1,19 +1,21 @@
 import { Account } from "./Account.js";
 import { Recipe } from "./Recipe.js";
 
-export class FavRecipe extends Recipe {
+export class FavoriteIds {
   constructor(data) {
-    super(data);
-    this.favoriteId = data.favoriteId;
-    this.recipeId = data.id;
+    
+    this.favoriteId = data.id;
+    this.recipeId = data.recipeId;
     this.accountId = data.accountId;
   }
 }
 
 // export class FavRecipe extends Recipe {
-//   super(data) {
-//     this.favoriteId = data.id;
-//     this.recipeId = data.recipeId;
+//   constructor(data) {
+//     super(data);
+//     this.favoriteId = data.favoriteId;
+//     this.recipeId = data.id;
 //     this.accountId = data.accountId;
 //   }
 // }
+

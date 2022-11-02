@@ -4,11 +4,13 @@ public class AccountService
 {
   private readonly AccountsRepository _repo;
   private readonly FavoritesRepository _favoritesRepo;
+  private readonly RecipesRepository _recipeRepo;
 
-  public AccountService(AccountsRepository repo, FavoritesRepository favoritesRepo)
+  public AccountService(AccountsRepository repo, FavoritesRepository favoritesRepo, RecipesRepository recipeRepo)
   {
-    _favoritesRepo = favoritesRepo;
     _repo = repo;
+    _favoritesRepo = favoritesRepo;
+    _recipeRepo = recipeRepo;
   }
 
   internal Account GetProfileByEmail(string email)
@@ -34,10 +36,42 @@ public class AccountService
     return _repo.Edit(original);
   }
 
-  internal List<FavRecipe> GetFavoritesByAccountId(string accountId)
+  internal List<Recipe> GetRecipesByAccountId( int offSet, string accountId)
+  {
+   return _recipeRepo.GetRecipesByAccountId(offSet,accountId);
+  }
+
+  internal List<FavRecipe> GetFavoritesByAccountIdInfiniteScroll(int offSet,string accountId)
 
   {
     
-    return _favoritesRepo.GetByAccountId(accountId);
+    return _favoritesRepo.GetByAccountIdInfiniteScroll(offSet,accountId);
+  }
+
+
+  internal List<FavRecipe> GetFavoritesByAccountId(string accountId)
+  {
+  return _favoritesRepo.GetByAccountId(accountId);
+  }
+
+  internal List<Favorite> GetFavoriteIdsByAccountId(string accountId)
+  {
+    
+    return _favoritesRepo.GetFavoriteIdsByAccountId(accountId);
   }
 }
+// internal List<Favorite> GetFavoriteIdsByAccountId(string accountId)
+// {
+//   List<Favorite> favorites = _favoritesRepo.GetFavoriteIdsByAccountId(accountId);
+//   List<Recipe> recipes = _recipeRepo.GetAllRecipes();
+//   recipes.ForEach(r =>
+//   {
+//     var fav = favorites.Find(f => f.RecipeId == r.Id)
+//       if (fav)
+//     {
+//       f.favoriteId = fav.Id;
+//     }
+
+//   });
+// }
+

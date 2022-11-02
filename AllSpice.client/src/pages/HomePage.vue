@@ -9,7 +9,7 @@
           class="fixed-bottom d-flex align-items-start flex-column justify-content-center ms-1 mb-1"
         >
           <div>
-              <!-- <button
+            <!-- <button
         class="btn  addBtn py-1 px-2 "
        
        @click="toggleSearchBar()"
@@ -17,9 +17,9 @@
         <i class="mdi mdi-magnify mx-2" alt="" title="search By Name"></i>
       </button> -->
 
-<span>
-  <h6>{{recipes.length}} </h6>
-</span>
+            <span>
+              <h6>{{ recipes.length }}</h6>
+            </span>
 
             <button
               data-bs-target="#recipeFormModal"
@@ -34,9 +34,6 @@
       <div class="col-md-12"></div>
     </div>
     <div class="row" v-if="recipes">
-
-
-
       <div
         class="col-10 col-md-3 recipeCard"
         v-for="r in recipes"
@@ -51,7 +48,6 @@
   <RecipeForm />
   <InstructionsModal />
   <IngredientModal />
- 
 </template>
 
 <script>
@@ -73,11 +69,11 @@ import Pop from "../utils/Pop.js";
 
 export default {
   setup() {
-    async function getAllRecipes() {
+    async function getRecipesInfiniteScroll() {
       try {
-        let offSet = AppState.offSet;
-        await recipesService.getAllRecipes(offSet);
-        AppState.offSet += 12;
+      let offSet = AppState.offSet
+        await recipesService.getRecipesInfiniteScroll(offSet);
+       
 
         console.log(AppState.offSet);
       } catch (error) {
@@ -95,7 +91,8 @@ export default {
     }
 
     onMounted(() => {
-      getAllRecipes();
+
+      getRecipesInfiniteScroll();
       infiniteScroll();
     });
 
@@ -103,19 +100,32 @@ export default {
       getAllFavorites();
     });
 
+async function getCurrentRecipes(){
+    let infinite = AppState.infinite;
+       
+        let offSet = AppState.offSet;
+          if (infinite == 0) {
+            getRecipesInfiniteScroll(offSet);
+          }
+          if (infinite == 1) {
+            await accountService.getFavoriteRecipes(offSet);
+          }
+          if (infinite == 2) {
+            await accountService.getMyRecipes(offSet);
+          }
+}
+
+
+
+
     async function infiniteScroll() {
-      window.onscroll = () => {
+      window.onscroll = async () => {
         let bottomOfWindow =
           document.documentElement.scrollTop + window.innerHeight ===
           document.documentElement.offsetHeight;
-        let x = AppState.infinite;
+      
         if (bottomOfWindow) {
-          if (x == 0) {
-            getAllRecipes();
-          } else if (x == 1) {
-
-          } else {
-          }
+        getCurrentRecipes()
         }
       };
     }
@@ -135,24 +145,20 @@ export default {
       ),
       ingredients: computed(() => AppState.ingredients),
 
+      toggleSearchBar() {
+        document.getElementById("searchBar1").classList.toggle("d-none");
 
-      toggleSearchBar(){
-           document.getElementById("searchBar1").classList.toggle("d-none");
-   
-      document.getElementById("searchBar1").focus();
-      }
+        document.getElementById("searchBar1").focus();
+      },
     };
-
-
-
   },
   components: {
     RecipeForm,
     InstructionsModal,
     IngredientModal,
     LoadingSpinner,
-    SearchIcon
-},
+    SearchIcon,
+  },
 };
 </script>
 

@@ -20,7 +20,7 @@
  
   
   
-  <div class="form-floating mb-3">
+  <div class="form-floating  mb-3">
     <input type="text" class="form-control " id="floatingInput" placeholder="name" v-model="editable.name">
     <label for="floatingInput">Name</label>
   </div>

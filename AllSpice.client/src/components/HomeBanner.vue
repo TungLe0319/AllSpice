@@ -1,19 +1,12 @@
 <template>
   <div
-    class="card banner sticky-top mt-2 border-0 mb-5 elevation-3 d-flex align-items-end justify-content-end" 
+    class="card banner sticky-top mt-2 border-0 mb-5 elevation-3 d-flex align-items-end justify-content-end"
   >
+    <div id="searchBar1" class="searchBar elevation-5 rounded">
+      <SearchBar />
+    </div>
 
-
-   
-          <div id="searchBar1" class="searchBar  elevation-5 rounded">
-            
-            <SearchBar />
-           </div>
-        
-         
-  
     <Login />
-    
 
     <div class="categoryBar bg-light elevation-5 rounded">
       <div class="d-flex justify-content-center">
@@ -29,13 +22,16 @@
         <span>
           <button
             class="btn filterbtn bg-transparent"
+            id="favoriteBtn"
             @click="getFavoriteRecipes()"
           >
             <h3>Favorites</h3>
           </button></span
         >
         <span>
-          <button class="btn filterbtn bg-transparent" @click="getMyRecipes()">
+          <button class="btn filterbtn bg-transparent" 
+          id="myRecipeBtn"
+          @click="getMyRecipes()">
             <h3>My Recipes</h3>
           </button></span
         >
@@ -55,28 +51,35 @@ import SearchBar from "./SearchBar.vue";
 
 export default {
   setup() {
-    function focus() {
-      document.getElementById("homeBtn").focus();
-    }
+   
+    
+    
     onMounted(() => {
-      focus();
+    document.getElementById("homeBtn").focus();
     });
 
+  
+
     return {
-      async getFavoriteRecipes() {
+      async getAllRecipes() {
         try {
-          AppState.infinite = 1
-          await accountService.getFavoriteRecipes();
+          let offSet = AppState.offSet;
+          AppState.infinite = 0;
+          AppState.offSet = 0;
+      
+          AppState.recipes = [];
+          await recipesService.getRecipesInfiniteScroll(offSet);
         } catch (error) {
           Pop.error(error, "[getFavoriteRecipes]");
         }
       },
-
-      async getAllRecipes() {
+      async getFavoriteRecipes() {
         try {
-          AppState.infinite = 0
-          AppState.offSet = 0;
-          await recipesService.getAllRecipes(AppState.offSet);
+          AppState.infinite = 1;
+        
+
+          AppState.recipes = [];
+          await accountService.getFavoriteRecipes();
         } catch (error) {
           Pop.error(error, "[getFavoriteRecipes]");
         }
@@ -84,9 +87,11 @@ export default {
 
       async getMyRecipes() {
         try {
-          AppState.infinite = 1
+          AppState.infinite = 2;
           AppState.offSet = 0;
-          await recipesService.getRecipesByAccountId(AppState.offSet);
+          let offSet = AppState.offSet;
+          AppState.recipes = [];
+          await accountService.getMyRecipes(offSet);
         } catch (error) {
           Pop.error(error);
         }

@@ -41,8 +41,8 @@ public class RecipesController : ControllerBase
     }
   }
 
-  [HttpGet("{offSet}")]
-  public async Task<ActionResult<List<Recipe>>> GetAllRecipes(int offSet)
+  [HttpGet]
+  public async Task<ActionResult<List<Recipe>>> GetAllRecipes()
   {
     try
     {
@@ -50,7 +50,7 @@ public class RecipesController : ControllerBase
       Account userInfo = await _auth0provider.GetUserInfoAsync<Account>(HttpContext);
 
 
-      List<Recipe> recipes = _rs.GetAllRecipes(offSet);
+      List<Recipe> recipes = _rs.GetAllRecipes();
       return Ok(recipes);
     }
     catch (Exception e)
@@ -59,7 +59,28 @@ public class RecipesController : ControllerBase
     }
   }
 
-  [HttpGet("{recipeId}/one")]
+
+  [HttpGet("infiniteScroll")]
+  public async Task<ActionResult<List<Recipe>>> GetRecipeInfiniteScroll([FromQuery]int offSet)
+  {
+    try
+    {
+
+      Account userInfo = await _auth0provider.GetUserInfoAsync<Account>(HttpContext);
+
+
+      List<Recipe> recipes = _rs.GetRecipesInfiniteScroll(offSet);
+      return Ok(recipes);
+    }
+    catch (Exception e)
+    {
+      return BadRequest(e.Message);
+    }
+  }
+
+
+
+  [HttpGet("{recipeId}")]
 
   public ActionResult<Recipe> GetById(int recipeId)
   {

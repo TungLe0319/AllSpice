@@ -1,11 +1,23 @@
 <template>
-   <li class="d-flex">
-        <p class="me-2">
-          {{ingredient.name  }}
-        </p>
-        <p class="">({{ ingredient.quantity }})</p>
+   <li class="d-flex align-items-center justify-content-between hover2 bg-light p-1">
+     <img src="https://cdn-icons-png.flaticon.com/512/4142/4142975.png" alt="" height="25" width="25">
+    <div class="d-flex">
+      <p class="mb-0 me-2 ">
+        {{ingredient?.name  }}
+      </p>
+      <p class="mb-0">({{ ingredient?.quantity }})</p>
+    </div>
         <button @click="removeIngredient()" class="btn">
-          <i class="mdi mdi-minus-box fs-5 text-danger"></i>
+            <img
+            id="favImg"
+            src="https://cdn-icons-png.flaticon.com/512/458/458594.png"
+            alt=""
+            class="hoverOver"
+       
+            height="25"
+            width="25"
+          />
+          
         </button>
       </li>
 </template>
@@ -14,6 +26,7 @@
 import { computed } from "@vue/reactivity";
 import { AppState } from "../AppState.js";
 import { Ingredient } from "../models/Ingredient.js";
+import { ingredientsService } from "../services/IngredientsService.js";
 
 export default {
   props: {
@@ -22,6 +35,14 @@ export default {
 
   setup(props) {
     return {
+
+      async removeIngredient(){
+        try {
+            await ingredientsService.removeIngredient(props.ingredient.id)
+          } catch (error) {
+            Pop.error(error)
+          }
+      }
       // ingredients : computed(()=> AppState.ingredients)
     };
   },

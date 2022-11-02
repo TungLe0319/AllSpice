@@ -1,5 +1,5 @@
 <template> 
-  <div class=" instructionCard  bg-light p-1  " v-if="instruction">
+  <div class=" hover2 bg-light p-1  " v-if="instruction">
     <div class="d-flex justify-content-between">
       <img src="https://cdn-icons-png.flaticon.com/512/1094/1094675.png" alt=""  width="30" height="30">
       <p class="mb-0  d-flex align-items-center">{{instruction.step}}</p>
@@ -38,15 +38,6 @@ async removeInstruction(){
 
 <style lang="scss" scoped>
 
-.instructionCard{
-  transition: all 0.5s ease;
-}
-.instructionCard:hover {
-  transform: scale(1.01);
-  transition: all 0.5s ease;
-
-  filter: brightness(90%);
-}
 
 
 </style>
