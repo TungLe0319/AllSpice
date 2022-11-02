@@ -1,14 +1,14 @@
 <template>
   <div
-    class="modal fade "
+    class="modal fade"
     id="recipeFormModal"
     tabindex="-1"
     aria-labelledby="Label"
     aria-hidden="true"
   >
-    <div class="modal-dialog modal-dialog-centered modal-lg ">
-      <div class="modal-content ">
-        <div class="modal-body FORM ">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-body FORM">
           <div class="container-fluid">
             <div class="row">
               <div class="col-md-5">
@@ -74,39 +74,45 @@
               >
                 <div
                   class="card text-bg-dark my-2 position-relative elevation-5 border-0"
-                 
                 >
-                  <img v-if="!editable?.img"
+                  <img
+                    v-if="!editable?.img"
                     src="https://glfoods.com.au/wp-content/uploads/2018/11/iStock-852068056.jpg"
                     class="forcedImg card-img favoriteShadow animate__animated animate__fadeIn"
                   />
-                  <img v-else
+                  <img
+                    v-else
                     :src="editable.img"
                     class="forcedImg card-img favoriteShadow animate__animated animate__fadeIn"
                   />
 
                   <div
                     class="card-img-overlay flex-column d-flex justify-content-end align-items-center"
-                  
                   >
                     <!-- NOTE SET ACTIVE RECIPE -->
-                    <span
-                      class="cardText p-2 rounded no-select selectable"
-                     
-                    >
-                    <p v-if="!editable.title" class="card-title animate__animated animate__fadeInLeft ">RecipeTitle</p>
-                      <p  v-else class="card-title">{{ editable.title }}</p>
+                    <span class="cardText p-2 rounded no-select selectable">
+                      <p
+                        v-if="!editable.title"
+                        class="card-title animate__animated animate__fadeInLeft"
+                      >
+                        RecipeTitle
+                      </p>
+                      <p v-else class="card-title">{{ editable.title }}</p>
                     </span>
                   </div>
                   <div class="position-absolute start-0 px-1 rounded category">
-                    <p v-if="!editable.category" class="mb-0 text-shadow2">Category</p>
-                    <p v-else class="mb-0 text-shadow2">{{ editable.category }}</p>
+                    <p v-if="!editable.category" class="mb-0 text-shadow2">
+                      Category
+                    </p>
+                    <p v-else class="mb-0 text-shadow2">
+                      {{ editable.category }}
+                    </p>
                   </div>
-
                 </div>
                 <div>
                   <h6 class="text-decoration-underline">Instructions</h6>
-                  <p>{{editable.instructions}}</p></div>
+                  <p>{{ editable.instructions }}</p>
+                </div>
               </div>
             </div>
           </div>
@@ -114,8 +120,6 @@
       </div>
     </div>
   </div>
-  
-                  
 </template>
 
 <script>
@@ -130,9 +134,7 @@ export default {
   setup() {
     const editable = ref({});
 
-    watchEffect(() => {
- 
-    });
+    watchEffect(() => {});
     return {
       editable,
       category: computed(() => AppState.categories),
@@ -151,14 +153,12 @@ export default {
 
 <style lang="scss" scoped>
 .modal-body {
- 
-
-
   border: 10px solid orange;
 
-
-  border-image: url("https://blog.williams-sonoma.com/wp-content/uploads/2020/04/zoom-template-food-alt3.jpg") /* source */ 100 / /* slice 
-    8px / /* width */ 18px 14px 18px 14px /* outset */ repeat; /* repeat */
+  border-image: url("https://blog.williams-sonoma.com/wp-content/uploads/2020/04/zoom-template-food-alt3.jpg")
+    /* source */ 100 / /* slice 
+    8px / /* width */ 18px 14px 18px 14px
+    /* outset */ repeat; /* repeat */
   //background-image: url();
   // background-size: cover;
   //background-position: center;
@@ -211,21 +211,13 @@ export default {
   letter-spacing: 0.2em;
   transition: all 1s ease;
 }
-.text-shadow {
-  color: aliceblue;
-  text-shadow: 1px 1px black, 0px 0px 5px salmon;
-  font-weight: bold;
-  letter-spacing: 0.08rem;
-  /* Second Color  in text-shadow is the blur */
-}
+
 .forcedImg {
-  
   object-fit: cover;
 }
 
 .card {
   transition: all 0.5s ease;
-  
 }
 .card:hover {
   filter: brightness(90%);
@@ -241,7 +233,6 @@ export default {
   text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.459);
   font-weight: 600;
   letter-spacing: 0.04rem;
-
 }
 .cardText:hover {
   filter: brightness(114%);
@@ -264,9 +255,9 @@ export default {
   transition: all 0.75s ease;
 }
 
-.favoriteShadow{
-  box-shadow: 1px 2px 16px 8px rgba(245,179,9,0.75) inset;
--webkit-box-shadow: 1px 2px 16px 8px rgba(245,179,9,0.75) inset;
--moz-box-shadow: 1px 2px 16px 8px rgba(245,179,9,0.75) inset;
+.favoriteShadow {
+  box-shadow: 1px 2px 16px 8px rgba(245, 179, 9, 0.75) inset;
+  -webkit-box-shadow: 1px 2px 16px 8px rgba(245, 179, 9, 0.75) inset;
+  -moz-box-shadow: 1px 2px 16px 8px rgba(245, 179, 9, 0.75) inset;
 }
 </style>

@@ -2,7 +2,7 @@
   <div
     class="card text-bg-dark my-2 position-relative elevation-5 border-0"
     v-if="recipe"
-    @onmouseover="test()"
+ 
   >
     <img
       :src="recipe?.img"
@@ -12,18 +12,18 @@
     />
 
     <div
-      class="card-img-overlay flex-column d-flex justify-content-end align-items-center"
-      :class="favorited ? 'favoriteShadow' : ''"
+      class="card-body p-2 flex-column d-flex justify-content-end align-items-center"
+
     >
       <!-- NOTE SET ACTIVE RECIPE -->
       <span
-        class="cardText p-2 rounded no-select selectable"
+        class="cardText p-1  no-select selectable "
         :title="'Show More Details '"
         @click="setActiveRecipe()"
         data-bs-target="#recipeModal"
         data-bs-toggle="modal"
       >
-        <p class="card-title">{{ recipe?.title }}</p>
+        <h6 class="card-title fw-bold  ">{{ recipe?.title }}</h6>
       </span>
       <!-- NOTE FAVORITE A RECIPE -->
       <TransitionGroup
@@ -43,6 +43,7 @@
             @click="removeFavoriteRecipe()"
             height="25"
             width="25"
+            title="unfavorite this recipe"
           />
         </span>
 
@@ -59,12 +60,13 @@
             @click="favoriteRecipe()"
             height="25"
             width="25"
+            title="favorite this recipe"
           />
         </span>
       </TransitionGroup>
     </div>
-    <div class="position-absolute start-0 px-1 rounded category">
-      <p class="mb-0 text-shadow2">{{ recipe?.category }}</p>
+    <div class="position-absolute start-0 px-1 rounded-end category">
+      <h6 class="mb-0  p-1 text-light fw-bold  text-shadow2">{{ recipe?.category }}</h6>
     </div>
   </div>
   <div v-else><LoadingSpinner /></div>
@@ -93,7 +95,6 @@ export default {
         AppState.favorites.find((f) => f.recipeId == props.recipe.id)
       ),
       setActiveRecipe() {
-       
         recipesService.setActiveRecipe(props.recipe);
       },
 
@@ -104,7 +105,7 @@ export default {
             `${props.recipe.title} added to favorites`,
             "success",
             "top-end",
-            1000
+            2000
           );
         } catch (error) {
           Pop.error(error);
@@ -114,7 +115,6 @@ export default {
       async removeFavoriteRecipe() {
         try {
           let id = this.favorited.favoriteId;
-          // console.log(this.favorited);
 
           const yes = await Pop.confirm(
             "Unfavorite Recipe?",
@@ -126,19 +126,17 @@ export default {
             return;
           }
           await favoritesService.removeFavoriteRecipe(id);
-         Pop.toast(
+          Pop.toast(
             `${props.recipe.title} removed favorites`,
             "success",
             "top-end",
-            1000
+            2000
           );
         } catch (error) {
           Pop.error(error);
         }
       },
-      test() {
-        console.log("hi");
-      },
+    
     };
   },
 };
@@ -153,7 +151,7 @@ export default {
   /* Second Color  in text-shadow is the blur */
 }
 .forcedImg {
-  height: 300px;
+  height: 250px;
   width: auto;
   object-fit: cover;
 }
@@ -166,22 +164,26 @@ export default {
   transition: all 0.25s ease;
   box-shadow: rgba(240, 78, 46, 0.4) 5px 5px, rgba(240, 75, 46, 0.3) 10px 10px,
     rgba(240, 46, 46, 0.2) 15px 15px, rgba(240, 53, 46, 0.1) 20px 20px;
-}
-.cardText {
-  display: flex;
-  justify-content: end;
-  background-color: rgba(0, 0, 0, 0.331);
-  backdrop-filter: blur(3px);
-  text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.459);
-  font-weight: 600;
-  letter-spacing: 0.04rem;
-}
-.cardText:hover {
+    .cardText {
+      border-radius: 4px;
+      padding: 3px;
   filter: brightness(114%);
   border-bottom: 4px solid red;
   text-decoration: underline red;
   transition: all 0.5s ease;
 }
+}
+.cardText {
+  
+  display: flex;
+  justify-content: end;
+transition: all 0.5s ease;
+  backdrop-filter: blur(3px);
+  text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.459);
+  font-weight: 600;
+  letter-spacing: 0.04rem;
+}
+
 .deleteIcon {
   z-index: 9999;
 }

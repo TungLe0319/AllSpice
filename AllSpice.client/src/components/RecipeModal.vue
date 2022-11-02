@@ -28,8 +28,14 @@
                 </div>
               </div>
               <div class="col-md-8">
-                <span class="position-absolute end-0 top-0 deleteIcon"
-                  ><i
+                <span class="position-absolute end-0 top-0 deleteIcon">
+                  <img
+                    src="https://cdn-icons-png.flaticon.com/512/1827/1827993.png"
+                    alt=""
+                    width="30"
+                    height="30"
+                    title="edit" /><i
+                    data-bs-toggle="modal"
                     class="mdi mdi-alpha-x-circle-outline hoverOver text-danger m-2 fs-2"
                     @click="removeRecipe()"
                   ></i
@@ -47,9 +53,7 @@
                       <div
                         class="card-title bg-custom justify-content-between mb-0 p-1 rounded-top elevation-4 text-center d-flex"
                       >
-                        <h3 class="ms-2 text-light">
-                          Recipe Instructions
-                        </h3>
+                        <h3 class="ms-2 text-light">Recipe Instructions</h3>
                         <button
                           class="btn p-0 m-0"
                           type="button"
@@ -62,14 +66,14 @@
                         </button>
                       </div>
                       <div class="card-body bg-custom2 p-0 yScroll">
-                               <div class="bg-transparent  p-md-0 m-md-0">
-                        <div
-                          class="collapse animate__animated animate__fadeIn"
-                          id="instructionCollapse"
-                        >
-                          <AddInstructions />
+                        <div class="bg-transparent p-md-0 m-md-0">
+                          <div
+                            class="collapse animate__animated animate__fadeIn"
+                            id="instructionCollapse"
+                          >
+                            <AddInstructions />
+                          </div>
                         </div>
-                      </div>
                         <TransitionGroup
                           name=""
                           enterActiveClass="animate__fadeIn animate__animated "
@@ -82,7 +86,6 @@
                           />
                         </TransitionGroup>
                       </div>
-               
                     </div>
                   </div>
                   <div class="col-md-6">
@@ -90,11 +93,8 @@
                       <div
                         class="card-title bg-custom mb-0 p-1 rounded-top elevation-1 d-flex justify-content-between"
                       >
-               
-                        <h3 class="ms-2 text-light">
-                          Recipe Ingredients
-                        </h3>
-                                      <button
+                        <h3 class="ms-2 text-light">Recipe Ingredients</h3>
+                        <button
                           class="btn p-0 m-0"
                           type="button"
                           data-bs-toggle="collapse"
@@ -104,10 +104,9 @@
                         >
                           <i class="mdi mdi-plus-box fs-4"> </i>
                         </button>
-
                       </div>
-                      <div class="card-body p-0  bg-custom2 yScroll">
-                          <div
+                      <div class="card-body p-0 bg-custom2 yScroll">
+                        <div
                           class="collapse animate__animated animate__fadeIn"
                           id="ingredientCollapse"
                         >
@@ -128,10 +127,7 @@
                         </ul>
                       </div>
 
-                      <div class="mx-2">
-                 
-                      
-                      </div>
+                      <div class="mx-2"></div>
                     </div>
                   </div>
                 </div>
@@ -253,7 +249,6 @@ export default {
             "top-end",
             2000
           );
-          AppState.activeRecipe = null;
         } catch (error) {
           Pop.error(error);
         }
@@ -285,8 +280,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-:root{
-
+:root {
 }
 .modal-body {
   box-shadow: rgba(240, 169, 46, 0.4) 5px 5px, rgba(240, 140, 46, 0.3) 10px 10px,
@@ -294,7 +288,7 @@ export default {
 }
 
 .bg-custom {
-   background: #ffbb00
+  background: #ffbb00
     linear-gradient(22deg, #fcff53, #f8ce14, #ffbb00, #ff5e00, #ffffff) fixed;
 }
 .bg-custom2 {

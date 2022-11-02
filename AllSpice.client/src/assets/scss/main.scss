@@ -92,18 +92,19 @@ form:invalid button[type="submit"] {
 
 .focusedBtn {
   background: linear-gradient(to bottom right, #ffbb00, #ff5e00);
+  
   border-radius: 0px;
   color: #ffffff;
   cursor: pointer;
   display: inline-block;
   font-family: "Baloo 2", cursive;
-  font-size: 16px;
+  font-size: 90px;
   font-weight: 600;
   letter-spacing: 0.07em;
   line-height: 2.5;
   outline: transparent;
   text-align: center;
-  text-decoration: none;
+  text-decoration:none;
   transition: all 0.25s ease-in-out;
   user-select: none;
   -webkit-user-select: none;

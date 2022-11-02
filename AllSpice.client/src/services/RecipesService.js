@@ -98,12 +98,12 @@ class RecipesService {
   }
 
   async searchByQuery(query) {
-    if (query == "") {
+  
       const res = await api.get("api/recipes");
       //  console.log(res.data);
 
-      AppState.recipes = res.data.map((r) => new Recipe(r));
-    } else
+  
+       AppState.recipes = res.data.map((r) => new Recipe(r));
       AppState.recipes = AppState.recipes.filter((f) =>
         f.title.toUpperCase().includes(query.toUpperCase())
       );

@@ -1,7 +1,6 @@
 <template>
   <form @submit.prevent="addComment()" class="m-5">
-    <div class="input-group ">
-    
+    <div class="input-group">
       <input
         type="text"
         name="body"
@@ -19,11 +18,10 @@
 import { computed, ref } from "@vue/reactivity";
 import { AppState } from "../AppState.js";
 import { commentsService } from "../services/CommentsService.js";
-import { ingredientsService } from "../services/IngredientsService.js";
-import { recipesService } from "../services/RecipesService.js";
+
 import Pop from "../utils/Pop.js";
 
-export default { 
+export default {
   props: {},
 
   setup(props) {
@@ -33,9 +31,9 @@ export default {
       recipe: computed(() => AppState.activeRecipe),
       async addComment() {
         try {
-editable.value.recipeId = AppState.activeRecipe.id
-           await commentsService.addComment(editable.value)
-           editable.value = {}
+          editable.value.recipeId = AppState.activeRecipe.id;
+          await commentsService.addComment(editable.value);
+          editable.value = {};
         } catch (error) {
           Pop.error(error);
         }

@@ -9,16 +9,10 @@
           class="fixed-bottom d-flex align-items-start flex-column justify-content-center ms-1 mb-1"
         >
           <div>
-            <!-- <button
-        class="btn  addBtn py-1 px-2 "
-       
-       @click="toggleSearchBar()"
-      >
-        <i class="mdi mdi-magnify mx-2" alt="" title="search By Name"></i>
-      </button> -->
-
             <span>
-              <h6>{{ recipes.length }}</h6>
+              <h4 class="no-select ms-1 text-white fw-bold" title="Amount of Current Recipes">
+                {{ recipes.length }}
+              </h4>
             </span>
 
             <button
@@ -37,7 +31,7 @@
       <div
         class="col-10 col-md-3 recipeCard"
         v-for="r in recipes"
-        :class="recipes.length <= 3 ? 'col-md-12' : 'col-md-3'"
+  
       >
         <RecipeCard :recipe="r" :key="r.id" v-motion-fade />
       </div>
@@ -73,7 +67,6 @@ export default {
       try {
         let offSet = AppState.offSet;
         await recipesService.getRecipesInfiniteScroll(offSet);
-
       } catch (error) {
         Pop.error(error);
       }
@@ -112,8 +105,8 @@ export default {
       }
     }
 
-    async function infiniteScroll() {
-      window.onscroll = async () => {
+    function infiniteScroll() {
+      window.onscroll = () => {
         let bottomOfWindow =
           document.documentElement.scrollTop + window.innerHeight ===
           document.documentElement.offsetHeight;
@@ -130,16 +123,10 @@ export default {
       // }, true);
     });
     return {
-      
       offSet: computed(() => AppState.offSet),
       recipes: computed(() => AppState.recipes),
       activeRecipe: computed(() => AppState.activeRecipe),
-      favrecipe: computed(() => AppState.favoriteRecipes),
-      cheeseCategory: computed(() =>
-        AppState.recipes.filter((r) => r.category == "cheese")
-      ),
       ingredients: computed(() => AppState.ingredients),
-
       toggleSearchBar() {
         document.getElementById("searchBar1").classList.toggle("d-none");
 
@@ -158,6 +145,31 @@ export default {
 </script>
 
 <style scoped lang="scss">
+
+.masonry-with-columns {
+  columns: 6 200px;
+  column-gap: 1rem;
+  div {
+    width: 150px;
+    background: #EC985A;
+    color: white;
+    margin: 0 1rem 1rem 0;
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    font-family: system-ui;
+    font-weight: 900;
+    font-size: 2rem;
+  } 
+  @for $i from 1 through 36 { 
+    div:nth-child(#{$i}) {
+      $h: (random(400) + 100) + px;
+      height: $h;
+      line-height: $h;
+    }
+  }
+}
+
 .addBtn {
   background: linear-gradient(to bottom right, #ffbb00, #ff5e00);
   border: 0;
@@ -181,6 +193,27 @@ export default {
   box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 1px, rgba(0, 0, 0, 0.07) 0px 2px 2px,
     rgba(0, 0, 0, 0.07) 0px 4px 4px, rgba(0, 0, 0, 0.07) 0px 8px 8px,
     rgba(0, 0, 0, 0.07) 0px 16px 16px;
+}
+
+
+.bricks {
+  columns: 4;
+
+}
+
+.masonry { /* Masonry container */
+  column-count: 4;
+  column-gap: 1em;
+}
+
+.item { /* Masonry bricks or child elements */
+  background-color: #eee;
+  display: inline-block;
+  margin: 0 0 1em;
+  width: 100%;
+}
+.no-select {
+  cursor: default !important;
 }
 //when screen is 700px OR LESS
 @media only screen and (max-width: 700px) {
