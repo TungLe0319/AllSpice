@@ -93,6 +93,7 @@ export default {
         AppState.favorites.find((f) => f.recipeId == props.recipe.id)
       ),
       setActiveRecipe() {
+       
         recipesService.setActiveRecipe(props.recipe);
       },
 

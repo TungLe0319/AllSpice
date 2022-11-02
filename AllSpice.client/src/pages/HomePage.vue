@@ -74,7 +74,6 @@ export default {
         let offSet = AppState.offSet;
         await recipesService.getRecipesInfiniteScroll(offSet);
 
-        console.log(AppState.offSet);
       } catch (error) {
         Pop.error(error);
       }
@@ -131,7 +130,8 @@ export default {
       // }, true);
     });
     return {
-      testTung: computed(() => AppState.offSet),
+      
+      offSet: computed(() => AppState.offSet),
       recipes: computed(() => AppState.recipes),
       activeRecipe: computed(() => AppState.activeRecipe),
       favrecipe: computed(() => AppState.favoriteRecipes),

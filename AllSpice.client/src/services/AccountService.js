@@ -18,6 +18,7 @@ class AccountService {
 
   async getFavoriteRecipes() {
     let offSetNum = AppState.offSet;
+            console.log(["getFavoriteRecipes"], AppState.offSet);
     const res = await api.get(`/account/favorites/infiniteScroll`, {
       params: {
         offSet: offSetNum,
@@ -49,6 +50,7 @@ class AccountService {
   }
 
   async getMyRecipes(offSet) {
+      console.log(["getMyRecipes"], AppState.offSet);
     const res = await api.get("account/recipes", {
       params: {
         offSet: offSet

@@ -8,7 +8,6 @@ import { api } from "./AxiosService.js";
 
 class RecipesService {
   async getAllRecipes() {
-    
     const res = await api.get(`api/recipes`);
     // console.log(["recipes"],res.data);
 
@@ -19,13 +18,14 @@ class RecipesService {
   }
 
   async getRecipesInfiniteScroll(offSetNum) {
+    console.log(["RecipesByInfiniteScroll"], AppState.offSet);
     const res = await api.get(`api/recipes/infiniteScroll`, {
       params: {
         offSet: offSetNum,
       },
     });
     // console.log(["recipes"],res.data);
-//  AppState.offSet += 12;
+    //  AppState.offSet += 12;
     let recipes = res.data.map((x) => new Recipe(x));
     AppState.offSet += recipes.length;
     AppState.recipes = [...AppState.recipes, ...recipes];
@@ -35,7 +35,7 @@ class RecipesService {
     const res = await api.get(`api/recipes/${recipeId}/ingredients`);
 
     AppState.ingredients = res.data.map((i) => new Ingredient(i));
-    console.log(AppState.ingredients);
+    // console.log(AppState.ingredients);
   }
 
   async getCommentsByRecipeId(recipeId) {
@@ -57,6 +57,9 @@ class RecipesService {
     AppState.activeRecipe = new Recipe(res.data);
   }
   setActiveRecipe(recipeData) {
+    AppState.ingredients = [];
+    AppState.instructions = [];
+    AppState.comments = [];
     AppState.activeRecipe = recipeData;
   }
 

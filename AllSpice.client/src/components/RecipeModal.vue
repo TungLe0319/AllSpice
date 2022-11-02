@@ -285,13 +285,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+:root{
+
+}
 .modal-body {
   box-shadow: rgba(240, 169, 46, 0.4) 5px 5px, rgba(240, 140, 46, 0.3) 10px 10px,
     rgba(240, 172, 46, 0.2) 15px 15px, rgba(240, 185, 46, 0.1) 20px 20px;
 }
 
 .bg-custom {
-  background: linear-gradient(to bottom right, #3b6086, #9edbf0);
+   background: #ffbb00
+    linear-gradient(22deg, #fcff53, #f8ce14, #ffbb00, #ff5e00, #ffffff) fixed;
 }
 .bg-custom2 {
   background: #f2f0f4;

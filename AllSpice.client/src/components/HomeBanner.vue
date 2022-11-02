@@ -14,24 +14,30 @@
           <button
             class="btn filterbtn fbg-transparent"
             id="homeBtn"
+           
             @click="getAllRecipes()"
+            :class="infinite == 0 ? 'focusedBtn' : ''"
           >
             <h3>Home</h3>
           </button></span
         >
         <span>
           <button
-            class="btn filterbtn bg-transparent"
+            class="btn bg-transparent"
             id="favoriteBtn"
             @click="getFavoriteRecipes()"
+            :class="infinite == 1 ? 'focusedBtn' : ''"
           >
             <h3>Favorites</h3>
           </button></span
         >
         <span>
-          <button class="btn filterbtn bg-transparent" 
-          id="myRecipeBtn"
-          @click="getMyRecipes()">
+          <button
+            class="btn filterbtn bg-transparent"
+            id="myRecipeBtn"
+            @click="getMyRecipes()"
+            :class="infinite == 2 ? 'focusedBtn' : ''"
+          >
             <h3>My Recipes</h3>
           </button></span
         >
@@ -41,7 +47,8 @@
 </template>
 
 <script>
-import { onMounted } from "vue";
+import { computed } from "@vue/reactivity";
+import { onMounted, watchEffect } from "vue";
 import { AppState } from "../AppState.js";
 import { accountService } from "../services/AccountService.js";
 import { recipesService } from "../services/RecipesService.js";
@@ -51,22 +58,21 @@ import SearchBar from "./SearchBar.vue";
 
 export default {
   setup() {
-   
-    
-    
     onMounted(() => {
-    document.getElementById("homeBtn").focus();
+      // document.getElementById("homeBtn").focus();
     });
 
-  
+    watchEffect(() => {});
 
     return {
+      offSet: computed(() => AppState.offSet),
+      infinite: computed(() => AppState.infinite),
       async getAllRecipes() {
         try {
           let offSet = AppState.offSet;
           AppState.infinite = 0;
           AppState.offSet = 0;
-      
+
           AppState.recipes = [];
           await recipesService.getRecipesInfiniteScroll(offSet);
         } catch (error) {
@@ -76,7 +82,6 @@ export default {
       async getFavoriteRecipes() {
         try {
           AppState.infinite = 1;
-        
 
           AppState.recipes = [];
           await accountService.getFavoriteRecipes();
@@ -128,29 +133,7 @@ export default {
   left: 28vw;
 }
 
-.filterbtn:focus {
-  background: linear-gradient(to bottom right, #ffbb00, #ff5e00);
-  border-radius: 0px;
-  color: #ffffff;
-  cursor: pointer;
-  display: inline-block;
-  font-family: "Baloo 2", cursive;
-  font-size: 16px;
-  font-weight: 600;
-  letter-spacing: 0.07em;
-  line-height: 2.5;
-  outline: transparent;
-  text-align: center;
-  text-decoration: none;
-  transition: all 0.25s ease-in-out;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-  white-space: nowrap;
-  box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 1px, rgba(0, 0, 0, 0.07) 0px 2px 2px,
-    rgba(0, 0, 0, 0.07) 0px 4px 4px, rgba(0, 0, 0, 0.07) 0px 8px 8px,
-    rgba(0, 0, 0, 0.07) 0px 16px 16px;
-}
+
 
 //when screen is 700px OR LESS
 @media only screen and (max-width: 700px) {
