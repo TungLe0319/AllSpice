@@ -71,9 +71,8 @@ export default {
   setup() {
     async function getRecipesInfiniteScroll() {
       try {
-      let offSet = AppState.offSet
+        let offSet = AppState.offSet;
         await recipesService.getRecipesInfiniteScroll(offSet);
-       
 
         console.log(AppState.offSet);
       } catch (error) {
@@ -91,7 +90,6 @@ export default {
     }
 
     onMounted(() => {
-
       getRecipesInfiniteScroll();
       infiniteScroll();
     });
@@ -100,32 +98,29 @@ export default {
       getAllFavorites();
     });
 
-async function getCurrentRecipes(){
-    let infinite = AppState.infinite;
-       
-        let offSet = AppState.offSet;
-          if (infinite == 0) {
-            getRecipesInfiniteScroll(offSet);
-          }
-          if (infinite == 1) {
-            await accountService.getFavoriteRecipes(offSet);
-          }
-          if (infinite == 2) {
-            await accountService.getMyRecipes(offSet);
-          }
-}
+    async function getCurrentRecipes() {
+      let infinite = AppState.infinite;
 
-
-
+      let offSet = AppState.offSet;
+      if (infinite == 0) {
+        getRecipesInfiniteScroll(offSet);
+      }
+      if (infinite == 1) {
+        await accountService.getFavoriteRecipes(offSet);
+      }
+      if (infinite == 2) {
+        await accountService.getMyRecipes(offSet);
+      }
+    }
 
     async function infiniteScroll() {
       window.onscroll = async () => {
         let bottomOfWindow =
           document.documentElement.scrollTop + window.innerHeight ===
           document.documentElement.offsetHeight;
-      
+
         if (bottomOfWindow) {
-        getCurrentRecipes()
+          getCurrentRecipes();
         }
       };
     }

@@ -25,9 +25,9 @@ export const AppState = reactive({
   comments: [],
 
   infinite: 0,
-FavoriteNum : 0,
+  FavoriteNum: 0,
   test1: 0,
-focus:0,
+  focus: 0,
   offSet: 12,
   limit: 12,
   categories: [
