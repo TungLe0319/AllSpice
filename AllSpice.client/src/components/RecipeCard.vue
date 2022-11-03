@@ -8,11 +8,12 @@
       :src="recipe?.img"
       :alt="recipe?.title"
       :title="recipe?.title + 'Img'"
-      class="forcedImg card-img favoriteShadow"
+      class="forcedImg card-img favoriteShadow selectable"
+      
     />
 
     <div
-      class="card-body p-2 flex-column d-flex justify-content-end align-items-center"
+      class="card-img-overlay flex-column d-flex justify-content-end align-items-center"
 
     >
       <!-- NOTE SET ACTIVE RECIPE -->

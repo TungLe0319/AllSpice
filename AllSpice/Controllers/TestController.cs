@@ -1,7 +1,7 @@
 namespace AllSpice.Controllers;
 public class TestController : IController<Comment, int>
 {
-  public Comment Create(Comment data)
+  public  Comment Create(Comment data)
   {
     throw new NotImplementedException();
   }

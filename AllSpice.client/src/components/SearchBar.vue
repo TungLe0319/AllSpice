@@ -1,25 +1,33 @@
 <template>
-  <div class="card bg-dark">
+  <div class="d-flex justify-content-end  align-items-center mt-2">
+   
+      <div class="collapse collapse-horizontal" id="collapseWidthExample">
+        <div class="card bg-dark" style="width: 300px">
+          <form @keyup="searchRecipes()" class="">
+            <div class="d-flex align-items-center">
+              <input
+                v-model="editable"
+                type="text"
+                class="form-control phtext"
+                placeholder="Search for recipes . . ."
+                aria-label="Search"
+                aria-describedby="button-addon2"
+              />
+            </div>
+          </form>
+        </div>
+      
+    </div>
 
-    <form @keyup="searchRecipes()" class="">
-      <div class="d-flex" >
-        <input
-          v-model="editable"
-          type="text"
-          class="form-control phtext"
-          placeholder="Search for recipes . . ."
-          aria-label="Search"
-          aria-describedby="button-addon2"
-        />
-        <button
-          class="btn btn-danger py-1 px-2 "
-          type="submit"
-          id="button-addon2"
-        >
-          <i class="mdi mdi-magnify mx-2" alt="" title="search By Name"></i>
-        </button>
-      </div>
-    </form>
+    <button
+      class="btn  "
+      type="submit"
+      id="button-addon2"
+      data-bs-toggle="collapse"
+      data-bs-target="#collapseWidthExample"
+    >
+     <img src="https://cdn-icons-png.flaticon.com/512/751/751463.png" alt="" width="50" height="50">
+    </button>
   </div>
 </template>
 
@@ -30,25 +38,20 @@ import { AppState } from "../AppState.js";
 import { recipesService } from "../services/RecipesService.js";
 import Pop from "../utils/Pop.js";
 
-
 export default {
   setup() {
     const editable = ref("");
-    watchEffect(()=>{
-      // editable.value = [...AppState.recipes]
-    })
-    // events: computed(() => AppState.events.filter(a => a.name.toUpperCase().includes(editable.value.toUpperCase()))),
+    onMounted(() => {
+      // hideOnScrollTest();
+    });
+    watchEffect(() => {});
+
     return {
       editable,
-      // recipes : computed(()=> AppState.recipes.filter(f => f.title.toUpperCase().includes(editable.value.toUpperCase()))),
+
       async searchRecipes() {
         try {
-        // AppState.recipes =  AppState.recipes.filter(f => f.title.toUpperCase().includes(editable.value.toUpperCase()))
           await recipesService.searchByQuery(editable.value);
-          // if (editable.value = "") {
-          //   await recipesService.getAllRecipes()
-          // }
-          // editable.value = "";
         } catch (error) {
           console.error("dfd", error);
         }

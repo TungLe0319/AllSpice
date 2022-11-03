@@ -40,9 +40,9 @@ class RecipesService {
 
   async getCommentsByRecipeId(recipeId) {
     const res = await api.get(`api/recipes/${recipeId}/comments`);
-    // console.log('[comments]',res.data);
+    console.log('[comments]',res.data);
     AppState.comments = res.data.map((c) => new Comment(c));
-    // console.log(AppState.comments);
+    console.log(AppState.comments);
   }
 
   async getInstructionsByRecipeId(recipeId) {

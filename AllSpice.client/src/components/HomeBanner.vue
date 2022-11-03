@@ -3,7 +3,7 @@
     class="card banner sticky-top mt-2 border-0 mb-5 elevation-3 d-flex align-items-end justify-content-end"
   >
     <div id="searchBar1" class="searchBar elevation-5 rounded">
-      <SearchBar />
+      <!-- <SearchBar /> -->
     </div>
 
     <Login />
@@ -14,7 +14,6 @@
           <button
             class="btn filterbtn fbg-transparent"
             id="homeBtn"
-           
             @click="getAllRecipes()"
             :class="infinite == 0 ? 'focusedBtn' : ''"
           >
@@ -65,6 +64,7 @@ export default {
     watchEffect(() => {});
 
     return {
+    
       offSet: computed(() => AppState.offSet),
       infinite: computed(() => AppState.infinite),
       async getAllRecipes() {
@@ -101,6 +101,8 @@ export default {
           Pop.error(error);
         }
       },
+
+  
     };
   },
   components: { Login, SearchBar },
@@ -132,8 +134,6 @@ export default {
   bottom: 100px;
   left: 28vw;
 }
-
-
 
 //when screen is 700px OR LESS
 @media only screen and (max-width: 700px) {

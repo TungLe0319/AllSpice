@@ -6,5 +6,6 @@ export class Comment {
     this.body = data.body;
     this.recipeId = data.recipeId;
     this.creator = new Account(data.creator) || null;
+    this.createdAt= data.createdAt
   }
 }

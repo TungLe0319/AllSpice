@@ -1,8 +1,9 @@
 <template>
   <!-- <header>
-    <Navbar />
+    <Navbar id="NavBar2" class="sticky-top" />
   </header> -->
   <main class="Image">
+    
     <router-view />
   </main>
 

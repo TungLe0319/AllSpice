@@ -1,15 +1,14 @@
 <template>
-  <form @submit.prevent="addComment()" class="m-5">
-    <div class="input-group">
-      <input
-        type="text"
-        name="body"
-        required
-        class="rounded"
-        placeholder="comment..."
-        v-model="editable.body"
-      />
-    </div>
+  <form @submit.prevent="addComment()" class="d-flex">
+    <input
+      type="text"
+      name="body"
+      required
+      class="card"
+      placeholder="comment..."
+      v-model="editable.body"
+    />
+
     <button class="btn btn-success" type="submit">submit</button>
   </form>
 </template>
@@ -19,15 +18,18 @@ import { computed, ref } from "@vue/reactivity";
 import { AppState } from "../AppState.js";
 import { commentsService } from "../services/CommentsService.js";
 
-import Pop from "../utils/Pop.js";
+
 
 export default {
   props: {},
 
   setup(props) {
+  
     let editable = ref({});
     return {
+    
       editable,
+     
       recipe: computed(() => AppState.activeRecipe),
       async addComment() {
         try {

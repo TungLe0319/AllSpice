@@ -11,7 +11,7 @@
     >
       <div class="modal-content">
         <!-- --------------------------- -->
-        <div class="modal-body FORM p-0 position-relative">
+        <div class="modal-body p-0 position-relative">
           <div class="container-fluid" v-if="recipe">
             <div class="row">
               <div class="col-md-4 p-0">
@@ -137,10 +137,13 @@
                   <div
                     class="position-absolute bottom-0 d-flex align-items-center"
                   >
+                
                     <div class="me-4 text-dark">
                       <i
                         class="mdi mdi-comment-text fs-1"
-                        @click="showComments()"
+                      
+                        data-bs-toggle="collapse"
+                        data-bs-target="#collapseWidthExample2"
                       ></i>
                     </div>
 
@@ -158,7 +161,6 @@
                       height="40"
                     />
                   </div>
-                  <div><AddComment /></div>
                 </div>
               </div>
             </div>
@@ -166,6 +168,15 @@
           <div v-else>LOADING....</div>
         </div>
         <!-- ---------------------------------- -->
+            <div
+                      class="collapse collapse-horizontal bg-dark  "
+                      id="collapseWidthExample2"
+                    >
+                      <div class=" " style="width: 300px; ">
+                        <div><AddComment /></div>
+                      </div>
+                    </div>
+
       </div>
     </div>
   </div>
@@ -283,8 +294,7 @@ export default {
 :root {
 }
 .modal-body {
-  box-shadow: rgba(240, 169, 46, 0.4) 5px 5px, rgba(240, 140, 46, 0.3) 10px 10px,
-    rgba(240, 172, 46, 0.2) 15px 15px, rgba(240, 185, 46, 0.1) 20px 20px;
+
 }
 
 .bg-custom {

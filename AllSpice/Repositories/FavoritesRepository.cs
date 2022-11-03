@@ -46,7 +46,7 @@ public class FavoritesRepository : BaseRepository
 
     return _db.Query<FavRecipe, Profile, FavRecipe>(sql, (recipe, profile) =>
     {
-      recipe.Creator = profile;
+      recipe.Creator =  profile;
       recipe.AccountId = profile.Id;
 
       return recipe;
@@ -55,16 +55,16 @@ public class FavoritesRepository : BaseRepository
 
   internal List<Favorite> GetFavoriteIdsByAccountId(string accountId)
   {
-  string sql = @"
+    string sql = @"
           SELECT * 
           FROM
           favorites 
           WHERE accountId = @accountId
                ;";
-return _db.Query<Favorite>(sql,new {accountId}).ToList();
+    return _db.Query<Favorite>(sql, new { accountId }).ToList();
   }
 
-  internal List<FavRecipe> GetByAccountIdInfiniteScroll( int offSet, string accountId)
+  internal List<FavRecipe> GetByAccountIdInfiniteScroll(int offSet, string accountId)
   {
     string sql = @"
           SELECT
@@ -88,7 +88,8 @@ return _db.Query<Favorite>(sql,new {accountId}).ToList();
       recipe.AccountId = profile.Id;
 
       return recipe;
-    }, new {  offSet, accountId }).ToList();
+    }, new { offSet, accountId }).ToList();
+    
   }
 
   internal Favorite GetFavoriteById(int favoriteId)
@@ -110,5 +111,6 @@ return _db.Query<Favorite>(sql,new {accountId}).ToList();
             WHERE id = @Id LIMIT 1
                  ;";
     _db.Execute(sql, foundFavorite);
+    
   }
 }
