@@ -19,7 +19,7 @@ public class IngredientsController : ControllerBase
 
 
   [HttpPost]
- 
+
   public async Task<ActionResult<Ingredient>> CreateRecipe([FromBody] Ingredient newIngredient)
   {
     try
@@ -27,8 +27,8 @@ public class IngredientsController : ControllerBase
       Account userInfo = await _auth0provider.GetUserInfoAsync<Account>(HttpContext);
       newIngredient.CreatorId = userInfo.Id;
       // newIngredient.Creator = userInfo;
-      Ingredient createdIngredient = _is.CreateIngredient(newIngredient,userInfo.Id);
-    
+      Ingredient createdIngredient = _is.CreateIngredient(newIngredient, userInfo.Id);
+
       return Ok(createdIngredient);
 
     }
@@ -47,8 +47,8 @@ public class IngredientsController : ControllerBase
     try
     {
       Account userInfo = await _auth0provider.GetUserInfoAsync<Account>(HttpContext);
-      // _rs.DeleteRecipe(recipeId, userInfo.Id);
-      _is.DeleteIngredient(ingredientId,userInfo.Id);
+
+      _is.DeleteIngredient(ingredientId, userInfo.Id);
       return Ok("Ingredient deleted");
     }
     catch (Exception e)

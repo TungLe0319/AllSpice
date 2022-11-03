@@ -68,7 +68,7 @@ public class RecipesService
     _recipesRepo.DeleteRecipe(foundRecipe);
   }
 
-  internal Recipe EditRecipe(Recipe recipeData, string accountId)
+  internal Recipe EditRecipe(Recipe recipeData,int recipeId, string accountId)
   {
 
     if (recipeData.CreatorId != accountId)
@@ -76,7 +76,7 @@ public class RecipesService
       throw new Exception("Unauthorized to edit this recipe");
     }
 
-    Recipe original = GetById(recipeData.Id);
+    Recipe original = GetById(recipeId);
 
     original.Category = recipeData.Category ?? original.Category;
     original.Img = recipeData.Img ?? original.Img;

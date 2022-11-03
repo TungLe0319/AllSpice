@@ -1,19 +1,18 @@
 <template>
-  
-    <div class="container-fluid sticky-top top-0 left-0 searchTest " id="searchBar22">
-  <div class="row justify-content-end">
-    <div class="col-md-4 p-0">
-      <SearchBar/>
+  <div
+    class="container-fluid sticky-top top-0 left-0 searchTest"
+    id="searchBar22"
+  >
+    <div class="row justify-content-end">
+      <div class="col-md-4 p-0">
+        <SearchBar />
+      </div>
     </div>
   </div>
- </div>
   <div
     class="home flex-grow-1 d-flex flex-column align-items-center justify-content-center container"
   >
-  
-
     <div class="row">
-   
       <div class="col-md-12">
         <HomeBanner />
 
@@ -41,11 +40,20 @@
       <div class="col-md-12"></div>
     </div>
     <div class="row" v-if="recipes">
-      <div class="col-10 col-md-3 recipeCard" v-for="r in recipes">
-        <RecipeCard :recipe="r" :key="r.id" v-motion-fade />
-      </div>
+      <TransitionGroup
+        name="fade"
+        enterActiveClass="animate__fadeIn animate__animated"
+        leaveActiveClass="animate__animate__fadeOut animate__animated"
+      >
+        <div
+          class="col-10 col-md-3 recipeCard"
+          v-for="r in recipes"
+          :key="r.id"
+        >
+          <RecipeCard :recipe="r" />
+        </div>
+      </TransitionGroup>
     </div>
-    <LoadingSpinner v-else />
   </div>
   <RecipeModal :recipe="activeRecipe" />
   <RecipeForm />
@@ -118,19 +126,17 @@ export default {
 
     function infiniteScroll() {
       window.onscroll = () => {
-        let bottomOfWindow = document.documentElement.scrollTop  + window.innerHeight  === 
-        document.documentElement.offsetHeight ;
-
+        let bottomOfWindow =
+          document.documentElement.scrollTop + window.innerHeight ===
+          document.documentElement.offsetHeight;
         if (bottomOfWindow) {
-          // setTimeout(getCurrentRecipes,200)
-   
-          getCurrentRecipes();
+         getCurrentRecipes();
         }
       };
     }
 
     function hideOnScrollTest() {
-      let  nav = document.querySelector("#NavBar2")
+      let nav = document.querySelector("#searchBar22");
       let prevScrollpos = window.scrollY;
       console.log(["prev"], prevScrollpos);
       window.onscroll = function () {
@@ -138,12 +144,10 @@ export default {
         console.log(["current"], currentScrollPos);
         if (prevScrollpos > currentScrollPos) {
           // nav.style.top="0"
-          nav.classList.remove('hiddenOnScroll')
-      
+          nav.classList.remove("hiddenOnScroll");
         } else {
-          nav.classList.add('hiddenOnScroll')
+          nav.classList.add("hiddenOnScroll");
           //  nav.style.top="-50px"
-
         }
         prevScrollpos = currentScrollPos;
       };
@@ -176,12 +180,11 @@ export default {
 </script>
 
 <style scoped lang="scss">
-
-.hiddenOnScroll{
+.hiddenOnScroll {
   opacity: 0;
   transition: all 0.25s ease;
 }
-.showOnScroll{
+.showOnScroll {
   opacity: 1;
   transition: all 0.5s;
 }
@@ -208,8 +211,6 @@ export default {
     }
   }
 }
-
-
 
 .bricks {
   columns: 4;

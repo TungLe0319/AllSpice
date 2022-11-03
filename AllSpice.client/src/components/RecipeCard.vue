@@ -180,9 +180,10 @@ export default {
   justify-content: end;
 transition: all 0.5s ease;
   backdrop-filter: blur(3px);
-  text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.459);
+;
   font-weight: 600;
   letter-spacing: 0.04rem;
+  text-shadow: 2px 2px 0px #000000, 5px 4px 0px rgba(0,0,0,0.15);
 }
 
 .deleteIcon {

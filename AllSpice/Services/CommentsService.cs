@@ -18,6 +18,8 @@ public class CommentsService
   internal List<Comment> GetAllComments()
   {
     return _commentsRepo.GetAllComments();
+
+    
   }
 
   internal Comment GetCommentById(int commentId)

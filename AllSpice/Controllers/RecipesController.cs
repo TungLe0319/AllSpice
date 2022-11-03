@@ -41,14 +41,15 @@ public class RecipesController : ControllerBase
     }
   }
 
-  
+
+
 
   [HttpGet]
   public async Task<ActionResult<List<Recipe>>> GetAllRecipes()
   {
     try
     {
-      
+
       Account userInfo = await _auth0provider.GetUserInfoAsync<Account>(HttpContext);
 
 
@@ -63,14 +64,10 @@ public class RecipesController : ControllerBase
 
 
   [HttpGet("infiniteScroll")]
-  public async Task<ActionResult<List<Recipe>>> GetRecipeInfiniteScroll([FromQuery]int offSet)
+  public ActionResult<List<Recipe>> GetRecipeInfiniteScroll([FromQuery] int offSet)
   {
     try
     {
-
-      Account userInfo = await _auth0provider.GetUserInfoAsync<Account>(HttpContext);
-
-
       List<Recipe> recipes = _rs.GetRecipesInfiniteScroll(offSet);
       return Ok(recipes);
     }
@@ -82,24 +79,9 @@ public class RecipesController : ControllerBase
 
 
 
-  [HttpGet("{recipeId}")]
-
-  public ActionResult<Recipe> GetById(int recipeId)
-  {
-    try
-    {
-      Recipe foundRecipe = _rs.GetById(recipeId);
-      return Ok(foundRecipe);
-    }
-    catch (Exception e)
-    {
-      return BadRequest(e.Message);
-    }
-  }
-
 
   [HttpGet("{recipeId}/ingredients")]
- 
+
   public ActionResult<List<Ingredient>> GetIngredientsByRecipe(int recipeId)
   {
     try
@@ -116,7 +98,7 @@ public class RecipesController : ControllerBase
 
 
   [HttpGet("{recipeId}/instructions")]
- 
+
   public ActionResult<List<Instruction>> GetInstructionsByRecipe(int recipeId)
   {
     try
@@ -170,18 +152,32 @@ public class RecipesController : ControllerBase
     }
   }
 
+  // [HttpPut("{recipeId}")]
+  // [Authorize]
+  // public async Task<ActionResult<Recipe>> EditRecipe([FromBody] Recipe recipeData, int recipeId)
+  // {
+  //   try
+  //   {
+
+  //     Account userInfo = await _auth0provider.GetUserInfoAsync<Account>(HttpContext);
+  //     Recipe recipe = _rs.EditRecipe(recipeData,recipeId, userInfo.Id);
+  //     return Ok(recipe);
+  //   }
+  //   catch (Exception e)
+  //   {
+  //     return BadRequest(e.Message);
+  //   }
+  // }
+
+
   [HttpPut("{recipeId}")]
   [Authorize]
   public async Task<ActionResult<Recipe>> EditRecipe([FromBody] Recipe recipeData, int recipeId)
   {
     try
     {
-
       Account userInfo = await _auth0provider.GetUserInfoAsync<Account>(HttpContext);
-      recipeData.Creator = userInfo;
-      recipeData.CreatorId = userInfo.Id;
-      recipeData.Id = recipeId;
-      Recipe recipe = _rs.EditRecipe(recipeData, userInfo.Id);
+      Recipe recipe = _rs.EditRecipe(recipeData,recipeId, userInfo.Id);
       return Ok(recipe);
     }
     catch (Exception e)

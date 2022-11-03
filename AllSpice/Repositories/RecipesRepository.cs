@@ -15,33 +15,33 @@ public class RecipesRepository : BaseRepository
           VALUES(@Title,@Img,@Instructions,@Category,@CreatorId);
           SELECT LAST_INSERT_ID()
           ;";
-    newRecipe.Id = _db.ExecuteScalar<int>(sql, newRecipe);
+    newRecipe.Id = _db.ExecuteScalar<int>(sql);
 
     return newRecipe;
   }
 
+
   internal List<Recipe> GetAllRecipes()
   {
-    string sql = @"
-            SELECT
-            rec.*,
-            
-            COUNT(fav.id) AS FavoriteCount,
-            a.*
-            FROM recipes rec
-            JOIN accounts a ON a.id = rec.creatorId
-            LEFT JOIN favorites fav ON fav.recipeId = rec.id
-            
-            GROUP BY rec.id
+    var sql = @"
+         SELECT 
+         rec. *,
+         COUNT(fav.id) AS FavoriteCount
+         a.*
+         FROM recipes rec
+         JOIN accounts a ON a.id = rec.creatorId
+         LEFT JOIN favorites fav ON fav.recipeId = rec.id
+         GROUP BY rec.id
          
-            
-            ;";
-    return _db.Query<Recipe, Profile, Recipe>(sql, (recipe, profile) =>
-    {
-      recipe.Creator = profile;
+      
+              ; ";
+    return _db.Query<Recipe, Profile, Recipe>(sql, (recipes, profile) =>
+     {
+       recipes.Creator = profile;
 
-      return recipe;
-    }).ToList();
+       return recipes;
+     }).ToList();
+
   }
 
   internal List<Recipe> GetRecipesInfiniteScroll(int offSet)

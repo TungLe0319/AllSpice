@@ -18,14 +18,13 @@ class RecipesService {
   }
 
   async getRecipesInfiniteScroll(offSetNum) {
-    console.log(["RecipesByInfiniteScroll"], AppState.offSet);
+    // console.log(["RecipesByInfiniteScroll"], AppState.offSet);
     const res = await api.get(`api/recipes/infiniteScroll`, {
       params: {
         offSet: offSetNum,
       },
     });
-    // console.log(["recipes"],res.data);
-    //  AppState.offSet += 12;
+
     let recipes = res.data.map((x) => new Recipe(x));
     AppState.offSet += recipes.length;
     AppState.recipes = [...AppState.recipes, ...recipes];
@@ -40,7 +39,7 @@ class RecipesService {
 
   async getCommentsByRecipeId(recipeId) {
     const res = await api.get(`api/recipes/${recipeId}/comments`);
-    console.log('[comments]',res.data);
+    console.log("[comments]", res.data);
     AppState.comments = res.data.map((c) => new Comment(c));
     console.log(AppState.comments);
   }
@@ -98,15 +97,13 @@ class RecipesService {
   }
 
   async searchByQuery(query) {
-  
-      const res = await api.get("api/recipes");
-      //  console.log(res.data);
+    const res = await api.get("api/recipes");
+    //  console.log(res.data);
 
-  
-       AppState.recipes = res.data.map((r) => new Recipe(r));
-      AppState.recipes = AppState.recipes.filter((f) =>
-        f.title.toUpperCase().includes(query.toUpperCase())
-      );
+    AppState.recipes = res.data.map((r) => new Recipe(r));
+    AppState.recipes = AppState.recipes.filter((f) =>
+      f.title.toUpperCase().includes(query.toUpperCase())
+    );
   }
 }
 export const recipesService = new RecipesService();

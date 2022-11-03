@@ -8,3 +8,4 @@ public class BaseRepository
     _db = db;
   }
 }
+
