@@ -137,11 +137,9 @@
                   <div
                     class="position-absolute bottom-0 d-flex align-items-center"
                   >
-                
                     <div class="me-4 text-dark">
                       <i
                         class="mdi mdi-comment-text fs-1"
-                      
                         data-bs-toggle="collapse"
                         data-bs-target="#collapseWidthExample2"
                       ></i>
@@ -168,15 +166,14 @@
           <div v-else>LOADING....</div>
         </div>
         <!-- ---------------------------------- -->
-            <div
-                      class="collapse collapse-horizontal bg-dark  "
-                      id="collapseWidthExample2"
-                    >
-                      <div class=" " style="width: 300px; ">
-                        <div><AddComment /></div>
-                      </div>
-                    </div>
-
+        <div
+          class="collapse collapse-horizontal bg-dark"
+          id="collapseWidthExample2"
+        >
+          <div class=" " style="width: 300px">
+            <div><AddComment /></div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -294,7 +291,6 @@ export default {
 :root {
 }
 .modal-body {
-
 }
 
 .bg-custom {

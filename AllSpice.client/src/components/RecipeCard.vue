@@ -1,7 +1,8 @@
 <template>
   <div
-    class="card text-bg-dark my-2 position-relative elevation-5 border-0"
+    class="card skeleton-loader text-bg-dark my-2 position-relative elevation-5 border-0"
     v-if="recipe"
+    :class="recipe? 'skeleton-loader card': ''"
   >
     <img
       :src="recipe?.img"

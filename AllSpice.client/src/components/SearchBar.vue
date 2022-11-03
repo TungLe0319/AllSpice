@@ -1,32 +1,36 @@
 <template>
-  <div class="d-flex justify-content-end  align-items-center mt-2">
-   
-      <div class="collapse collapse-horizontal" id="collapseWidthExample">
-        <div class="card bg-dark" style="width: 300px">
-          <form @keyup="searchRecipes()" class="">
-            <div class="d-flex align-items-center">
-              <input
-                v-model="editable"
-                type="text"
-                class="form-control phtext"
-                placeholder="Search for recipes . . ."
-                aria-label="Search"
-                aria-describedby="button-addon2"
-              />
-            </div>
-          </form>
-        </div>
-      
+  <div class="d-flex justify-content-end align-items-center mt-2">
+    <div class="collapse collapse-horizontal" id="collapseWidthExample">
+      <div class="card bg-dark" style="width: 300px">
+        <form @keyup="searchRecipes()" class="">
+          <div class="d-flex align-items-center">
+            <input
+              v-model="editable"
+              type="text"
+              class="form-control phtext"
+              placeholder="Search for recipes . . ."
+              aria-label="Search"
+              aria-describedby="button-addon2"
+            />
+          </div>
+        </form>
+      </div>
     </div>
 
     <button
-      class="btn  "
+      class="btn"
       type="submit"
       id="button-addon2"
       data-bs-toggle="collapse"
       data-bs-target="#collapseWidthExample"
+  title="Search"
     >
-     <img src="https://cdn-icons-png.flaticon.com/512/751/751463.png" alt="" width="50" height="50">
+      <img
+        src="https://cdn-icons-png.flaticon.com/512/751/751463.png"
+        alt=""
+        width="50"
+        height="50"
+      />
     </button>
   </div>
 </template>
@@ -36,6 +40,7 @@ import { computed } from "@vue/reactivity";
 import { onMounted, ref, watchEffect } from "vue";
 import { AppState } from "../AppState.js";
 import { recipesService } from "../services/RecipesService.js";
+import { logger } from "../utils/Logger.js";
 import Pop from "../utils/Pop.js";
 
 export default {
@@ -51,8 +56,9 @@ export default {
 
       async searchRecipes() {
         try {
-          await recipesService.searchByQuery(editable.value);
+          await recipesService.searchByQuery(editable.value.loee);
         } catch (error) {
+          logger.error("[searchByQuery]", error);
           console.error("dfd", error);
         }
       },

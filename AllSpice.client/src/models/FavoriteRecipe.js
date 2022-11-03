@@ -8,3 +8,4 @@ export class FavoriteRecipe extends Recipe {
     this.accountId = data.accountId;
   }
 }
+

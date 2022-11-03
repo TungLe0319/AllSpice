@@ -4,18 +4,22 @@
     id="searchBar22"
   >
     <div class="row justify-content-end">
+      <div class="col-md-6">
+     
+      </div>
       <div class="col-md-4 p-0">
         <SearchBar />
       </div>
     </div>
   </div>
+  
   <div
     class="home flex-grow-1 d-flex flex-column align-items-center justify-content-center container"
   >
     <div class="row">
       <div class="col-md-12">
         <HomeBanner />
-
+   
         <div
           class="fixed-bottom d-flex align-items-end flex-column justify-content-center me-2 mb-1"
         >
@@ -72,6 +76,7 @@ import LoadingSpinner from "../components/LoadingSpinner.vue";
 
 import RecipeForm from "../components/RecipeForm .vue";
 import SearchIcon from "../components/SearchIcon.vue";
+import ToolTip from "../components/ToolTip.vue";
 import { accountService } from "../services/AccountService.js";
 import { favoritesService } from "../services/FavoritesService.js";
 
@@ -175,18 +180,19 @@ export default {
     IngredientModal,
     LoadingSpinner,
     SearchIcon,
-  },
+    ToolTip
+},
 };
 </script>
 
 <style scoped lang="scss">
 .hiddenOnScroll {
   opacity: 0;
-  transition: all 0.25s ease;
+  transition: all 1.25s ease;
 }
 .showOnScroll {
   opacity: 1;
-  transition: all 0.5s;
+  transition: all 0.5s ease;
 }
 .masonry-with-columns {
   columns: 6 200px;

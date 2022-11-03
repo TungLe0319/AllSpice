@@ -1,5 +1,5 @@
 <template>
-  <div class="card elevation-4 border-0 my-1">
+  <div class="card border-0 my-1">
     <div class="card-body text-dark p-1">
       <div class="ms-2 mt-1">
         <div class="d-flex justify-content-between">
@@ -41,16 +41,10 @@ export default {
     profile: { type: Account },
     comment: { type: Comment, required: true },
   },
-  test: ref({ test: true }),
-  setup(props) {
-const commentTime = format(props.comment.createdAt)
-    return {
-   commentTime,
 
-      hover: false,
-      hoverMe() {
-        console.log(this.hover);
-      },
+  setup(props) {
+    return {
+
     };
   },
 };

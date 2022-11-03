@@ -61,20 +61,6 @@ public class RecipesController : ControllerBase
   }
 
 
-  [HttpGet("infiniteScroll")]
-  public ActionResult<List<Recipe>> GetRecipeInfiniteScroll([FromQuery] int offSet)
-  {
-    try
-    {
-      List<Recipe> recipes = _rs.GetRecipesInfiniteScroll(offSet);
-      return Ok(recipes);
-    }
-    catch (Exception e)
-    {
-      return BadRequest(e.Message);
-    }
-  }
-
 
 
 
