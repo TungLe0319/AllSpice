@@ -130,7 +130,7 @@ export default {
           document.documentElement.scrollTop + window.innerHeight ===
           document.documentElement.offsetHeight;
         if (bottomOfWindow) {
-         getCurrentRecipes();
+          getCurrentRecipes();
         }
       };
     }

@@ -2,29 +2,26 @@
   <div
     class="card text-bg-dark my-2 position-relative elevation-5 border-0"
     v-if="recipe"
- 
   >
     <img
       :src="recipe?.img"
       :alt="recipe?.title"
       :title="recipe?.title + 'Img'"
       class="forcedImg card-img favoriteShadow selectable"
-      
     />
 
     <div
       class="card-img-overlay flex-column d-flex justify-content-end align-items-center"
-
     >
       <!-- NOTE SET ACTIVE RECIPE -->
       <span
-        class="cardText p-1  no-select selectable "
+        class="cardText p-1 no-select selectable"
         :title="'Show More Details '"
         @click="setActiveRecipe()"
         data-bs-target="#recipeModal"
         data-bs-toggle="modal"
       >
-        <h6 class="card-title fw-bold  ">{{ recipe?.title }}</h6>
+        <h6 class="card-title fw-bold">{{ recipe?.title }}</h6>
       </span>
       <!-- NOTE FAVORITE A RECIPE -->
       <TransitionGroup
@@ -67,7 +64,9 @@
       </TransitionGroup>
     </div>
     <div class="position-absolute start-0 px-1 rounded-end category">
-      <h6 class="mb-0  p-1 text-light fw-bold  text-shadow2">{{ recipe?.category }}</h6>
+      <h6 class="mb-0 p-1 text-light fw-bold text-shadow2">
+        {{ recipe?.category }}
+      </h6>
     </div>
   </div>
   <div v-else><LoadingSpinner /></div>
@@ -137,7 +136,6 @@ export default {
           Pop.error(error);
         }
       },
-    
     };
   },
 };
@@ -165,30 +163,25 @@ export default {
   transition: all 0.25s ease;
   box-shadow: rgba(240, 78, 46, 0.4) 5px 5px, rgba(240, 75, 46, 0.3) 10px 10px,
     rgba(240, 46, 46, 0.2) 15px 15px, rgba(240, 53, 46, 0.1) 20px 20px;
-    .cardText {
-      border-radius: 4px;
-      padding: 3px;
-  filter: brightness(114%);
-  border-bottom: 4px solid red;
-  text-decoration: underline red;
-  transition: all 0.5s ease;
-}
+  .cardText {
+    border-radius: 4px;
+    padding: 3px;
+    filter: brightness(114%);
+    border-bottom: 4px solid red;
+    text-decoration: underline red;
+    transition: all 0.5s ease;
+  }
 }
 .cardText {
-  
   display: flex;
   justify-content: end;
-transition: all 0.5s ease;
+  transition: all 0.5s ease;
   backdrop-filter: blur(3px);
-;
   font-weight: 600;
   letter-spacing: 0.04rem;
-  text-shadow: 2px 2px 0px #000000, 5px 4px 0px rgba(0,0,0,0.15);
+  text-shadow: 2px 2px 0px #000000, 5px 4px 0px rgba(0, 0, 0, 0.15);
 }
 
-.deleteIcon {
-  z-index: 9999;
-}
 .category {
   background-color: rgba(0, 0, 0, 0.331);
 }

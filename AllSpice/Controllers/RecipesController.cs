@@ -24,22 +24,20 @@ public class RecipesController : ControllerBase
 
   [HttpPost]
   [Authorize]
-  public async Task<ActionResult<Recipe>> CreateRecipe([FromBody] Recipe newRecipe)
+  public async Task<ActionResult<Recipe>> CreateRecipe([FromBody] Recipe recipeData)
   {
     try
     {
-      Account userInfo = await _auth0provider.GetUserInfoAsync<Account>(HttpContext);
-      newRecipe.CreatorId = userInfo.Id;
-      Recipe createdRecipe = _rs.CreateRecipe(newRecipe);
-      createdRecipe.Creator = userInfo;
-      return Ok(createdRecipe);
-
+      var userInfo = await _auth0provider.GetUserInfoAsync<Account>(HttpContext);
+      Recipe recipe = _rs.CreateRecipe(recipeData);
+      return Ok(recipe);
     }
     catch (Exception e)
     {
       return BadRequest(e.Message);
     }
   }
+
 
 
 
@@ -76,6 +74,8 @@ public class RecipesController : ControllerBase
       return BadRequest(e.Message);
     }
   }
+
+
 
 
 
@@ -177,7 +177,7 @@ public class RecipesController : ControllerBase
     try
     {
       Account userInfo = await _auth0provider.GetUserInfoAsync<Account>(HttpContext);
-      Recipe recipe = _rs.EditRecipe(recipeData,recipeId, userInfo.Id);
+      Recipe recipe = _rs.EditRecipe(recipeData, recipeId, userInfo.Id);
       return Ok(recipe);
     }
     catch (Exception e)
