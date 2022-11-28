@@ -17,6 +17,7 @@
     class="home flex-grow-1 d-flex flex-column align-items-center justify-content-center container"
   >
     <div class="row">
+      <Login/>
       <div class="col-md-12">
         <HomeBanner />
    
@@ -104,8 +105,9 @@ export default {
     }
 
     onMounted(() => {
-      getRecipesInfiniteScroll();
+      // getRecipesInfiniteScroll();
       infiniteScroll();
+      getRecipes()
       // hideOnScrollTest();
     });
 
@@ -113,6 +115,13 @@ export default {
       getAllFavorites();
     });
 
+    async  function getRecipes(){
+      try {
+          await  recipesService.getAllRecipes()
+        } catch (error) {
+          Pop.error(error,'[]')
+        }
+    }
     async function getCurrentRecipes() {
       // setTimeout(3000)
       let infinite = AppState.infinite;

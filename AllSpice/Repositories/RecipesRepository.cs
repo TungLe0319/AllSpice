@@ -11,11 +11,23 @@ public class RecipesRepository : BaseRepository
   internal Recipe CreateRecipe(Recipe newRecipe)
   {
     string sql = @"
-          INSERT INTO recipes(title,img,instructions,category,creatorId)
-          VALUES(@Title,@Img,@Instructions,@Category,@CreatorId);
+          INSERT INTO recipes(
+            title,
+            img,
+            instructions,
+            category,
+            creatorId
+            )
+          VALUES(
+            @Title,
+            @Img,
+            @Instructions,
+            @Category,
+            @CreatorId
+            );
           SELECT LAST_INSERT_ID()
           ;";
-    newRecipe.Id = _db.ExecuteScalar<int>(sql);
+    newRecipe.Id = _db.ExecuteScalar<int>(sql,newRecipe);
 
     return newRecipe;
   }
@@ -26,7 +38,7 @@ public class RecipesRepository : BaseRepository
     var sql = @"
          SELECT 
          rec. *,
-         COUNT(fav.id) AS FavoriteCount
+         COUNT(fav.id) AS FavoriteCount,
          a.*
          FROM recipes rec
          JOIN accounts a ON a.id = rec.creatorId

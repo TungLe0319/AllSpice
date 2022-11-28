@@ -29,6 +29,7 @@ public class RecipesController : ControllerBase
     try
     {
       var userInfo = await _auth0provider.GetUserInfoAsync<Account>(HttpContext);
+      recipeData.CreatorId = userInfo?.Id;
       Recipe recipe = _rs.CreateRecipe(recipeData);
       return Ok(recipe);
     }
