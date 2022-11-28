@@ -61,13 +61,11 @@ public class RecipesRepository : BaseRepository
     string sql = @"
             SELECT
             rec.*,
-            
             COUNT(fav.id) AS FavoriteCount,
             a.*
             FROM recipes rec
             JOIN accounts a ON a.id = rec.creatorId
             LEFT JOIN favorites fav ON fav.recipeId = rec.id
-            
             GROUP BY rec.id
             LIMIT 12
             OFFSET @offSet

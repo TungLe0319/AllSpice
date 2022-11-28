@@ -56,6 +56,7 @@ class RecipesService {
     AppState.activeRecipe = new Recipe(res.data);
   }
   setActiveRecipe(recipeData) {
+    console.log(AppState.activeRecipe);
     AppState.ingredients = [];
     AppState.instructions = [];
     AppState.comments = [];

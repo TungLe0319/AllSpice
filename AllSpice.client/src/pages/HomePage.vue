@@ -17,7 +17,7 @@
     class="home flex-grow-1 d-flex flex-column align-items-center justify-content-center container"
   >
     <div class="row">
-      <Login/>
+     
       <div class="col-md-12">
         <HomeBanner />
    
@@ -74,6 +74,7 @@ import { AppState } from "../AppState.js";
 import IngredientModal from "../components/IngredientModal.vue";
 import InstructionsModal from "../components/InstructionsModal.vue";
 import LoadingSpinner from "../components/LoadingSpinner.vue";
+import RecipeCard from "../components/RecipeCard.vue";
 
 import RecipeForm from "../components/RecipeForm .vue";
 import SearchIcon from "../components/SearchIcon.vue";
@@ -191,7 +192,8 @@ export default {
     IngredientModal,
     LoadingSpinner,
     SearchIcon,
-    ToolTip
+    ToolTip,
+    RecipeCard
 },
 };
 </script>

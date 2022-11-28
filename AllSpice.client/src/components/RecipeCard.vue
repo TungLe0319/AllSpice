@@ -1,8 +1,11 @@
 <template>
   <div
-    class="card skeleton-loader text-bg-dark my-2 position-relative elevation-5 border-0"
+    class="card text-bg-dark my-2 position-relative elevation-5 border-0"
     v-if="recipe"
-    :class="recipe? 'skeleton-loader card': ''"
+    :class="recipe ? ' card' : ''"
+    @click="setActiveRecipe()"
+    data-bs-target="#recipeModal"
+    data-bs-toggle="modal"
   >
     <img
       :src="recipe?.img"
@@ -18,9 +21,6 @@
       <span
         class="cardText p-1 no-select selectable"
         :title="'Show More Details '"
-        @click="setActiveRecipe()"
-        data-bs-target="#recipeModal"
-        data-bs-toggle="modal"
       >
         <h6 class="card-title fw-bold">{{ recipe?.title }}</h6>
       </span>
@@ -96,6 +96,7 @@ export default {
         AppState.favorites.find((f) => f.recipeId == props.recipe.id)
       ),
       setActiveRecipe() {
+        console.log("hi");
         recipesService.setActiveRecipe(props.recipe);
       },
 
