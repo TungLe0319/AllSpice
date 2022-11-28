@@ -107,7 +107,7 @@ export default {
 
     onMounted(() => {
       // getRecipesInfiniteScroll();
-      infiniteScroll();
+      // infiniteScroll();
       getRecipes()
       // hideOnScrollTest();
     });

@@ -12,7 +12,7 @@ class RecipesService {
     // console.log(["recipes"],res.data);
 
     let recipes = res.data.map((x) => new Recipe(x));
-    AppState.offSet += recipes.length;
+    // AppState.offSet += recipes.length;
     AppState.recipes = [...AppState.recipes, ...recipes];
     // AppState.recipes = res.data.map((r) => new Recipe(r));
   }

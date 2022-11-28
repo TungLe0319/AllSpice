@@ -26,6 +26,9 @@ AuthService.on(AuthService.AUTH_EVENTS.AUTHENTICATED, async function() {
   AppState.user = AuthService.user
   await accountService.getAccount()
   socketService.authenticate(AuthService.bearer)
+  accountService.getAllFavorites()
+  accountService.getFavoriteRecipes()
+  accountService.getMyRecipes()
   // NOTE if there is something you want to do once the user is authenticated, place that here
 })
 
